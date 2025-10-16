@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios – Wallpari Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. -->
+        <!-- Updated logo: use standalone brain icon without text (white circuitry on dark). -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <!-- Use the new abstract network illustration for consistency across pages. -->
+  <!-- Background: stylised digital brain schematic to evoke intelligence and
+       sophistication in our service offerings. -->
+  <!-- Custom pulse colour for services: we choose a rich purple to differentiate
+       this section from the home page. -->
+  <section class="hero dynamic" data-network-color="#7e3e97" style="background-image: url('cached_assets_used/services-cosmos-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="services_hero_title">Servicios</h1>
+      <p data-i18n="services_hero_subtitle">Explora nuestras soluciones para impulsar tu organización</p>
+    </div>
+  </section>
+
+  <!-- Service Details -->
+  <section>
+    <h2 class="section-title" data-i18n="services_section1_title">¿Qué hacemos?</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-chart-simple"></i>
+        <h3 data-i18n="services_service1_title">Dashboards y análisis</h3>
+        <p data-i18n="services_service1_desc">Diseñamos y construimos tableros dinámicos con herramientas líderes como Power&nbsp;BI, Looker y Tableau. Nuestros dashboards permiten monitorear KPIs en tiempo real y descubrir oportunidades ocultas en tus datos.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-line"></i>
+        <h3 data-i18n="services_service2_title">Modelado y proyecciones</h3>
+        <p data-i18n="services_service2_desc">Aplicamos modelos predictivos y de machine learning para anticipar tendencias, optimizar operaciones y estimar comportamientos futuros con bases estadísticas sólidas.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-lightbulb"></i>
+        <h3 data-i18n="services_service3_title">Consultoría basada en evidencia</h3>
+        <p data-i18n="services_service3_desc">Acompañamos a directivos y ejecutivos en la toma de decisiones estratégicas respaldadas por datos, proporcionando recomendaciones accionables y medición de impacto.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-comments"></i>
+        <h3 data-i18n="services_service4_title">Procesamiento de lenguaje natural</h3>
+        <p data-i18n="services_service4_desc">Desarrollamos chatbots y asistentes virtuales que interactúan en lenguaje natural para mejorar el soporte al cliente y automatizar procesos de atención.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h3 data-i18n="services_service5_title">Formación y soporte académico</h3>
+        <p data-i18n="services_service5_desc">Ofrecemos talleres y capacitaciones para estudiantes, investigadores y profesionales que buscan fortalecer sus habilidades en analítica de datos y herramientas de visualización.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Removed services distribution chart section -->
+  <!-- The previous “Distribución de servicios” chart has been removed to emphasise the key
+       platforms and tools we use. The “Plataformas y herramientas” section below now
+       occupies its place in the Services page. -->
+
+    <!-- Platforms & Tools Section -->
+    <!-- Showcase the logos of key generative AI platforms, data tools and cloud providers that we work with. -->
+    <!-- Platforms section is given inline styles to ensure proper layout even if external CSS fails to load -->
+    <section class="platforms" style="background-color:#05172f; color:#f5f5f5; padding:3rem 1.5rem; text-align:center;">
+      <h2 class="section-title" data-i18n="services_logos_title" style="color:#f5f5f5; margin-bottom:0.5rem;">Plataformas y herramientas</h2>
+      <p class="platforms-desc" data-i18n="services_logos_desc" style="max-width:700px; margin:0 auto 1.5rem; color:#f5f5f5; font-size:1rem;">Trabajamos con las principales plataformas de IA generativa, herramientas de datos y servicios en la nube.</p>
+      <!-- Use flexbox to horizontally arrange logos; inline style acts as a fallback when CSS is not applied -->
+      <div class="platform-logos" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem;">
+        <!-- Each logo is given an explicit class and inline height to ensure
+             consistent sizing across environments. The lazy loading attribute
+             improves performance and the height style acts as a fallback if
+             external CSS fails to load on some hosts. -->
+        <img class="platform-logo" src="cached_assets_used/platform_logos/chatgpt.png" alt="ChatGPT logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/dalle.png" alt="DALL‑E logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/midjourney.png" alt="Midjourney logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/stabilityai.png" alt="Stability AI logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/claude.png" alt="Claude AI logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/bard.png" alt="Bard/Gemini logo" loading="lazy" style="height:3rem; width:auto;">
+        <!-- Use the white GitHub logo for better contrast on a light background -->
+        <img class="platform-logo" src="cached_assets_used/platform_logos/github.png" alt="GitHub logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/kaggle.png" alt="Kaggle logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/google_cloud.png" alt="Google Cloud logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/aws.png" alt="Amazon Web Services logo" loading="lazy" style="height:3rem; width:auto;">
+        <img class="platform-logo" src="cached_assets_used/platform_logos/azure.png" alt="Microsoft Azure logo" loading="lazy" style="height:3rem; width:auto;">
+      </div>
+    </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="services_footer">© 2025 Wallpari Analytics · Innovando con análisis de datos.</p>
+  </footer>
+</body>
+</html>

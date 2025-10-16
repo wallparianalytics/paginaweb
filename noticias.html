@@ -1,0 +1,305 @@
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .lang-buttons {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .lang-buttons button {
+    background-color: #00a89d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin: 2px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .lang-buttons button:hover {
+    background-color: #00867c;
+  }
+
+  .news-section {
+    backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    padding: 10px;
+  }
+
+  .news-card {
+    background-color: rgba(255,255,255,0.95);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 13px;
+    color: #222;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .news-card:hover {
+    transform: scale(1.01);
+  }
+
+  .news-card h3 {
+    font-size: 15px;
+    margin: 0 0 6px 0;
+    color: #007c91;
+    font-weight: 600;
+  }
+
+  .news-card .summary {
+    font-size: 13px;
+    margin: 4px 0;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  .news-card .source {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #666;
+  }
+
+  .news-card a {
+    color: #007c91;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .news-card a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 480px) {
+    .news-card {
+      padding: 10px;
+    }
+
+    .lang-buttons button {
+      font-size: 12px;
+      padding: 4px 10px;
+    }
+  }
+</style>
+
+<div class="lang-buttons">
+  <button onclick="switchLang('en')">EN</button>
+  <button onclick="switchLang('es')">ES</button>
+  <button onclick="switchLang('de')">DE</button>
+  <button onclick="switchLang('ru')">RU</button>
+</div>
+
+
+    <div id="news-en" class="news-section" style="">
+      
+    <div class="news-card">
+      <h3>OpenAI banned from using Claude AI just before GPT-5 launch: Here's why</h3>
+      <p class="summary">Anthropic has revoked OpenAI's access to its AI models for allegedly violating terms of service. This comes as OpenAI prepares to launch its GPT-5 model. Anthropic allows API access for benchmarking...</p>
+      <p class="source">
+        Fuente: Livemint –
+        <a href="https://www.livemint.com/technology/tech-news/openai-banned-from-using-claude-ai-just-before-gpt-5-launch-heres-why-anthropic-chatgpt-sam-altman-11754116042832.html" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Google Launches Gemini 2.5 Deep Think, Outperforms Grok-4 & OpenAI o3</h3>
+      <p class="summary">Google has launched Deep Think, a new AI reasoning feature, in the Gemini app for Google AI Ultra subscribers. The model, based on Gemini 2.5, is designed to handle complex reasoning tasks and is...</p>
+      <p class="source">
+        Fuente: Analytics India Magazine –
+        <a href="https://analyticsindiamag.com/ai-news-updates/google-launches-gemini-2-5-deep-think-outperforms-grok-4-openai-o3/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>You can use Google's Math Olympiad-winning Deep Think AI model now - for a price</h3>
+      <p class="summary">The $250-per-month Google Ultra subscription just got a lot more powerful....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-googles-math-olympiad-winning-deep-think-ai-model-now-for-a-price/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>5 Ways I use Home Assistant with a local LLM and I wish I did it sooner</h3>
+      <p class="summary">Making Home Assistant work with a generative AI model of a local LLM can give you surprising, information, fun, and sometimes amusing results....</p>
+      <p class="source">
+        Fuente: XDA Developers –
+        <a href="https://www.xda-developers.com/ways-to-use-home-assistant-with-local-llm/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>You can use Claude AI's mobile app to draft emails, texts, and calendar events now - here's how</h3>
+      <p class="summary">Claude's iOS and Android app will generate the templates for you, but you'll need to take additional steps to send or create them....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-claude-ai-to-draft-emails-texts-and-calendar-events-now-heres-how/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    </div>
+  
+    <div id="news-es" class="news-section" style="display:none;">
+      
+    <div class="news-card">
+      <h3>OpenAI prohibido de usar Claude AI justo antes del lanzamiento de GPT-5: Aquí está la razón</h3>
+      <p class="summary">Anthropic ha revocado el acceso de OpenAI a sus modelos de IA por supuestamente violar los términos de servicio. Esto ocurre mientras OpenAI se prepara para lanzar su modelo GPT-5. Anthropic permite...</p>
+      <p class="source">
+        Fuente: Livemint –
+        <a href="https://www.livemint.com/technology/tech-news/openai-banned-from-using-claude-ai-just-before-gpt-5-launch-heres-why-anthropic-chatgpt-sam-altman-11754116042832.html" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Google lanza Deep Think de Gemini 2.5, supera a Grok-4 y OpenAI o3</h3>
+      <p class="summary">Google ha lanzado Deep Think, una nueva función de razonamiento de IA, en la aplicación Gemini para los suscriptores de Google AI Ultra. El modelo, basado en Gemini 2.5, está diseñado para manejar...</p>
+      <p class="source">
+        Fuente: Analytics India Magazine –
+        <a href="https://analyticsindiamag.com/ai-news-updates/google-launches-gemini-2-5-deep-think-outperforms-grok-4-openai-o3/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Ahora puedes usar el modelo de IA Math Olympiad-winning Deep Think de Google - por un precio</h3>
+      <p class="summary">La suscripción Ultra de Google de $250 al mes acaba de volverse mucho más poderosa....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-googles-math-olympiad-winning-deep-think-ai-model-now-for-a-price/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>5 formas en las que uso Home Assistant con un LLM local y desearía haberlo hecho antes</h3>
+      <p class="summary">Hacer que Home Assistant funcione con un modelo de IA generativa de un LLM local puede darte resultados sorprendentes, informativos, divertidos y a veces divertidos....</p>
+      <p class="source">
+        Fuente: XDA Developers –
+        <a href="https://www.xda-developers.com/ways-to-use-home-assistant-with-local-llm/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Puedes usar la aplicación móvil de Claude AI para redactar correos electrónicos, mensajes de texto y eventos de calendario ahora - así es cómo</h3>
+      <p class="summary">La aplicación de Claude para iOS y Android generará las plantillas por ti, pero necesitarás tomar pasos adicionales para enviarlas o crearlas....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-claude-ai-to-draft-emails-texts-and-calendar-events-now-heres-how/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    </div>
+  
+    <div id="news-de" class="news-section" style="display:none;">
+      
+    <div class="news-card">
+      <h3>OpenAI darf kurz vor dem Start von GPT-5 nicht mehr Claude AI verwenden: Das ist der Grund</h3>
+      <p class="summary">Anthropic hat OpenAIs Zugriff auf seine KI-Modelle widerrufen, weil sie angeblich gegen die Nutzungsbedingungen verstoßen haben. Dies geschieht, während sich OpenAI auf den Start seines GPT-5-Modells...</p>
+      <p class="source">
+        Fuente: Livemint –
+        <a href="https://www.livemint.com/technology/tech-news/openai-banned-from-using-claude-ai-just-before-gpt-5-launch-heres-why-anthropic-chatgpt-sam-altman-11754116042832.html" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Google startet Gemini 2.5 Deep Think, übertrifft Grok-4 & OpenAI o3</h3>
+      <p class="summary">Google hat Deep Think, ein neues KI-Argumentationsmerkmal, in der Gemini-App für Google AI Ultra-Abonnenten eingeführt. Das Modell, basierend auf Gemini 2.5, ist darauf ausgelegt, komplexe...</p>
+      <p class="source">
+        Fuente: Analytics India Magazine –
+        <a href="https://analyticsindiamag.com/ai-news-updates/google-launches-gemini-2-5-deep-think-outperforms-grok-4-openai-o3/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Sie können jetzt das Mathematik-Olympiade-gewinnende Deep Think KI-Modell von Google nutzen - gegen Bezahlung</h3>
+      <p class="summary">Das $250 pro Monat teure Google Ultra-Abonnement ist jetzt viel leistungsstärker....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-googles-math-olympiad-winning-deep-think-ai-model-now-for-a-price/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>5 Wege, wie ich Home Assistant mit einem lokalen LLM nutze und ich wünschte, ich hätte es früher getan</h3>
+      <p class="summary">Die Arbeit mit einem generativen KI-Modell eines lokalen LLM kann überraschende, informative, unterhaltsame und manchmal amüsante Ergebnisse liefern....</p>
+      <p class="source">
+        Fuente: XDA Developers –
+        <a href="https://www.xda-developers.com/ways-to-use-home-assistant-with-local-llm/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Sie können die mobile App von Claude AI jetzt verwenden, um E-Mails, Texte und Kalenderereignisse zu entwerfen - so geht's</h3>
+      <p class="summary">Claudes iOS- und Android-App generiert die Vorlagen für Sie, aber Sie müssen zusätzliche Schritte unternehmen, um sie zu senden oder zu erstellen....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-claude-ai-to-draft-emails-texts-and-calendar-events-now-heres-how/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    </div>
+  
+    <div id="news-ru" class="news-section" style="display:none;">
+      
+    <div class="news-card">
+      <h3>OpenAI лишилась доступа к Claude AI незадолго до запуска GPT-5: вот почему</h3>
+      <p class="summary">Anthropic отозвала доступ OpenAI к своим моделям ИИ, якобы за нарушение условий использования. Это происходит в то время, как OpenAI готовится к запуску своей модели GPT-5. Anthropic предоставляет...</p>
+      <p class="source">
+        Fuente: Livemint –
+        <a href="https://www.livemint.com/technology/tech-news/openai-banned-from-using-claude-ai-just-before-gpt-5-launch-heres-why-anthropic-chatgpt-sam-altman-11754116042832.html" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Google запускает Deep Think Gemini 2.5, превосходит Grok-4 и OpenAI o3</h3>
+      <p class="summary">Google запустила Deep Think, новую функцию рассуждения ИИ, в приложении Gemini для абонентов Google AI Ultra. Модель, основанная на Gemini 2.5, разработана для выполнения сложных задач рассуждения и...</p>
+      <p class="source">
+        Fuente: Analytics India Magazine –
+        <a href="https://analyticsindiamag.com/ai-news-updates/google-launches-gemini-2-5-deep-think-outperforms-grok-4-openai-o3/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Теперь вы можете использовать математическую олимпиаду-выигрышную модель глубокого мышления Deep Think от Google - за плату</h3>
+      <p class="summary">Подписка Ultra от Google стоимостью $250 в месяц стала намного мощнее....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-googles-math-olympiad-winning-deep-think-ai-model-now-for-a-price/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>5 способов использования Home Assistant с локальной LLM, и я жалею, что не сделал это раньше</h3>
+      <p class="summary">Работа с генеративной моделью ИИ локальной LLM может принести вам удивительные, информативные, веселые и иногда забавные результаты....</p>
+      <p class="source">
+        Fuente: XDA Developers –
+        <a href="https://www.xda-developers.com/ways-to-use-home-assistant-with-local-llm/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    <div class="news-card">
+      <h3>Теперь вы можете использовать мобильное приложение Claude AI для составления электронных писем, текстов и календарных событий - вот как</h3>
+      <p class="summary">Приложение Claude для iOS и Android сгенерирует для вас шаблоны, но вам нужно предпринять дополнительные шаги, чтобы отправить или создать их....</p>
+      <p class="source">
+        Fuente: ZDNet –
+        <a href="https://www.zdnet.com/article/you-can-use-claude-ai-to-draft-emails-texts-and-calendar-events-now-heres-how/" target="_blank">Leer más</a>
+      </p>
+    </div>
+  
+    </div>
+  
+
+<script>
+  function switchLang(lang) {
+    ['en', 'es', 'de', 'ru'].forEach(l => {
+      const el = document.getElementById('news-' + l);
+      if (el) el.style.display = (l === lang) ? 'block' : 'none';
+    });
+  }
+</script>

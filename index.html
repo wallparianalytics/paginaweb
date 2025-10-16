@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallpari Analytics - Soluciones inteligentes en análisis de datos</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. The full brain image was too tall
+             and mostly dark at the top, which made the logo appear as a
+             coloured blob. The new 1:1 crop centres the circuitry and
+             brightly‑lit hemispheres for better legibility. -->
+        <!-- Updated logo: use the standalone brain icon without any text. The new file highlights
+             the circuitry lines in white and omits the lettering. Placed inside
+             `cached_assets_used/brain-icon-only.png`. -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+      </label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector: allows users to switch between Spanish (default), English, German and Russian.  -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <!--
+    Replaced the previous hero background (which contained embedded text) with
+    a clean, high‑resolution illustration of a circuit‑board brain on a
+    network pattern generated specifically for this redesign. The new image
+    lives in `cached_assets_used/hero-bg.jpg`. The overlay is still provided
+    by the `.hero::before` rule defined in styles.css. All visible text now
+    lives in the HTML rather than inside the image which greatly improves
+    accessibility and responsiveness.
+  -->
+  <!-- Use the detailed brain illustration as the hero background. This file
+       (hero‑bg.jpg) features a stylised circuit brain over a network pattern,
+       providing an immediate visual cue of our focus on AI and analytics. -->
+  <!-- Include a data-network-color attribute so the script can pick a custom colour
+       for the animated pulses on each page. For the home page we stick with the
+       brand teal. -->
+  <section class="hero dynamic" data-network-color="#00a79d" style="background-image: url('cached_assets_used/hero-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="home_hero_title">Soluciones inteligentes en análisis de datos</h1>
+      <p data-i18n="home_hero_subtitle">Transformamos tus datos en decisiones que inspiran confianza</p>
+      <a href="contact.html" class="btn btn-primary" data-i18n="home_hero_button">Contáctanos</a>
+    </div>
+  </section>
+
+  <!-- Introduction Section -->
+  <section>
+    <h2 class="section-title" data-i18n="home_intro_title">¿Por qué elegirnos?</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-seedling"></i>
+        <h3 data-i18n="home_card1_title">Misión</h3>
+        <p data-i18n="home_card1_desc">Democratizar la analítica avanzada para crear decisiones informadas.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-eye"></i>
+        <h3 data-i18n="home_card2_title">Visión</h3>
+        <p data-i18n="home_card2_desc">Ser aliados estratégicos en innovación con IA y Procesamiento de Lenguaje Natural.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-gauge-high"></i>
+        <h3 data-i18n="home_card3_title">Data‑driven</h3>
+        <p data-i18n="home_card3_desc">23&nbsp;veces más clientes y 19&nbsp;veces más rentables gracias a las decisiones basadas en datos.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-line"></i>
+        <h3 data-i18n="home_card4_title">Impacto real</h3>
+        <p data-i18n="home_card4_desc">Mejora tus resultados: +8&nbsp;% de utilidades y −10&nbsp;% de costos al optimizar procesos con IA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Summary Section -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="home_services_summary_title">Nuestros servicios</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-chart-simple"></i>
+        <h3 data-i18n="home_service1_title">Dashboards y análisis</h3>
+        <p data-i18n="home_service1_desc">Monitoreo de KPIs con Power&nbsp;BI, Looker y Tableau para visualizar el rendimiento en tiempo real.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-line"></i>
+        <h3 data-i18n="home_service2_title">Modelado y proyecciones</h3>
+        <p data-i18n="home_service2_desc">Predicción de tendencias mediante inteligencia artificial y estadística avanzada.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-lightbulb"></i>
+        <h3 data-i18n="home_service3_title">Consultoría basada en evidencia</h3>
+        <p data-i18n="home_service3_desc">Decisiones estratégicas guiadas por datos y respaldadas por nuestra experiencia.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-robot"></i>
+        <h3 data-i18n="home_service4_title">PLN y chatbots</h3>
+        <p data-i18n="home_service4_desc">Interacción y soporte en lenguaje natural con chatbots personalizados.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <h3 data-i18n="home_service5_title">Formación y soporte académico</h3>
+        <p data-i18n="home_service5_desc">Capacitación y acompañamiento para estudiantes e investigadores de todos los niveles.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <!--
+    A new section highlighting key metrics about the company. Each number will
+    animate from 0 to its target value when scrolled into view, giving
+    visitors immediate feedback on Wallpari's experience and reach. The
+    data-target attributes are read by script.js to drive the animation.
+  -->
+  <section>
+    <h2 class="section-title" data-i18n="home_stats_title">Datos que nos respaldan</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" data-target="50">0</div>
+        <div class="stat-label" data-i18n="home_stats_label_projects">Proyectos completados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-target="25">0</div>
+        <div class="stat-label" data-i18n="home_stats_label_clients">Clientes satisfechos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-target="6">0</div>
+        <div class="stat-label" data-i18n="home_stats_label_experience">Años de experiencia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section>
+    <h2 class="section-title" data-i18n="home_video_title">Descubre la analítica de datos</h2>
+    <div class="chart-container" style="max-width: 800px;">
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+        <iframe src="https://www.youtube.com/embed/5yHFTN-_mOo" title="Introducción a la analítica de datos" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+    <footer>
+    <p data-i18n="home_footer">© 2025 Wallpari Analytics · Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

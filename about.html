@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiénes Somos – Wallpari Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. -->
+        <!-- Updated logo: use standalone brain icon without text (white circuitry on dark). -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <!--
+    The original hero used a screenshot with baked‑in text which made it
+    impossible to read for screen readers. Here we swap in the new abstract
+    network image for a clean backdrop while keeping the headline and
+    description as live text.
+  -->
+  <!-- Background: abstract neural network lines with vibrant highlights to reflect our
+       commitment to data and AI. -->
+  <!-- Add the `synapse` class to enable a subtle animated background that
+       simulates neural synapses pulsing. The animation is defined in
+       styles.css and will move the background image slowly to create
+       dynamism without distracting from the text. -->
+  <!-- The about page uses a synapse animation overlay and a unique pulse colour (orange). -->
+  <section class="hero synapse dynamic" data-network-color="#7e3e97" style="background-image: url('cached_assets_used/about-cosmos-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="about_hero_title">Quiénes somos</h1>
+      <p data-i18n="about_hero_subtitle">Conoce la historia, misión y visión de nuestra consultora</p>
+    </div>
+
+    <!-- Decorative animation simulating neural synapses.
+         Small circles fade in and out at random positions to evoke the idea of
+         synaptic activity. The `synapse-animation` container is positioned
+         absolutely so it overlays the hero background without interfering
+         with the interactive elements. -->
+    <div class="synapse-animation">
+      <span style="top:10%; left:20%; animation-delay:0s;"></span>
+      <span style="top:25%; left:70%; animation-delay:1.5s;"></span>
+      <span style="top:40%; left:35%; animation-delay:3s;"></span>
+      <span style="top:55%; left:55%; animation-delay:2s;"></span>
+      <span style="top:65%; left:15%; animation-delay:4.5s;"></span>
+      <span style="top:75%; left:80%; animation-delay:3.5s;"></span>
+      <span style="top:85%; left:45%; animation-delay:5s;"></span>
+      <span style="top:30%; left:85%; animation-delay:2.5s;"></span>
+      <span style="top:50%; left:5%; animation-delay:1s;"></span>
+      <span style="top:60%; left:60%; animation-delay:4s;"></span>
+    </div>
+  </section>
+
+  <!-- Company Description -->
+  <section>
+    <h2 class="section-title" data-i18n="about_section1_title">Somos Wallpari Analytics</h2>
+    <p data-i18n="about_section1_desc" style="max-width: 800px; margin: 0 auto; font-size: 1.05rem; text-align: center;">
+      Somos una consultora peruana que transforma la complejidad en oportunidades. Democratizamos el análisis avanzado para que personas y organizaciones tomen decisiones basadas en datos y puedan mejorar sus resultados de manera sostenida.
+    </p>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="about_mission_vision_title">Misión y Visión</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-seedling"></i>
+        <h3 data-i18n="about_mission_title">Misión</h3>
+        <p data-i18n="about_mission_desc">Democratizar la analítica avanzada para crear decisiones informadas y accesibles a todos.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-eye"></i>
+        <h3 data-i18n="about_vision_title">Visión</h3>
+        <p data-i18n="about_vision_desc">Ser aliados estratégicos en innovación con inteligencia artificial y procesamiento de lenguaje natural, acompañando a nuestros clientes en todo su crecimiento.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section>
+    <h2 class="section-title" data-i18n="about_values_title">Nuestros valores</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fa-solid fa-database"></i>
+        <h3 data-i18n="about_value1_title">Calidad de datos</h3>
+        <p data-i18n="about_value1_desc">Fundamento de decisiones confiables: cuidamos las fuentes y la limpieza de la información.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-gauge-high"></i>
+        <h3 data-i18n="about_value2_title">Data‑driven</h3>
+        <p data-i18n="about_value2_desc">Impulsamos resultados con datos: 23&nbsp;veces más clientes y 19&nbsp;veces más rentables.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-chart-pie"></i>
+        <h3 data-i18n="about_value3_title">Impacto real</h3>
+        <p data-i18n="about_value3_desc">Generamos +8&nbsp;% de utilidades y reducimos 10&nbsp;% de costos a través de nuestros proyectos.</p>
+      </div>
+      <div class="card">
+        <i class="fa-solid fa-robot"></i>
+        <h3 data-i18n="about_value4_title">Innovación IA&nbsp;+&nbsp;PLN</h3>
+        <p data-i18n="about_value4_desc">Desarrollamos chatbots y soluciones en lenguaje natural para potenciar la interacción humana.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Innovation in AI section -->
+  <!--
+    New section highlighting Wallpari Analytics' commitment to innovation.
+    It pairs a custom‑generated illustration of a digital brain with a
+    description of how the company harnesses artificial intelligence and
+    machine learning to create value. The responsive layout places the
+    image beside the text on large screens and stacks them on smaller
+    screens.
+  -->
+  <section class="ai-section" style="background-color: var(--text-light);">
+    <div class="ai-container">
+      <div class="ai-image">
+        <!-- Replace the generic AI illustration with the company brain icon.
+             Use the transparent brain logo without text to maintain
+             consistency with the header. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Logo de Wallpari Analytics" loading="lazy">
+      </div>
+      <div class="ai-content">
+        <h2 data-i18n="about_ai_title">Innovación en IA</h2>
+        <p data-i18n="about_ai_desc">En Wallpari Analytics aplicamos lo último en inteligencia artificial, incluyendo IA generativa y modelos de lenguaje, para ofrecer soluciones que transforman industrias. Nuestra visión de futuro nos impulsa a integrar nuevas tecnologías y crear valor sostenible para nuestros clientes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="about_timeline_title">Nuestra trayectoria</h2>
+    <div class="timeline">
+      <div class="timeline-item" data-year="2018">
+        <h4 data-i18n="about_timeline1_title">Inicio como consultora</h4>
+        <p data-i18n="about_timeline1_desc">Nacimos con la visión de acompañar a organizaciones en su transformación digital y analítica.</p>
+      </div>
+      <div class="timeline-item" data-year="2023">
+        <h4 data-i18n="about_timeline2_title">IA generativa</h4>
+        <p data-i18n="about_timeline2_desc">Integramos tecnologías de inteligencia artificial generativa para crear valor de nuevas maneras.</p>
+      </div>
+      <div class="timeline-item" data-year="2025+">
+        <h4 data-i18n="about_timeline3_title">Crecimiento global</h4>
+        <p data-i18n="about_timeline3_desc">Proyectamos nuestra expansión para brindar soluciones en más países y sectores.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="about_footer">© 2025 Wallpari Analytics · Transformamos datos en decisiones.</p>
+  </footer>
+</body>
+</html>

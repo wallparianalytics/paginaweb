@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto – Wallpari Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. -->
+        <!-- Updated logo: use standalone brain icon without text (white circuitry on dark). -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <!-- Reuse the new network illustration for the contact page hero to maintain visual cohesion. -->
+  <!-- Background: interconnected neural nodes to inspire collaboration and communication on our contact page. -->
+  <!-- Contact page pulses are purple to match the invitation to get in touch. -->
+  <section class="hero dynamic" data-network-color="#00a79d" style="background-image: url('cached_assets_used/contact-cosmos-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="contact_hero_title">Contáctanos</h1>
+      <p data-i18n="contact_hero_subtitle">Estamos listos para escucharte</p>
+    </div>
+  </section>
+
+  <!-- Contact Information -->
+  <section>
+    <h2 class="section-title" data-i18n="contact_info_title">Información de contacto</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fa-solid fa-phone"></i>
+        <span>+51&nbsp;930777590</span>
+      </div>
+      <div class="contact-item">
+        <i class="fa-solid fa-envelope"></i>
+        <a href="mailto:jfigueroa@wallparianalytics.com">jfigueroa@wallparianalytics.com</a>
+      </div>
+      <div class="contact-item">
+        <i class="fa-solid fa-globe"></i>
+        <a href="https://www.wallparianalytics.io/" target="_blank" rel="noopener">www.wallparianalytics.io</a>
+      </div>
+      <div class="contact-item">
+        <i class="fa-solid fa-location-dot"></i>
+        <span data-i18n="contact_location">Pueblo Libre, Lima, Perú</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="contact_form_title">Envíanos un mensaje</h2>
+    <form class="contact-form" onsubmit="return false;">
+      <label for="nombre" data-i18n="contact_label_name">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" data-i18n-placeholder="contact_placeholder_name" required>
+      <label for="correo" data-i18n="contact_label_email">Correo electrónico</label>
+      <input type="email" id="correo" name="correo" placeholder="tu@correo.com" data-i18n-placeholder="contact_placeholder_email" required>
+      <label for="mensaje" data-i18n="contact_label_message">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿Cómo podemos ayudarte?" data-i18n-placeholder="contact_placeholder_message" required></textarea>
+      <button type="submit" class="btn btn-primary" data-i18n="contact_submit_button">Enviar mensaje</button>
+    </form>
+  </section>
+
+  <!-- Client Growth Chart -->
+  <section>
+    <h2 class="section-title" data-i18n="contact_chart_title">Crecimiento de clientes</h2>
+    <div class="chart-container">
+      <canvas id="growthChart" width="500" height="300" aria-label="Gráfico de crecimiento de clientes" role="img"></canvas>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="contact_footer">© 2025 Wallpari Analytics · Estamos a un mensaje de distancia.</p>
+  </footer>
+</body>
+</html>

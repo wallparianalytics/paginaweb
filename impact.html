@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impacto y Clientes – Wallpari Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. -->
+        <!-- Updated logo: use standalone brain icon without text (white circuitry on dark). -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <!-- Consistency: use the unified network illustration for the impact page as well. -->
+  <!-- Background: glowing node constellations signifying the far‑reaching impact of our work. -->
+  <!-- Use teal pulses for the impact page to emphasise growth and progress. -->
+  <section class="hero dynamic" data-network-color="#ff8552" style="background-image: url('cached_assets_used/impact-cosmos-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="impact_hero_title">Impacto con datos</h1>
+      <p data-i18n="impact_hero_subtitle">Resultados tangibles gracias a la analítica avanzada</p>
+    </div>
+  </section>
+
+  <!-- Impact Charts -->
+  <section>
+    <h2 class="section-title" data-i18n="impact_section1_title">Medimos nuestro impacto</h2>
+    <div class="chart-container">
+      <canvas id="impactBarChart" width="400" height="400" aria-label="Gráfico de impacto" role="img"></canvas>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:2rem; margin-top:2rem;">
+      <div class="chart-container" style="flex:1 1 300px;">
+        <h3 style="text-align:center; font-family: var(--heading-font); color: var(--primary); margin-bottom:0.5rem;" data-i18n="impact_chart1_title">Adopción de IA</h3>
+        <canvas id="adoptionAiChart" width="300" height="300" aria-label="Adopción de IA" role="img"></canvas>
+      </div>
+      <div class="chart-container" style="flex:1 1 300px;">
+        <h3 style="text-align:center; font-family: var(--heading-font); color: var(--primary); margin-bottom:0.5rem;" data-i18n="impact_chart2_title">Adopción de IA generativa</h3>
+        <canvas id="adoptionGenChart" width="300" height="300" aria-label="Adopción de IA generativa" role="img"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases Section -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="impact_cases_title">Casos de éxito</h2>
+    <div class="cases">
+      <div class="case" style="background-color: var(--teal);">
+        <h4 data-i18n="impact_case1_title">Red&nbsp;Roof&nbsp;Inn</h4>
+        <p data-i18n="impact_case1_desc">Incremento del 10&nbsp;% en ingresos gracias a la optimización del pricing y al análisis de demanda.</p>
+      </div>
+      <div class="case" style="background-color: var(--purple);">
+        <h4 data-i18n="impact_case2_title">Corel&nbsp;Software</h4>
+        <p data-i18n="impact_case2_desc">Aumento del 106&nbsp;% en ingresos tras implementar modelos de predicción de ventas y segmentación de clientes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client Sectors -->
+  <section>
+    <h2 class="section-title" data-i18n="impact_sectors_title">Clientes y sectores</h2>
+    <div class="sectors">
+      <div class="sector">
+        <i class="fa-solid fa-university"></i>
+        <h6 data-i18n="impact_sector1">Educación</h6>
+      </div>
+      <div class="sector">
+        <i class="fa-solid fa-hospital"></i>
+        <h6 data-i18n="impact_sector2">Salud</h6>
+      </div>
+      <div class="sector">
+        <i class="fa-solid fa-wallet"></i>
+        <h6 data-i18n="impact_sector3">Finanzas</h6>
+      </div>
+      <div class="sector">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <h6 data-i18n="impact_sector4">Retail</h6>
+      </div>
+      <div class="sector">
+        <i class="fa-solid fa-industry"></i>
+        <h6 data-i18n="impact_sector5">Manufactura</h6>
+      </div>
+    </div>
+    <ul style="max-width: 800px; margin: 2rem auto 0; list-style: disc; padding-left: 1.5rem; font-size: 1rem;">
+      <li data-i18n="impact_list1">Asesoría en proyectos universitarios.</li>
+      <li data-i18n="impact_list2">Dashboards ejecutivos para pymes y startups.</li>
+      <li data-i18n="impact_list3">Modelos predictivos para demanda y producción.</li>
+      <li data-i18n="impact_list4">Optimización de operaciones en salud y retail.</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="impact_footer">© 2025 Wallpari Analytics · Creando valor con información.</p>
+  </footer>
+</body>
+</html>

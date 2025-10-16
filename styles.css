@@ -1,0 +1,904 @@
+/* Root variables for color palette and fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+  --primary-dark: #05172f;
+  --primary: #0a3d62;
+  --teal: #00a79d;
+  --purple: #7e3e97;
+  --orange: #ff8552;
+  --light-bg: #f5f8fc;
+  --text-dark: #0a2540;
+  --text-light: #f5f5f5;
+  --heading-font: 'Montserrat', sans-serif;
+  --body-font: 'Open Sans', sans-serif;
+}
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  color: var(--text-dark);
+  line-height: 1.6;
+  background-color: var(--light-bg);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Navigation styles */
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: var(--primary-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  display: flex;
+  /* Align items to the start and let the nav menu and language selector
+     control their own positioning via flex-grow and margin. */
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  /* Stretch the navbar to fill the full width of the viewport so
+     elements like the language selector align with the far edge. */
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  /* Allow the navbar contents to wrap to a new line on narrower viewports. */
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: var(--text-light);
+  font-family: var(--heading-font);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Prevent the company name from wrapping onto two lines on narrower
+     screens. Keeping the text on one line ensures consistent branding. */
+  white-space: nowrap;
+
+  /* Add extra space between the logo and the navigation menu. This
+     separates the branding from the site links for better visual
+     clarity. */
+  margin-right: 2rem;
+}
+/* Legacy FontAwesome icons remain defined for backward compatibility,
+   but when an image logo is present the <i> element is simply omitted. */
+.logo i {
+  color: var(--teal);
+  font-size: 1.8rem;
+}
+
+/* When an image logo is used, constrain its height and maintain aspect ratio. */
+.logo img {
+  /* Increase the height slightly now that a square crop is used. This ensures
+     the brain artwork is discernible without overpowering the navigation bar. */
+  /* Provide a generous height so the brain icon remains distinguishable.
+     Using a square crop means the icon scales uniformly. */
+  height: 2.4rem;
+  width: auto;
+}
+
+/* Hamburger menu */
+.nav-toggle {
+  display: none;
+}
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  position: relative;
+}
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--text-light);
+  transition: transform 0.3s ease;
+}
+.nav-toggle-label span {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.nav-toggle-label span::before {
+  content: '';
+  top: -8px;
+}
+.nav-toggle-label span::after {
+  content: '';
+  bottom: -8px;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  /* Keep navigation items on a single line by default. On narrower
+     screens the menu will wrap via the media query defined below. */
+  flex-wrap: nowrap;
+
+  /* Allow the menu to take up any available space between the logo and
+     the language selector. On large screens this pushes the
+     language selector to the far right. */
+  flex-grow: 1;
+
+  /* Align the navigation items to the start of their container. Keeping
+     them left aligned ensures consistent spacing across languages while
+     the language selector remains pinned to the right. */
+  justify-content: flex-start;
+
+  /* Provide a small gap between the navigation menu and the language
+     selector so the flags don't appear glued to the last menu item. */
+  margin-right: 1rem;
+}
+
+/* When the viewport is limited in width, allow the navigation menu to
+   wrap onto a second line to avoid overlapping the logo. The 992px
+   threshold (bootstrap-like) accommodates longer translations like
+   Russian while keeping the languages on the same row on most laptops. */
+@media (max-width: 992px) {
+  /* Prevent the logo from shrinking when the navbar wraps. */
+  .logo {
+    flex: 0 0 auto;
+  }
+
+  /* Allow the navigation items to wrap onto multiple lines on smaller
+     viewports so they don't overlap the logo or each other. */
+  .nav-menu {
+    flex-wrap: wrap;
+  }
+}
+.nav-menu li a {
+  color: var(--text-light);
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  transition: color 0.2s ease;
+  /* Keep the entire label on one line; the anchor will wrap as a whole
+     to the next line when there isn't enough space, preventing
+     individual words from breaking across lines. */
+  white-space: nowrap;
+}
+.nav-menu li a:hover {
+  color: var(--teal);
+}
+
+/* Prevent navigation links from flashing or darkening while they are active.
+   Some browsers apply a default :active style that darkens text or background
+   while the link is being clicked. Explicitly define the :active state so
+   there is no visual jump when navigating between sections. */
+.nav-menu li a:active {
+  color: var(--teal);
+  background-color: transparent;
+}
+
+/* Language selector styling */
+.lang-select {
+  /* Push the language selector to the end of the navbar by taking up
+     any remaining horizontal space before it. Removing a fixed
+     margin ensures consistent alignment across screen sizes. */
+  margin-left: auto;
+  flex-shrink: 0;
+  /* Add a bit of breathing room before the language flags so they
+     aren't flush against the navigation menu. */
+  padding-left: 1rem;
+}
+.lang-select select {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  border: 1px solid var(--text-light);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+}
+.lang-select select option {
+  background-color: var(--primary-dark);
+  color: var(--text-dark);
+}
+
+/* Custom flag-based language selector */
+.lang-select .lang-list {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lang-list .lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  /* Increase the click/tap target for each language option. A larger
+     padding and font size make the flags easier to see and select on
+     both desktop and mobile devices. */
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  color: var(--text-light);
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.lang-list .lang-option.active {
+  background-color: var(--teal);
+}
+
+.lang-list .lang-option img {
+  /* Enlarge flags slightly to improve legibility without overpowering
+     the navigation bar. Force a consistent height to align with the
+     surrounding text. */
+  width: 1.4rem;
+  height: 1rem;
+  display: block;
+}
+/* Adjust language selector placement on small screens */
+@media (max-width: 768px) {
+  .lang-select {
+    margin: 0.5rem 0 0;
+  }
+  .nav-menu + .lang-select {
+    margin-left: 0;
+  }
+}
+
+/* Responsive menu */
+@media (max-width: 768px) {
+  .nav-toggle-label {
+    display: block;
+  }
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: var(--primary-dark);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+  .nav-menu li {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+  }
+  .nav-toggle:checked + .nav-toggle-label span {
+    background: transparent;
+  }
+  .nav-toggle:checked + .nav-toggle-label span::before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .nav-toggle:checked + .nav-toggle-label span::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  .nav-toggle:checked ~ .nav-menu {
+    max-height: 300px;
+  }
+}
+
+/* Platforms & tools section */
+.platforms {
+  padding: 3rem 1.5rem;
+  /* Use the dark primary colour so that logos with light colours (e.g. GitHub or
+     white variants) stand out. This ties the section visually to the site
+     header while differentiating it from the light content above. */
+  background-color: var(--primary-dark);
+  text-align: center;
+}
+
+.platforms .section-title {
+  margin-bottom: 0.5rem;
+  /* Use light colour for the section title on dark background */
+  color: var(--text-light);
+}
+
+.platforms .platforms-desc {
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+  /* Use a light colour for descriptions on a dark background */
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.platform-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.platform-logos img {
+  height: 3rem;
+  width: auto;
+  filter: none; /* keep original colours */
+  transition: transform 0.2s ease;
+}
+
+.platform-logos img:hover {
+  transform: scale(1.05);
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+  text-align: center;
+  overflow: hidden; /* hide animated overlay overflow for dynamic heroes */
+}
+
+/* Slowly pan the background of all dynamic heroes to give life to the
+   neural‑network illustrations. This complements the animated canvas
+   overlay without distracting from the content. */
+.hero.dynamic {
+  animation: moveBG 80s linear infinite;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 23, 47, 0.7);
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  max-width: 700px;
+  z-index: 1;
+}
+
+/* Logo in the hero section */
+.hero-logo {
+  width: 5rem; /* roughly 80px on a 16px root font size */
+  height: auto;
+  margin: 0 auto 1rem auto;
+  display: block;
+  /* Add a subtle drop shadow to lift the logo off the dark background */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+.hero h1 {
+  font-family: var(--heading-font);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  /* Prevent hero headings from wrapping onto multiple lines. When
+     translations vary in length, it is important that the primary
+     statement remains on one line to mirror the English design. */
+  white-space: nowrap;
+}
+.hero p {
+  font-size: 1.15rem;
+  margin-bottom: 2rem;
+  color: #dce4f6;
+}
+
+/* Animate synapse backgrounds on selected hero sections. When the `synapse`
+   class is added alongside `hero`, the background will gently shift to
+   simulate neural activity. */
+.hero.synapse {
+  background-size: cover;
+  animation: moveBG 40s linear infinite;
+}
+@keyframes moveBG {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 1000px 500px;
+  }
+}
+
+/* Synapse animation used on the About page. Each span becomes a tiny pulse
+   that fades in and out to simulate firing synapses. */
+.synapse-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* ensure clicks pass through */
+  overflow: hidden;
+}
+.synapse-animation span {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  opacity: 0;
+  animation: synapsePulse 6s ease-in-out infinite;
+}
+@keyframes synapsePulse {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Electric overlay effect for dynamic hero backgrounds. This adds a moving
+   translucent gradient that sweeps across the background, simulating
+   electrical currents running through circuits. */
+.hero.dynamic::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  pointer-events: none;
+  /* Use a teal‑tinted gradient to harmonise with the brand palette. */
+  background: linear-gradient(90deg,
+    rgba(0, 167, 157, 0) 0%,
+    rgba(0, 167, 157, 0.35) 50%,
+    rgba(0, 167, 157, 0) 100%);
+  /* Keep the overlay subtle so the moving pulses along the network lines are
+     prominent. A lower opacity ensures it adds depth without overpowering
+     the dynamic animation. */
+  opacity: 0.2;
+  animation: electricMove 8s linear infinite;
+}
+@keyframes electricMove {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  font-family: var(--heading-font);
+}
+.btn-primary {
+  background-color: var(--teal);
+  color: var(--text-light);
+}
+.btn-primary:hover {
+  background-color: var(--purple);
+}
+.btn-secondary {
+  background-color: var(--orange);
+  color: var(--text-light);
+}
+.btn-secondary:hover {
+  background-color: var(--purple);
+}
+
+/* Sections */
+section {
+  padding: 4rem 1.5rem;
+}
+.section-title {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--primary);
+  /* Ensure all section headings stay on a single line across
+     translations. Without this rule some languages may wrap,
+     producing inconsistent layouts. */
+  white-space: nowrap;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.card {
+  background-color: var(--text-light);
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.card i {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--teal);
+}
+.card h3 {
+  font-family: var(--heading-font);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+.card p {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+/* Timeline */
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--teal);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 60px;
+}
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+.timeline-item::before {
+  content: attr(data-year);
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: var(--teal);
+  color: var(--text-light);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timeline-item h4 {
+  font-family: var(--heading-font);
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+  color: var(--primary);
+}
+.timeline-item p {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+/* Process steps */
+.steps {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.step {
+  text-align: left;
+  position: relative;
+  padding-left: 60px;
+}
+.step-number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--orange);
+  color: var(--text-light);
+  font-family: var(--heading-font);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.step:nth-child(2) .step-number {
+  background-color: var(--teal);
+}
+.step:nth-child(3) .step-number {
+  background-color: var(--purple);
+}
+.step:nth-child(4) .step-number {
+  background-color: var(--primary);
+}
+.step:nth-child(5) .step-number {
+  background-color: var(--orange);
+}
+.step:nth-child(6) .step-number {
+  background-color: var(--teal);
+}
+.step h4 {
+  font-family: var(--heading-font);
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  color: var(--primary);
+}
+.step p {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+/* Pillars */
+.pillars {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.pillar {
+  background-color: var(--text-light);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.pillar i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--teal);
+}
+.pillar h5 {
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+/* Charts section */
+.chart-container {
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+/* Cases section */
+.cases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.case {
+  background-color: var(--teal);
+  color: var(--text-light);
+  padding: 1.5rem;
+  border-radius: 8px;
+  flex: 1 1 250px;
+  max-width: 350px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.case h4 {
+  font-family: var(--heading-font);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.case p {
+  font-size: 0.95rem;
+}
+
+/* Sector icons */
+.sectors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.sector {
+  text-align: center;
+  width: 140px;
+}
+.sector i {
+  font-size: 2.5rem;
+  color: var(--teal);
+  margin-bottom: 0.5rem;
+}
+.sector h6 {
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+/* Contact page */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--primary);
+}
+.contact-item i {
+  font-size: 1.5rem;
+  color: var(--teal);
+}
+.contact-item a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.contact-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  background-color: var(--text-light);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.contact-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--teal);
+  color: var(--text-light);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--heading-font);
+  font-weight: 600;
+  cursor: pointer;
+}
+.contact-form button:hover {
+  background-color: var(--purple);
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+footer a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+/* -----------------------------
+   Scroll reveal animation
+   Elements tagged in script.js with the class `reveal` will start
+   off-screen and fade in as they enter the viewport. The transition
+   values are tuned to feel smooth and natural.
+--------------------------------*/
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* -----------------------------
+   Stats section styles
+--------------------------------*/
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.stat {
+  background-color: var(--text-light);
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1 1 250px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.stat-number {
+  font-family: var(--heading-font);
+  font-size: 2.5rem;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+.stat-label {
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+/* -----------------------------
+   AI section styles
+   This flexible layout pairs an image with explanatory text. On
+   narrower screens the elements stack vertically.
+--------------------------------*/
+.ai-section {
+  padding: 4rem 1.5rem;
+}
+.ai-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+.ai-image {
+  flex: 1 1 350px;
+}
+.ai-image img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.ai-content {
+  flex: 1 1 350px;
+}
+.ai-content h2 {
+  font-family: var(--heading-font);
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  /* Keep AI section heading on one line for all languages. */
+  white-space: nowrap;
+}
+.ai-content p {
+  font-size: 1rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+}

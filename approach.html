@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestro Enfoque – Wallpari Analytics</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+      <a href="index.html" class="logo">
+        <!-- Use a square crop of the brain artwork for the nav icon so it remains
+             recognisable at small sizes. -->
+        <!-- Updated logo: use standalone brain icon without text (white circuitry on dark). -->
+        <!-- Use the original brain artwork with a transparent background and no lettering. -->
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        Wallpari Analytics
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle">
+      <label for="nav-toggle" class="nav-toggle-label"><span></span></label>
+      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
+        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
+        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
+        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
+        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      </ul>
+      <!-- Language selector -->
+      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+        <!-- Replace the native <select> with a custom flag-based language list. Each option
+             is represented by the country flag and a two‑letter code. Clicking a
+             language will trigger a translation change via script.js. -->
+        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
+          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <!-- Use the unified abstract network backdrop for a consistent look across pages. -->
+  <!-- Background: particle network matrix representing our methodical, data‑driven approach. -->
+  <!-- Use a warm orange accent for the pulses on the approach page. -->
+  <section class="hero dynamic" data-network-color="#ff8552" style="background-image: url('cached_assets_used/approach-cosmos-bg.jpg');">
+    <div class="hero-content">
+      <h1 data-i18n="approach_hero_title">Nuestro enfoque</h1>
+      <p data-i18n="approach_hero_subtitle">Descubre cómo convertimos datos en valor</p>
+    </div>
+  </section>
+
+  <!-- Process Steps -->
+  <section>
+    <h2 class="section-title" data-i18n="approach_process_title">Proceso de trabajo</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h4 data-i18n="approach_step1_title">Definir objetivos</h4>
+        <p data-i18n="approach_step1_desc">Identificamos las preguntas clave y las metas que guiarán el análisis.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h4 data-i18n="approach_step2_title">Recolección y limpieza</h4>
+        <p data-i18n="approach_step2_desc">Seleccionamos las fuentes adecuadas y aseguramos la calidad de los datos.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h4 data-i18n="approach_step3_title">Análisis exploratorio</h4>
+        <p data-i18n="approach_step3_desc">Descubrimos patrones y tendencias ocultas en tus datos.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <h4 data-i18n="approach_step4_title">Modelado avanzado</h4>
+        <p data-i18n="approach_step4_desc">Construimos modelos de machine learning y predicción para anticipar resultados.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">5</div>
+        <h4 data-i18n="approach_step5_title">Visualización & narrativa</h4>
+        <p data-i18n="approach_step5_desc">Diseñamos dashboards y storytelling para comunicar hallazgos de manera efectiva.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">6</div>
+        <h4 data-i18n="approach_step6_title">IA generativa</h4>
+        <p data-i18n="approach_step6_desc">Generamos narrativas automáticas con IA para potenciar la toma de decisiones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars -->
+  <section style="background-color: var(--text-light);">
+    <h2 class="section-title" data-i18n="approach_pillars_title">Nuestros pilares</h2>
+    <div class="pillars">
+      <div class="pillar">
+        <i class="fa-solid fa-check-circle"></i>
+        <h5 data-i18n="approach_pillar1">Calidad</h5>
+      </div>
+      <div class="pillar">
+        <i class="fa-solid fa-wave-square"></i>
+        <h5 data-i18n="approach_pillar2">Transparencia</h5>
+      </div>
+      <div class="pillar">
+        <i class="fa-solid fa-brain"></i>
+        <h5 data-i18n="approach_pillar3">Innovación</h5>
+      </div>
+      <div class="pillar">
+        <i class="fa-solid fa-coins"></i>
+        <h5 data-i18n="approach_pillar4">Impacto</h5>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p data-i18n="approach_footer">© 2025 Wallpari Analytics · Avanzando juntos hacia el futuro.</p>
+  </footer>
+</body>
+</html>
