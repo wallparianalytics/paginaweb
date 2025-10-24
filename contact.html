@@ -5,7 +5,30 @@
   <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
   <title>Contacto – Wallpari Analytics</title>
+  <meta name="description" content="Contáctanos para consultoría en análisis de datos, IA y machine learning. Ubicados en Lima, Perú. Estamos listos para escucharte.">
+  <meta name="keywords" content="contacto, Wallpari Analytics, Lima, Perú, consultoría datos, IA, contactar">
+  <meta name="author" content="Wallpari Analytics">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.wallparianalytics.io/contact.html">
+  <meta property="og:title" content="Contacto - Wallpari Analytics">
+  <meta property="og:description" content="Contáctanos para consultoría en análisis de datos, IA y machine learning. Ubicados en Lima, Perú.">
+  <meta property="og:image" content="https://www.wallparianalytics.io/cached_assets_used/brain-ai.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.wallparianalytics.io/contact.html">
+  <meta property="twitter:title" content="Contacto - Wallpari Analytics">
+  <meta property="twitter:description" content="Contáctanos para consultoría en análisis de datos, IA y machine learning. Ubicados en Lima, Perú.">
+  <meta property="twitter:image" content="https://www.wallparianalytics.io/cached_assets_used/brain-ai.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="cached_assets_used/brain-icon-transparent.png">
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -85,13 +108,18 @@
   <!-- Contact Form -->
   <section style="background-color: var(--text-light);">
     <h2 class="section-title" data-i18n="contact_form_title">Envíanos un mensaje</h2>
-    <form class="contact-form" onsubmit="return false;">
+    <form class="contact-form" id="contactForm">
       <label for="nombre" data-i18n="contact_label_name">Nombre</label>
-      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" data-i18n-placeholder="contact_placeholder_name" required>
+      <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" data-i18n-placeholder="contact_placeholder_name" required minlength="2">
+
       <label for="correo" data-i18n="contact_label_email">Correo electrónico</label>
       <input type="email" id="correo" name="correo" placeholder="tu@correo.com" data-i18n-placeholder="contact_placeholder_email" required>
+
       <label for="mensaje" data-i18n="contact_label_message">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿Cómo podemos ayudarte?" data-i18n-placeholder="contact_placeholder_message" required></textarea>
+      <textarea id="mensaje" name="mensaje" rows="5" placeholder="¿Cómo podemos ayudarte?" data-i18n-placeholder="contact_placeholder_message" required minlength="10"></textarea>
+
+      <div id="formMessage" style="display: none; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;"></div>
+
       <button type="submit" class="btn btn-primary" data-i18n="contact_submit_button">Enviar mensaje</button>
     </form>
   </section>

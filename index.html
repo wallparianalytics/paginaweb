@@ -5,16 +5,49 @@
   <!-- Ensure proper rendering and UTF-8 encoding across servers and browsers -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
   <title>Wallpari Analytics - Soluciones inteligentes en análisis de datos</title>
+  <meta name="description" content="Transformamos tus datos en decisiones que inspiran confianza. Consultoría en análisis de datos, IA, dashboards, PLN y machine learning en Perú.">
+  <meta name="keywords" content="análisis de datos, inteligencia artificial, IA, machine learning, dashboards, Power BI, Tableau, consultoría datos, Perú, Lima">
+  <meta name="author" content="Wallpari Analytics">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.wallparianalytics.io/">
+  <meta property="og:title" content="Wallpari Analytics - Soluciones inteligentes en análisis de datos">
+  <meta property="og:description" content="Transformamos tus datos en decisiones que inspiran confianza. Consultoría en análisis de datos, IA y machine learning.">
+  <meta property="og:image" content="https://www.wallparianalytics.io/cached_assets_used/brain-ai.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://www.wallparianalytics.io/">
+  <meta property="twitter:title" content="Wallpari Analytics - Soluciones inteligentes en análisis de datos">
+  <meta property="twitter:description" content="Transformamos tus datos en decisiones que inspiran confianza. Consultoría en análisis de datos, IA y machine learning.">
+  <meta property="twitter:image" content="https://www.wallparianalytics.io/cached_assets_used/brain-ai.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="cached_assets_used/brain-icon-transparent.png">
+
+  <!-- Performance Optimization -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
+  <!-- Skip to main content for accessibility -->
+  <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px; z-index: 9999; padding: 1rem; background: var(--teal); color: white; text-decoration: none;">Saltar al contenido principal</a>
+
   <!-- Navigation bar -->
-  <header>
-    <nav class="navbar" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
+  <header role="banner">
+    <nav class="navbar" role="navigation" aria-label="Navegación principal" style="display:flex; justify-content:flex-start; align-items:center; width:100%; margin:0; padding:0.75rem 1.5rem; flex-wrap:wrap;">
       <a href="index.html" class="logo">
         <!-- Use a square crop of the brain artwork for the nav icon so it remains
              recognisable at small sizes. The full brain image was too tall
@@ -25,31 +58,31 @@
              the circuitry lines in white and omits the lettering. Placed inside
              `cached_assets_used/brain-icon-only.png`. -->
         <!-- Use the original brain artwork with a transparent background and no lettering. -->
-        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics icon">
+        <img src="cached_assets_used/brain-icon-transparent.png" alt="Wallpari Analytics - Icono de cerebro con circuitos" width="48" height="48">
         Wallpari Analytics
       </a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle">
-      <label for="nav-toggle" class="nav-toggle-label">
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Abrir menú de navegación">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Botón de menú">
         <span></span>
       </label>
-      <ul class="nav-menu" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
-        <li><a href="index.html" data-i18n="nav_home">Inicio</a></li>
-        <li><a href="about.html" data-i18n="nav_about">Quiénes Somos</a></li>
-        <li><a href="services.html" data-i18n="nav_services">Servicios</a></li>
-        <li><a href="approach.html" data-i18n="nav_approach">Enfoque</a></li>
-        <li><a href="impact.html" data-i18n="nav_impact">Impacto</a></li>
-        <li><a href="contact.html" data-i18n="nav_contact">Contacto</a></li>
+      <ul class="nav-menu" role="menubar" style="list-style:none; display:flex; gap:1rem; flex-wrap:nowrap; flex-grow:1; margin-right:1rem;">
+        <li role="none"><a href="index.html" role="menuitem" data-i18n="nav_home" aria-current="page">Inicio</a></li>
+        <li role="none"><a href="about.html" role="menuitem" data-i18n="nav_about">Quiénes Somos</a></li>
+        <li role="none"><a href="services.html" role="menuitem" data-i18n="nav_services">Servicios</a></li>
+        <li role="none"><a href="approach.html" role="menuitem" data-i18n="nav_approach">Enfoque</a></li>
+        <li role="none"><a href="impact.html" role="menuitem" data-i18n="nav_impact">Impacto</a></li>
+        <li role="none"><a href="contact.html" role="menuitem" data-i18n="nav_contact">Contacto</a></li>
       </ul>
       <!-- Language selector: allows users to switch between Spanish (default), English, German and Russian.  -->
-      <div class="lang-select" style="margin-left:auto; display:flex; align-items:center;">
+      <div class="lang-select" role="navigation" aria-label="Selector de idioma" style="margin-left:auto; display:flex; align-items:center;">
         <!-- Replace the native <select> with a custom flag-based language list. Each option
              is represented by the country flag and a two‑letter code. Clicking a
              language will trigger a translation change via script.js. -->
-        <ul class="lang-list" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
-          <li class="lang-option" data-lang="es" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/es.png" alt="Español" style="height:1rem; width:auto;"><span>ES</span></li>
-          <li class="lang-option" data-lang="en" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/en.png" alt="English" style="height:1rem; width:auto;"><span>IN</span></li>
-          <li class="lang-option" data-lang="de" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/de.png" alt="Deutsch" style="height:1rem; width:auto;"><span>DE</span></li>
-          <li class="lang-option" data-lang="ru" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;"><img src="cached_assets_used/flags/ru.png" alt="Русский" style="height:1rem; width:auto;"><span>RU</span></li>
+        <ul class="lang-list" role="menu" style="list-style:none; display:flex; gap:0.75rem; margin:0; padding:0;">
+          <li class="lang-option" role="menuitem" data-lang="es" tabindex="0" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;" aria-label="Cambiar a Español"><img src="cached_assets_used/flags/es.png" alt="" style="height:1rem; width:auto;"><span>ES</span></li>
+          <li class="lang-option" role="menuitem" data-lang="en" tabindex="0" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;" aria-label="Switch to English"><img src="cached_assets_used/flags/en.png" alt="" style="height:1rem; width:auto;"><span>EN</span></li>
+          <li class="lang-option" role="menuitem" data-lang="de" tabindex="0" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;" aria-label="Wechseln zu Deutsch"><img src="cached_assets_used/flags/de.png" alt="" style="height:1rem; width:auto;"><span>DE</span></li>
+          <li class="lang-option" role="menuitem" data-lang="ru" tabindex="0" style="display:flex; align-items:center; gap:0.25rem; padding:0.25rem; border-radius:4px; cursor:pointer;" aria-label="Переключиться на русский"><img src="cached_assets_used/flags/ru.png" alt="" style="height:1rem; width:auto;"><span>RU</span></li>
         </ul>
       </div>
     </nav>
@@ -71,7 +104,7 @@
   <!-- Include a data-network-color attribute so the script can pick a custom colour
        for the animated pulses on each page. For the home page we stick with the
        brand teal. -->
-  <section class="hero dynamic" data-network-color="#00a79d" style="background-image: url('cached_assets_used/hero-bg.jpg');">
+  <section id="main-content" class="hero dynamic" data-network-color="#00a79d" role="region" aria-label="Sección principal" style="background-image: url('cached_assets_used/hero-bg.jpg');">
     <div class="hero-content">
       <h1 data-i18n="home_hero_title">Soluciones inteligentes en análisis de datos</h1>
       <p data-i18n="home_hero_subtitle">Transformamos tus datos en decisiones que inspiran confianza</p>
