@@ -23,6 +23,11 @@ const translations = {
     nav_approach: 'Enfoque',
     nav_impact: 'Impacto',
     nav_contact: 'Contacto',
+    nav_news: 'Noticias IA',
+    // Modal
+    modal_title: 'Noticias y Artículos de IA',
+    tab_news: 'Noticias',
+    tab_articles: 'Artículos de Investigación',
     // Home page
     home_hero_title: 'Soluciones inteligentes en análisis de datos',
     home_hero_subtitle: 'Transformamos tus datos en decisiones que inspiran confianza',
@@ -170,6 +175,11 @@ const translations = {
     nav_approach: 'Approach',
     nav_impact: 'Impact',
     nav_contact: 'Contact',
+    nav_news: 'AI News',
+    // Modal
+    modal_title: 'AI News and Articles',
+    tab_news: 'News',
+    tab_articles: 'Research Articles',
     home_hero_title: 'Intelligent data analysis solutions',
     home_hero_subtitle: 'We turn your data into decisions that inspire confidence',
     home_hero_button: 'Contact us',
@@ -311,6 +321,11 @@ const translations = {
     nav_approach: 'Vorgehensweise',
     nav_impact: 'Auswirkungen',
     nav_contact: 'Kontakt',
+    nav_news: 'KI-Nachrichten',
+    // Modal
+    modal_title: 'KI-Nachrichten und Artikel',
+    tab_news: 'Nachrichten',
+    tab_articles: 'Forschungsartikel',
     home_hero_title: 'Intelligente Datenanalyse-Lösungen',
     home_hero_subtitle: 'Wir verwandeln Ihre Daten in Entscheidungen, die Vertrauen schaffen',
     home_hero_button: 'Kontaktieren Sie uns',
@@ -452,6 +467,11 @@ const translations = {
     nav_approach: 'Подход',
     nav_impact: 'Воздействие',
     nav_contact: 'Контакты',
+    nav_news: 'Новости ИИ',
+    // Modal
+    modal_title: 'Новости и статьи об ИИ',
+    tab_news: 'Новости',
+    tab_articles: 'Исследовательские статьи',
     home_hero_title: 'Интеллектуальные решения анализа данных',
     home_hero_subtitle: 'Мы превращаем ваши данные в решения, которые внушают доверие',
     home_hero_button: 'Свяжитесь с нами',
@@ -1225,5 +1245,118 @@ document.addEventListener('DOMContentLoaded', () => {
   function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+  }
+
+  /**
+   * News Modal Functionality
+   * Handles opening/closing the news modal and switching between tabs
+   */
+  const newsModal = document.getElementById('newsModal');
+  const openNewsModalBtn = document.getElementById('openNewsModal');
+  const closeNewsModalBtn = document.getElementById('closeNewsModal');
+
+  // Open modal
+  if (openNewsModalBtn) {
+    openNewsModalBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (newsModal) {
+        newsModal.classList.add('show');
+        newsModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+      }
+    });
+  }
+
+  // Close modal
+  if (closeNewsModalBtn) {
+    closeNewsModalBtn.addEventListener('click', function() {
+      if (newsModal) {
+        newsModal.classList.remove('show');
+        newsModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+  }
+
+  // Close modal when clicking outside
+  if (newsModal) {
+    newsModal.addEventListener('click', function(e) {
+      if (e.target === newsModal) {
+        newsModal.classList.remove('show');
+        newsModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // Close modal with ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && newsModal && newsModal.classList.contains('show')) {
+      newsModal.classList.remove('show');
+      newsModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Tab switching functionality
+  const newsTabs = document.querySelectorAll('.news-tab');
+  const tabContents = document.querySelectorAll('.news-tab-content');
+
+  newsTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+
+      // Remove active class from all tabs and contents
+      newsTabs.forEach(t => t.classList.remove('active'));
+      tabContents.forEach(c => c.classList.remove('active'));
+
+      // Add active class to clicked tab
+      this.classList.add('active');
+
+      // Show corresponding content
+      if (targetTab === 'news') {
+        document.getElementById('newsContent').classList.add('active');
+      } else if (targetTab === 'articles') {
+        document.getElementById('articlesContent').classList.add('active');
+      }
+    });
+  });
+
+  /**
+   * Switch language for news in modal
+   */
+  window.switchNewsLang = function(lang) {
+    // Hide all news sections
+    ['en', 'es', 'de', 'ru'].forEach(l => {
+      const el = document.getElementById('news-' + l);
+      if (el) el.style.display = 'none';
+    });
+
+    // Show selected language
+    const selectedEl = document.getElementById('news-' + lang);
+    if (selectedEl) selectedEl.style.display = 'block';
+
+    // Update active button
+    const langButtons = document.querySelectorAll('.lang-buttons-modal button');
+    langButtons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-lang') === lang) {
+        btn.classList.add('active');
+      }
+    });
+  };
+
+  // Initialize news language based on page language
+  const currentPageLang = (() => {
+    try {
+      return localStorage.getItem('lang') || 'es';
+    } catch (e) {
+      return 'es';
+    }
+  })();
+
+  // Set initial news language to match page language
+  if (typeof window.switchNewsLang === 'function') {
+    window.switchNewsLang(currentPageLang);
   }
 });

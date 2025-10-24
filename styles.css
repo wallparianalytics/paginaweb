@@ -908,3 +908,284 @@ footer a {
   color: var(--text-dark);
   line-height: 1.6;
 }
+
+/* -----------------------------
+   News Modal Styles
+--------------------------------*/
+.news-modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(5, 23, 47, 0.85);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.news-modal.show {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.news-modal-content {
+  position: relative;
+  background-color: var(--light-bg);
+  margin: 3% auto;
+  padding: 0;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.news-modal-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--teal) 100%);
+  color: var(--text-light);
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.news-modal-header h2 {
+  margin: 0;
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+}
+
+.news-modal-close {
+  color: var(--text-light);
+  font-size: 2rem;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  line-height: 1;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+.news-modal-close:hover,
+.news-modal-close:focus {
+  transform: scale(1.2) rotate(90deg);
+}
+
+/* Tabs */
+.news-tabs {
+  display: flex;
+  background-color: var(--primary-dark);
+  border-bottom: 2px solid var(--teal);
+}
+
+.news-tab {
+  flex: 1;
+  padding: 1rem;
+  background-color: transparent;
+  color: var(--text-light);
+  border: none;
+  cursor: pointer;
+  font-family: var(--heading-font);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.news-tab:hover {
+  background-color: rgba(0, 167, 157, 0.2);
+}
+
+.news-tab.active {
+  background-color: var(--teal);
+  color: var(--text-light);
+}
+
+/* Tab Content */
+.news-tab-content {
+  display: none;
+  padding: 1.5rem;
+  max-height: calc(85vh - 200px);
+  overflow-y: auto;
+}
+
+.news-tab-content.active {
+  display: block;
+}
+
+/* Language buttons in modal */
+.lang-buttons-modal {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.lang-buttons-modal button {
+  background-color: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin: 0 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.lang-buttons-modal button:hover {
+  background-color: var(--purple);
+  transform: translateY(-2px);
+}
+
+.lang-buttons-modal button.active {
+  background-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* News Section */
+.news-section {
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.news-card,
+.research-card {
+  background-color: rgba(255, 255, 255, 0.98);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-left: 4px solid var(--teal);
+}
+
+.news-card:hover,
+.research-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(0, 167, 157, 0.2);
+}
+
+.news-card h3,
+.research-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem 0;
+  color: var(--primary);
+  font-weight: 600;
+  font-family: var(--heading-font);
+}
+
+.news-card .summary,
+.research-card .summary {
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.news-card .source,
+.research-card .source {
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  color: #666;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 0.5rem;
+}
+
+.news-card a,
+.research-card a {
+  color: var(--teal);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.news-card a:hover,
+.research-card a:hover {
+  color: var(--purple);
+  text-decoration: underline;
+}
+
+/* Responsive Modal */
+@media (max-width: 768px) {
+  .news-modal-content {
+    width: 95%;
+    margin: 5% auto;
+    max-height: 90vh;
+  }
+
+  .news-modal-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .news-tab {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .news-tab-content {
+    padding: 1rem;
+    max-height: calc(90vh - 180px);
+  }
+
+  .news-card,
+  .research-card {
+    padding: 1rem;
+  }
+
+  .lang-buttons-modal button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* Custom scrollbar for modal content */
+.news-tab-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.news-tab-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.news-tab-content::-webkit-scrollbar-thumb {
+  background: var(--teal);
+  border-radius: 10px;
+}
+
+.news-tab-content::-webkit-scrollbar-thumb:hover {
+  background: var(--purple);
+}
