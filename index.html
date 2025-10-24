@@ -73,6 +73,7 @@
         <li role="none"><a href="impact.html" role="menuitem" data-i18n="nav_impact">Impacto</a></li>
         <li role="none"><a href="contact.html" role="menuitem" data-i18n="nav_contact">Contacto</a></li>
         <li role="none"><a href="#" role="menuitem" data-i18n="nav_news" id="openNewsModal" aria-label="Abrir noticias de IA">Noticias IA</a></li>
+        <li role="none"><a href="#" role="menuitem" data-i18n="nav_prompting" id="openPromptingBtn" aria-label="Acceder a Prompt Texto">Prompt Texto</a></li>
       </ul>
       <!-- Language selector: allows users to switch between Spanish (default), English, German and Russian.  -->
       <div class="lang-select" role="navigation" aria-label="Selector de idioma" style="margin-left:auto; display:flex; align-items:center;">
@@ -502,6 +503,54 @@
             <a href="https://arxiv.org/abs/2303.12712" target="_blank" rel="noopener">Ver artículo completo</a>
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Login para Prompt Texto -->
+  <div id="loginModal" class="login-modal" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
+    <div class="login-modal-content">
+      <div class="login-modal-header">
+        <h2 id="loginModalTitle" data-i18n="login_title">Acceso a Prompt Texto</h2>
+        <button class="login-modal-close" aria-label="Cerrar modal" id="closeLoginModal">&times;</button>
+      </div>
+      <div class="login-modal-body">
+        <p data-i18n="login_instructions">Por favor ingresa tu Student ID o correo electrónico para acceder al módulo de prompting:</p>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="loginInput" data-i18n="login_label">Student ID o Email:</label>
+            <input
+              type="text"
+              id="loginInput"
+              name="loginInput"
+              required
+              placeholder="20230001 o email@example.com"
+              aria-required="true"
+            >
+          </div>
+          <div class="login-error" id="loginError" style="display:none;" role="alert"></div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" data-i18n="login_submit">Acceder</button>
+            <button type="button" class="btn btn-secondary" id="cancelLogin" data-i18n="login_cancel">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal/Container para Prompt Texto -->
+  <div id="promptingModal" class="prompting-modal" role="dialog" aria-labelledby="promptingModalTitle" aria-hidden="true">
+    <div class="prompting-modal-content">
+      <div class="prompting-modal-header">
+        <h2 id="promptingModalTitle" data-i18n="prompting_title">Módulo de Prompt Engineering</h2>
+        <div class="user-info">
+          <span id="loggedUserInfo"></span>
+          <button class="btn btn-logout" id="logoutBtn" data-i18n="logout">Cerrar sesión</button>
+        </div>
+        <button class="prompting-modal-close" aria-label="Cerrar" id="closePromptingModal">&times;</button>
+      </div>
+      <div class="prompting-modal-body">
+        <iframe id="promptingFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
       </div>
     </div>
   </div>

@@ -24,6 +24,17 @@ const translations = {
     nav_impact: 'Impacto',
     nav_contact: 'Contacto',
     nav_news: 'Noticias IA',
+    nav_prompting: 'Prompt Texto',
+    // Login Modal
+    login_title: 'Acceso a Prompt Texto',
+    login_instructions: 'Por favor ingresa tu Student ID o correo electrónico para acceder al módulo de prompting:',
+    login_label: 'Student ID o Email:',
+    login_submit: 'Acceder',
+    login_cancel: 'Cancelar',
+    login_error_invalid: 'Student ID o email no válido. Por favor verifica tus credenciales.',
+    // Prompting Modal
+    prompting_title: 'Módulo de Prompt Engineering',
+    logout: 'Cerrar sesión',
     // Modal
     modal_title: 'Noticias y Artículos de IA',
     tab_news: 'Noticias',
@@ -180,6 +191,17 @@ const translations = {
     nav_impact: 'Impact',
     nav_contact: 'Contact',
     nav_news: 'AI News',
+    nav_prompting: 'Prompt Text',
+    // Login Modal
+    login_title: 'Access to Prompt Text',
+    login_instructions: 'Please enter your Student ID or email to access the prompting module:',
+    login_label: 'Student ID or Email:',
+    login_submit: 'Access',
+    login_cancel: 'Cancel',
+    login_error_invalid: 'Invalid Student ID or email. Please verify your credentials.',
+    // Prompting Modal
+    prompting_title: 'Prompt Engineering Module',
+    logout: 'Logout',
     // Modal
     modal_title: 'AI News and Articles',
     tab_news: 'News',
@@ -330,6 +352,17 @@ const translations = {
     nav_impact: 'Auswirkungen',
     nav_contact: 'Kontakt',
     nav_news: 'KI-Nachrichten',
+    nav_prompting: 'Prompt Text',
+    // Login Modal
+    login_title: 'Zugang zu Prompt Text',
+    login_instructions: 'Bitte geben Sie Ihre Student ID oder E-Mail ein, um auf das Prompting-Modul zuzugreifen:',
+    login_label: 'Student ID oder E-Mail:',
+    login_submit: 'Zugriff',
+    login_cancel: 'Abbrechen',
+    login_error_invalid: 'Ungültige Student ID oder E-Mail. Bitte überprüfen Sie Ihre Anmeldedaten.',
+    // Prompting Modal
+    prompting_title: 'Prompt Engineering Modul',
+    logout: 'Abmelden',
     // Modal
     modal_title: 'KI-Nachrichten und Artikel',
     tab_news: 'Nachrichten',
@@ -480,6 +513,17 @@ const translations = {
     nav_impact: 'Воздействие',
     nav_contact: 'Контакты',
     nav_news: 'Новости ИИ',
+    nav_prompting: 'Промпт Текст',
+    // Login Modal
+    login_title: 'Доступ к Промпт Тексту',
+    login_instructions: 'Пожалуйста, введите ваш Student ID или email для доступа к модулю промптинга:',
+    login_label: 'Student ID или Email:',
+    login_submit: 'Войти',
+    login_cancel: 'Отмена',
+    login_error_invalid: 'Неверный Student ID или email. Пожалуйста, проверьте ваши учетные данные.',
+    // Prompting Modal
+    prompting_title: 'Модуль Prompt Engineering',
+    logout: 'Выйти',
     // Modal
     modal_title: 'Новости и статьи об ИИ',
     tab_news: 'Новости',
@@ -1450,4 +1494,333 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 1500);
     });
   }
+
+  /**
+   * ============================================
+   * AUTHENTICATION SYSTEM FOR PROMPT TEXTO
+   * ============================================
+   */
+
+  // Teacher email for special access
+  const TEACHER_EMAIL = 'jonatan.figueroa.gil@gmail.com';
+
+  // Cache for usuarios.csv data
+  let usuariosData = null;
+
+  /**
+   * Load and parse usuarios.csv file
+   */
+  async function loadUsuariosCSV() {
+    if (usuariosData) {
+      return usuariosData; // Return cached data
+    }
+
+    try {
+      const response = await fetch('usuarios.csv');
+      if (!response.ok) {
+        throw new Error('Could not load usuarios.csv');
+      }
+
+      const csvText = await response.text();
+      const lines = csvText.trim().split('\n');
+
+      // Parse CSV header
+      const headers = lines[0].split(',').map(h => h.trim());
+
+      // Parse CSV rows
+      const users = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map(v => v.trim());
+        const user = {};
+        headers.forEach((header, index) => {
+          user[header] = values[index];
+        });
+        users.push(user);
+      }
+
+      usuariosData = users;
+      return users;
+    } catch (error) {
+      console.error('Error loading usuarios.csv:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Validate user credentials
+   */
+  async function validateCredentials(input) {
+    const normalizedInput = input.trim().toLowerCase();
+
+    // Check if it's the teacher email
+    if (normalizedInput === TEACHER_EMAIL.toLowerCase()) {
+      return {
+        valid: true,
+        user: {
+          'Student Id': 'TEACHER',
+          'Nombre': 'Docente',
+          'Email': TEACHER_EMAIL
+        }
+      };
+    }
+
+    // Load usuarios data
+    const users = await loadUsuariosCSV();
+
+    // Check if input matches Student ID or Email
+    const foundUser = users.find(user => {
+      const studentId = (user['Student Id'] || '').toLowerCase();
+      const email = (user['Email'] || '').toLowerCase();
+      return studentId === normalizedInput || email === normalizedInput;
+    });
+
+    if (foundUser) {
+      return {
+        valid: true,
+        user: foundUser
+      };
+    }
+
+    return {
+      valid: false,
+      user: null
+    };
+  }
+
+  /**
+   * Get current logged in user from sessionStorage
+   */
+  function getCurrentUser() {
+    const userStr = sessionStorage.getItem('promptingUser');
+    return userStr ? JSON.parse(userStr) : null;
+  }
+
+  /**
+   * Set current logged in user
+   */
+  function setCurrentUser(user) {
+    sessionStorage.setItem('promptingUser', JSON.stringify(user));
+  }
+
+  /**
+   * Clear current logged in user
+   */
+  function clearCurrentUser() {
+    sessionStorage.removeItem('promptingUser');
+  }
+
+  /**
+   * Show prompting modal with content
+   */
+  function showPromptingModal(user) {
+    const promptingModal = document.getElementById('promptingModal');
+    const promptingFrame = document.getElementById('promptingFrame');
+    const loggedUserInfo = document.getElementById('loggedUserInfo');
+
+    if (!promptingModal || !promptingFrame || !loggedUserInfo) return;
+
+    // Set user info
+    const userName = user['Nombre'] || 'Usuario';
+    const studentId = user['Student Id'] || '';
+    loggedUserInfo.textContent = `${userName} (${studentId})`;
+
+    // Load the prompting content
+    promptingFrame.src = 'Modulo_Alumnos_Prompting.html';
+
+    // Show modal
+    promptingModal.classList.add('show');
+    promptingModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  /**
+   * Close prompting modal
+   */
+  function closePromptingModal() {
+    const promptingModal = document.getElementById('promptingModal');
+    if (!promptingModal) return;
+
+    promptingModal.classList.remove('show');
+    promptingModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    // Clear iframe src to stop any videos/scripts
+    const promptingFrame = document.getElementById('promptingFrame');
+    if (promptingFrame) {
+      promptingFrame.src = '';
+    }
+  }
+
+  /**
+   * Show login modal
+   */
+  function showLoginModal() {
+    const loginModal = document.getElementById('loginModal');
+    if (!loginModal) return;
+
+    loginModal.classList.add('show');
+    loginModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Focus on input
+    const loginInput = document.getElementById('loginInput');
+    if (loginInput) {
+      setTimeout(() => loginInput.focus(), 100);
+    }
+  }
+
+  /**
+   * Close login modal
+   */
+  function closeLoginModal() {
+    const loginModal = document.getElementById('loginModal');
+    if (!loginModal) return;
+
+    loginModal.classList.remove('show');
+    loginModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    // Clear form
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) loginForm.reset();
+
+    // Hide error
+    const loginError = document.getElementById('loginError');
+    if (loginError) loginError.style.display = 'none';
+  }
+
+  /**
+   * Show login error
+   */
+  function showLoginError(message) {
+    const loginError = document.getElementById('loginError');
+    if (!loginError) return;
+
+    loginError.textContent = message;
+    loginError.style.display = 'block';
+  }
+
+  /**
+   * Handle logout
+   */
+  function handleLogout() {
+    clearCurrentUser();
+    closePromptingModal();
+  }
+
+  // Event listeners for Prompt Texto button
+  const openPromptingBtn = document.getElementById('openPromptingBtn');
+  if (openPromptingBtn) {
+    openPromptingBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Check if already logged in
+      const currentUser = getCurrentUser();
+      if (currentUser) {
+        showPromptingModal(currentUser);
+      } else {
+        showLoginModal();
+      }
+    });
+  }
+
+  // Event listeners for login modal
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const loginInput = document.getElementById('loginInput');
+      if (!loginInput) return;
+
+      const inputValue = loginInput.value.trim();
+      if (!inputValue) {
+        showLoginError('Por favor ingresa tu Student ID o email');
+        return;
+      }
+
+      // Validate credentials
+      const result = await validateCredentials(inputValue);
+
+      if (result.valid) {
+        // Save user to session
+        setCurrentUser(result.user);
+
+        // Close login modal
+        closeLoginModal();
+
+        // Show prompting modal
+        showPromptingModal(result.user);
+      } else {
+        const lang = localStorage.getItem('lang') || 'es';
+        const errorMsg = translations[lang]?.login_error_invalid || 'Student ID o email no válido. Por favor verifica tus credenciales.';
+        showLoginError(errorMsg);
+      }
+    });
+  }
+
+  // Cancel button
+  const cancelLogin = document.getElementById('cancelLogin');
+  if (cancelLogin) {
+    cancelLogin.addEventListener('click', function() {
+      closeLoginModal();
+    });
+  }
+
+  // Close button for login modal
+  const closeLoginModalBtn = document.getElementById('closeLoginModal');
+  if (closeLoginModalBtn) {
+    closeLoginModalBtn.addEventListener('click', function() {
+      closeLoginModal();
+    });
+  }
+
+  // Close button for prompting modal
+  const closePromptingModalBtn = document.getElementById('closePromptingModal');
+  if (closePromptingModalBtn) {
+    closePromptingModalBtn.addEventListener('click', function() {
+      closePromptingModal();
+    });
+  }
+
+  // Logout button
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+      handleLogout();
+    });
+  }
+
+  // Close modals when clicking outside
+  const loginModal = document.getElementById('loginModal');
+  if (loginModal) {
+    loginModal.addEventListener('click', function(e) {
+      if (e.target === loginModal) {
+        closeLoginModal();
+      }
+    });
+  }
+
+  const promptingModal = document.getElementById('promptingModal');
+  if (promptingModal) {
+    promptingModal.addEventListener('click', function(e) {
+      if (e.target === promptingModal) {
+        closePromptingModal();
+      }
+    });
+  }
+
+  // ESC key to close modals
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const loginModal = document.getElementById('loginModal');
+      const promptingModal = document.getElementById('promptingModal');
+
+      if (loginModal && loginModal.classList.contains('show')) {
+        closeLoginModal();
+      } else if (promptingModal && promptingModal.classList.contains('show')) {
+        closePromptingModal();
+      }
+    }
+  });
 });

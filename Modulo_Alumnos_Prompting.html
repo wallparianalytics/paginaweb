@@ -2,3378 +2,399 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>CURSO COMPLETO DE PROMPTING - Parte I: Texto | Jonatan Figueroa Gil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo de Prompting - Wallpari Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            line-height: 1.7; 
-            color: #2c3e50; 
-            margin: 30px; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            position: relative;
-        }
-        .watermark {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            opacity: 0.7;
-            font-size: 14px;
-            background: rgba(255,255,255,0.9);
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            z-index: 1000;
-        }
-        .watermark-header {
-            position: absolute;
-            top: 10px;
-            right: 30px;
-            opacity: 0.6;
-            font-size: 12px;
-            color: white;
-        }
-        .container {
+        .prompting-container {
             max-width: 1200px;
-            margin: 0 auto;
-            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 167, 157, 0.05), rgba(123, 104, 238, 0.05));
             border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        header { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; 
-            padding: 30px; 
-            text-align: center; 
-            border-radius: 15px;
-            margin-bottom: 30px;
-            position: relative;
-        }
-        h1 { 
-            margin: 0; 
-            font-size: 2.5em; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        .subtitle {
-            font-size: 1.2em;
-            margin-top: 10px;
-            opacity: 0.95;
-        }
-        .course-structure {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-        .course-parts {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .part-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
+
+        .prompting-header {
             text-align: center;
-            border: 2px solid #e9ecef;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid var(--teal);
         }
-        .part-card.active {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .prompting-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-blue);
+            margin-bottom: 1rem;
         }
-        .part-card.upcoming {
-            opacity: 0.6;
-            border-style: dashed;
+
+        .prompting-header p {
+            font-size: 1.2rem;
+            color: #666;
         }
-        h2 { 
-            color: #667eea; 
-            border-bottom: 3px solid #667eea; 
-            padding-bottom: 10px; 
-            margin-top: 40px;
-            font-size: 1.8em;
-        }
-        h3 { 
-            color: #764ba2; 
-            background: linear-gradient(90deg, #f8f9fa 0%, white 100%);
-            padding: 10px 15px;
-            border-left: 5px solid #764ba2; 
-            margin-top: 30px;
-        }
-        h4 { 
-            color: #2c3e50; 
-            margin-top: 20px;
-            font-size: 1.1em;
-        }
-        .module { 
-            margin-bottom: 40px;
-        }
-        .objetivo-box {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border-left: 5px solid #667eea;
-        }
-        .teoria-box {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 2px solid #e9ecef;
-        }
-        .practica-box {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            color: #2c3e50;
-        }
-        .ejemplo-box {
-            background-color: #e7f3ff;
-            border-left: 4px solid #0066cc;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        .ejercicio-box {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 25px 0;
-            border: 2px dashed #667eea;
-        }
-        .tip-box {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        .warning-box {
-            background-color: #f8d7da;
-            border-left: 4px solid #dc3545;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        .success-box {
-            background-color: #d4edda;
-            border-left: 4px solid #28a745;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        pre {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-        code {
-            background-color: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #e83e8c;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-        td {
-            border: 1px solid #dee2e6;
-            padding: 12px;
+
+        .lesson-card {
             background: white;
-        }
-        tr:nth-child(even) td {
-            background-color: #f8f9fa;
-        }
-        .checklist {
-            background-color: #fff;
-            border: 2px solid #667eea;
             border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .checklist ul {
-            list-style: none;
-            padding-left: 0;
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 167, 157, 0.15);
         }
-        .checklist li {
-            padding: 8px 0;
-            padding-left: 30px;
-            position: relative;
-        }
-        .checklist li:before {
-            content: "☐";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-size: 1.2em;
-        }
-        .progress-bar {
-            background-color: #e9ecef;
-            border-radius: 10px;
-            padding: 3px;
-            margin: 20px 0;
-        }
-        .progress {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 25px;
-            border-radius: 8px;
-            color: white;
+
+        .lesson-card h2 {
+            color: var(--teal);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            padding-left: 15px;
-            font-weight: bold;
+            gap: 0.75rem;
         }
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin: 0 5px;
+
+        .lesson-card h3 {
+            color: var(--dark-blue);
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
         }
-        .badge-easy {
-            background-color: #28a745;
-            color: white;
-        }
-        .badge-medium {
-            background-color: #ffc107;
-            color: black;
-        }
-        .badge-hard {
-            background-color: #dc3545;
-            color: white;
-        }
-        .icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        .highlight {
-            background-color: #ffeb3b;
-            padding: 2px 4px;
-        }
-        ul, ol {
+
+        .lesson-card p {
             line-height: 1.8;
+            color: #444;
+            margin-bottom: 1rem;
         }
-        .recursos-box {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
+
+        .lesson-card ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
         }
-        .recursos-box a {
-            color: #fff3cd;
-            text-decoration: underline;
+
+        .lesson-card li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
         }
-        .copyright-footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 2px solid #e9ecef;
-            color: #6c757d;
+
+        .code-example {
+            background: #f8f9fa;
+            border-left: 4px solid var(--teal);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
         }
-        .activity-number {
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
+
+        .code-example h4 {
+            color: var(--purple);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .prompt-example {
+            background: linear-gradient(135deg, rgba(123, 104, 238, 0.1), rgba(0, 167, 157, 0.1));
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border: 2px solid var(--purple);
+        }
+
+        .prompt-example strong {
+            color: var(--purple);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .tip-box strong {
+            color: #856404;
+        }
+
+        .exercise-box {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 5px;
+        }
+
+        .exercise-box h4 {
+            color: #0c5460;
+            margin-bottom: 0.75rem;
+        }
+
+        .icon-circle {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            margin-right: 10px;
-            font-weight: bold;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--teal), var(--purple));
+            border-radius: 50%;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .prompting-container {
+                padding: 1rem;
+            }
+
+            .prompting-header h1 {
+                font-size: 2rem;
+            }
+
+            .lesson-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="watermark">© Jonatan Figueroa Gil</div>
-    <div class="container">
-        <header>
-            <div class="watermark-header">© Jonatan Figueroa Gil - 2024</div>
-            <h1>🚀 CURSO COMPLETO DE PROMPTING CON IA</h1>
-            <div class="subtitle">PARTE I: DOMINIO DEL PROMPTING DE TEXTO</div>
-            <div class="subtitle">📚 Guía Definitiva para Estudiantes Universitarios</div>
-        </header>
+    <div class="prompting-container">
+        <div class="prompting-header">
+            <h1><i class="fa-solid fa-brain"></i> Módulo de Prompt Engineering</h1>
+            <p>Aprende a comunicarte efectivamente con modelos de lenguaje de IA</p>
+        </div>
 
-        <div class="course-structure">
-            <h2 style="color: #2c3e50; border: none;">📋 ESTRUCTURA DEL CURSO COMPLETO</h2>
-            <div class="course-parts">
-                <div class="part-card active">
-                    <h4>PARTE I</h4>
-                    <p><strong>TEXTO</strong></p>
-                    <p>✅ Activo</p>
-                </div>
-                <div class="part-card upcoming">
-                    <h4>PARTE II</h4>
-                    <p><strong>IMAGEN</strong></p>
-                    <p>🔜 Próximamente</p>
-                </div>
-                <div class="part-card upcoming">
-                    <h4>PARTE III</h4>
-                    <p><strong>VIDEO</strong></p>
-                    <p>🔜 Próximamente</p>
-                </div>
-                <div class="part-card upcoming">
-                    <h4>PARTE IV</h4>
-                    <p><strong>AUDIO</strong></p>
-                    <p>🔜 Próximamente</p>
-                </div>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-1"></i></span> Introducción al Prompt Engineering</h2>
+            <p>
+                El <strong>Prompt Engineering</strong> es el arte y la ciencia de diseñar instrucciones efectivas para modelos de lenguaje de IA.
+                Un prompt bien diseñado puede marcar la diferencia entre obtener resultados mediocres y respuestas excepcionales.
+            </p>
+
+            <h3>¿Qué es un Prompt?</h3>
+            <p>
+                Un prompt es la entrada de texto que proporcionas a un modelo de IA para obtener una respuesta deseada.
+                Puede ser una pregunta, una instrucción, o un contexto seguido de una tarea específica.
+            </p>
+
+            <div class="prompt-example">
+                <strong>Ejemplo de Prompt Básico:</strong>
+                "Explica qué es el aprendizaje automático en términos simples."
+            </div>
+
+            <div class="prompt-example">
+                <strong>Ejemplo de Prompt Mejorado:</strong>
+                "Eres un profesor de ciencias de datos explicando conceptos a estudiantes de secundaria. Explica qué es el aprendizaje automático usando analogías cotidianas y ejemplos concretos. Mantén la explicación en menos de 150 palabras."
             </div>
         </div>
 
-        <div class="module">
-            <h2>MÓDULO 1: FUNDAMENTOS DEL PROMPTING EFECTIVO</h2>
-            
-            <div class="objetivo-box">
-                <h3>🎯 Objetivos de Aprendizaje</h3>
-                <p>Al finalizar este módulo serás capaz de:</p>
-                <ul>
-                    <li>✅ Identificar los 7 componentes clave de un prompt efectivo</li>
-                    <li>✅ Distinguir entre prompts vagos y específicos</li>
-                    <li>✅ Aplicar la estructura básica de prompting en casos prácticos</li>
-                    <li>✅ Evaluar la calidad de tus prompts sistemáticamente</li>
-                </ul>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-2"></i></span> Principios Fundamentales</h2>
+
+            <h3>1. Claridad y Especificidad</h3>
+            <p>
+                Sé claro y específico en tus instrucciones. Cuanto más detallado sea tu prompt, más alineada estará la respuesta con tus expectativas.
+            </p>
+
+            <div class="code-example">
+                <h4>❌ Prompt Vago:</h4>
+                "Escribe sobre IA."
+
+                <h4 style="margin-top: 1rem;">✅ Prompt Específico:</h4>
+                "Escribe un artículo de 500 palabras sobre las aplicaciones de la IA en el diagnóstico médico, incluyendo ejemplos de detección de cáncer y análisis de imágenes radiológicas."
             </div>
 
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 1: ¿Qué es el Prompting?</h3>
-                
-                <h4>Definición Fundamental</h4>
-                <p>Un <strong>prompt</strong> es la instrucción o pregunta que le das a una IA para obtener una respuesta específica. Es el puente de comunicación entre tu necesidad y la capacidad de la IA.</p>
-                
-                <div class="ejemplo-box">
-                    <p><strong>Analogía del Chef:</strong></p>
-                    <ul>
-                        <li>❌ <strong>Prompt Vago:</strong> "Hazme algo de comer" → Resultado impredecible</li>
-                        <li>✅ <strong>Prompt Específico:</strong> "Prepara un risotto de champiñones para 4 personas, vegetariano, en 30 minutos" → Resultado preciso</li>
-                    </ul>
-                </div>
+            <h3>2. Proporcionar Contexto</h3>
+            <p>
+                Dar contexto ayuda al modelo a entender el marco de referencia y adaptar su respuesta apropiadamente.
+            </p>
 
-                <h4>Los 7 Componentes del Prompt Perfecto</h4>
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Componente</th>
-                        <th>Descripción</th>
-                        <th>Ejemplo</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><strong>ROL</strong></td>
-                        <td>Define quién debe ser la IA</td>
-                        <td>"Actúa como profesor de literatura..."</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><strong>CONTEXTO</strong></td>
-                        <td>Proporciona información de fondo</td>
-                        <td>"Para estudiantes de primer año..."</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><strong>TAREA</strong></td>
-                        <td>Especifica qué debe hacer</td>
-                        <td>"Explica el realismo mágico..."</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><strong>FORMATO</strong></td>
-                        <td>Define estructura de respuesta</td>
-                        <td>"En 5 párrafos con ejemplos..."</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><strong>TONO</strong></td>
-                        <td>Establece estilo comunicativo</td>
-                        <td>"Académico pero accesible..."</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td><strong>RESTRICCIONES</strong></td>
-                        <td>Delimita lo que NO hacer</td>
-                        <td>"Evita jerga compleja..."</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td><strong>EJEMPLOS</strong></td>
-                        <td>Muestra resultado esperado</td>
-                        <td>"Similar a: 'El realismo...'"</td>
-                    </tr>
-                </table>
+            <div class="prompt-example">
+                <strong>Con Contexto:</strong>
+                "Soy un estudiante de ingeniería de software de tercer año trabajando en mi proyecto final sobre sistemas de recomendación. Necesito entender cómo funciona el filtrado colaborativo. Explícamelo con un ejemplo práctico de Netflix o Spotify."
             </div>
 
-            <div class="practica-box">
-                <h3><span class="activity-number">1</span>ACTIVIDAD PRÁCTICA: Primera Comparación</h3>
-                
-                <h4>Ejercicio de Calentamiento</h4>
-                <p>Observa estos dos prompts y sus resultados:</p>
-                
-                <div class="ejemplo-box">
-                    <p><strong>PROMPT A:</strong></p>
-                    <pre>"Escribe sobre inteligencia artificial"</pre>
-                    <p><strong>Resultado típico:</strong> Texto genérico, sin enfoque, longitud variable</p>
-                </div>
-                
-                <div class="ejemplo-box">
-                    <p><strong>PROMPT B:</strong></p>
-                    <pre>"Actúa como profesor de ética tecnológica. 
-Escribe una introducción de 200 palabras sobre los 
-dilemas éticos de la IA en medicina, dirigida a 
-estudiantes de medicina de 3er año. 
-Usa ejemplos reales del 2023-2024.
-Tono: académico pero accesible."</pre>
-                    <p><strong>Resultado típico:</strong> Texto enfocado, longitud precisa, relevante</p>
-                </div>
-                
-                <div class="checklist">
-                    <p><strong>Reflexiona:</strong></p>
-                    <ul>
-                        <li>¿Qué componentes tiene el Prompt B que faltan en A?</li>
-                        <li>¿Cuál sería más útil para un trabajo universitario?</li>
-                        <li>¿Qué agregarías al Prompt B para mejorarlo?</li>
-                    </ul>
-                </div>
+            <h3>3. Definir el Rol</h3>
+            <p>
+                Asignar un rol específico al modelo puede mejorar significativamente la calidad de las respuestas.
+            </p>
+
+            <div class="code-example">
+                <h4>Ejemplos de Roles:</h4>
+                • "Actúa como un experto en ciberseguridad..."<br>
+                • "Eres un analista de datos senior..."<br>
+                • "Como profesor de matemáticas con 20 años de experiencia..."<br>
+                • "En tu rol de arquitecto de software..."
             </div>
 
-            <div class="ejercicio-box">
-                <h3><span class="activity-number">2</span>EJERCICIO GUIADO: Tu Primer Prompt Profesional</h3>
-                
-                <h4>Situación</h4>
-                <p>Necesitas escribir un email para solicitar extensión de plazo a tu profesor.</p>
-                
-                <h4>Paso 1: Identifica los Componentes Necesarios</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>ROL: ¿Quién debería ser la IA? (estudiante responsable)</li>
-                        <li>CONTEXTO: ¿Qué información de fondo? (curso, situación)</li>
-                        <li>TAREA: ¿Qué debe hacer? (redactar email)</li>
-                        <li>FORMATO: ¿Cómo estructurarlo? (email formal, 150-200 palabras)</li>
-                        <li>TONO: ¿Cómo comunicarlo? (respetuoso pero cercano)</li>
-                        <li>RESTRICCIONES: ¿Qué evitar? (excusas elaboradas)</li>
-                    </ul>
-                </div>
-                
-                <h4>Paso 2: Construye tu Prompt</h4>
-                <p>Usa esta plantilla:</p>
-                <pre>ROL: "Actúa como [___________]"
-CONTEXTO: "Soy estudiante de [____]. La situación es [____]"
-TAREA: "Redacta un email para [____] solicitando [____]"
-FORMATO: "El email debe tener [estructura]"
-TONO: "Mantén un tono [____]"
-RESTRICCIONES: "Evita [____]"</pre>
-                
-                <h4>Paso 3: Ejemplo Completo</h4>
-                <div class="success-box">
-                    <pre>"Actúa como estudiante universitario responsable.
-Soy estudiante de 4to año de Psicología. El trabajo sobre 
-'Sesgos cognitivos' tiene entrega el viernes, pero tuve 
-una emergencia médica familiar.
-
-Redacta un email para el Dr. García solicitando extensión 
-hasta el martes. El email debe:
-- Ser breve (150-200 palabras)
-- Explicar sin dar exceso de detalles personales
-- Mostrar que tengo 70% avanzado
-- Proponer nueva fecha específica
-- Ofrecer enviar avance actual
-
-Tono: respetuoso pero no excesivamente formal
-Evita: excusas elaboradas, tono victimista"</pre>
-                </div>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3><span class="activity-number">3</span>EJERCICIO INDIVIDUAL: Practica con tu Caso</h3>
-                
-                <h4>Tu Turno</h4>
-                <p>Elige UNA de estas situaciones y crea un prompt completo:</p>
-                
-                <ol>
-                    <li><strong>Resumen de lectura:</strong> Necesitas resumir un capítulo de 30 páginas</li>
-                    <li><strong>Preparación de examen:</strong> Quieres que la IA te ayude a estudiar</li>
-                    <li><strong>Brainstorming de tesis:</strong> Buscas ideas para tu tema de investigación</li>
-                </ol>
-                
-                <div class="tip-box">
-                    <p><strong>Plantilla de Trabajo:</strong></p>
-                    <pre>MI SITUACIÓN: [Describe tu necesidad]
-
-MI PROMPT:
-ROL: ________________
-CONTEXTO: ________________
-TAREA: ________________
-FORMATO: ________________
-TONO: ________________
-RESTRICCIONES: ________________
-EJEMPLOS (opcional): ________________
-
-AUTOEVALUACIÓN:
-□ ¿Es específico?
-□ ¿Tiene todos los componentes necesarios?
-□ ¿El formato es claro?
-□ ¿El tono es apropiado?</pre>
-                </div>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3><span class="activity-number">4</span>DESAFÍO: Mejora Progresiva</h3>
-                
-                <h4>Evolución de un Prompt</h4>
-                <p>Observa cómo mejora un prompt con cada iteración:</p>
-                
-                <table>
-                    <tr>
-                        <th>Versión</th>
-                        <th>Prompt</th>
-                        <th>Calidad</th>
-                    </tr>
-                    <tr>
-                        <td>v1.0</td>
-                        <td>"Resume este texto"</td>
-                        <td>⭐</td>
-                    </tr>
-                    <tr>
-                        <td>v2.0</td>
-                        <td>"Resume este texto en 200 palabras"</td>
-                        <td>⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td>v3.0</td>
-                        <td>"Resume este artículo científico en 200 palabras, destacando metodología y resultados"</td>
-                        <td>⭐⭐⭐</td>
-                    </tr>
-                    <tr>
-                        <td>v4.0</td>
-                        <td>"Actúa como investigador. Resume este artículo científico en 200 palabras para revista académica. Estructura: objetivo (50 palabras), metodología (50), resultados (50), conclusiones (50). Mantén tono académico formal."</td>
-                        <td>⭐⭐⭐⭐⭐</td>
-                    </tr>
-                </table>
-                
-                <p><strong>Tu desafío:</strong> Toma un prompt simple que uses frecuentemente y evoluciona a través de 4 versiones.</p>
-            </div>
-
-            <div class="success-box">
-                <h3>✅ Autoevaluación del Módulo 1</h3>
-                <div class="checklist">
-                    <p><strong>Antes de continuar, verifica que puedes:</strong></p>
-                    <ul>
-                        <li>Identificar los 7 componentes de un prompt</li>
-                        <li>Distinguir entre un prompt vago y uno específico</li>
-                        <li>Crear un prompt con al menos 5 componentes</li>
-                        <li>Mejorar progresivamente un prompt básico</li>
-                        <li>Evaluar la calidad de un prompt</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 20%;">
-                    Módulo 1 Completado - 20%
-                </div>
+            <div class="tip-box">
+                <strong>💡 Consejo:</strong> Combina rol, contexto y tarea específica para obtener los mejores resultados.
             </div>
         </div>
 
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 2: Catálogo Completo de Roles, Tonos y Formatos</h3>
-                
-                <h4>🎭 CATÁLOGO MAESTRO DE ROLES (50+ Roles Profesionales)</h4>
-                
-                <div class="tip-box">
-                    <p><strong>💡 Concepto Clave:</strong> El ROL define la perspectiva, conocimiento y enfoque que adoptará la IA. Es como contratar a un especialista específico para tu tarea.</p>
-                </div>
-                
-                <table>
-                    <tr>
-                        <th>Categoría</th>
-                        <th>Rol Específico</th>
-                        <th>Prompt de Ejemplo</th>
-                        <th>Output Esperado</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>ACADÉMICOS</strong></td>
-                        <td>Profesor de Universidad Ivy League</td>
-                        <td>"Actúa como profesor titular de Harvard especializado en..."</td>
-                        <td>Riguroso, con referencias académicas, socrático</td>
-                    </tr>
-                    <tr>
-                        <td>Investigador Postdoctoral</td>
-                        <td>"Actúa como investigador postdoc en MIT trabajando en..."</td>
-                        <td>Cutting-edge, experimental, hipótesis novedosas</td>
-                    </tr>
-                    <tr>
-                        <td>Estudiante de Doctorado</td>
-                        <td>"Actúa como PhD candidate defendiendo su tesis sobre..."</td>
-                        <td>Detallado, defensivo de su posición, exhaustivo</td>
-                    </tr>
-                    <tr>
-                        <td>Revisor de Journal Académico</td>
-                        <td>"Actúa como peer reviewer para Nature evaluando..."</td>
-                        <td>Crítico, buscando flaws, constructivo</td>
-                    </tr>
-                    <tr>
-                        <td>Bibliotecario de Investigación</td>
-                        <td>"Actúa como bibliotecario jefe de la Biblioteca del Congreso..."</td>
-                        <td>Organizado, con fuentes, sistemático</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>CREATIVOS</strong></td>
-                        <td>Copywriter Publicitario</td>
-                        <td>"Actúa como copywriter senior de Ogilvy & Mather..."</td>
-                        <td>Persuasivo, creativo, orientado a ventas</td>
-                    </tr>
-                    <tr>
-                        <td>Novelista Bestseller</td>
-                        <td>"Actúa como autor bestseller del NYT especializado en..."</td>
-                        <td>Narrativo, con giros, character development</td>
-                    </tr>
-                    <tr>
-                        <td>Guionista de Hollywood</td>
-                        <td>"Actúa como guionista ganador del Oscar escribiendo..."</td>
-                        <td>Diálogos naturales, estructura de 3 actos</td>
-                    </tr>
-                    <tr>
-                        <td>Poeta Laureado</td>
-                        <td>"Actúa como poeta laureado nacional componiendo..."</td>
-                        <td>Lírico, metafórico, con ritmo y métrica</td>
-                    </tr>
-                    <tr>
-                        <td>Storyteller Corporativo</td>
-                        <td>"Actúa como Chief Storytelling Officer creando..."</td>
-                        <td>Business narratives, case studies emotivos</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>TÉCNICOS</strong></td>
-                        <td>Arquitecto de Software</td>
-                        <td>"Actúa como Principal Engineer de Google diseñando..."</td>
-                        <td>Diagramas de sistema, patterns, escalable</td>
-                    </tr>
-                    <tr>
-                        <td>Data Scientist</td>
-                        <td>"Actúa como Senior Data Scientist de Netflix analizando..."</td>
-                        <td>Estadísticas, modelos, visualizaciones</td>
-                    </tr>
-                    <tr>
-                        <td>DevOps Engineer</td>
-                        <td>"Actúa como SRE de Amazon optimizando..."</td>
-                        <td>CI/CD, automation, monitoring</td>
-                    </tr>
-                    <tr>
-                        <td>Security Analyst</td>
-                        <td>"Actúa como CISO evaluando vulnerabilidades en..."</td>
-                        <td>Threat modeling, risk assessment</td>
-                    </tr>
-                    <tr>
-                        <td>UX Researcher</td>
-                        <td>"Actúa como Lead UX Researcher de Apple estudiando..."</td>
-                        <td>User personas, journey maps, insights</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>BUSINESS</strong></td>
-                        <td>CEO Fortune 500</td>
-                        <td>"Actúa como CEO de una empresa Fortune 500 decidiendo..."</td>
-                        <td>Estratégico, visión macro, ROI-focused</td>
-                    </tr>
-                    <tr>
-                        <td>Consultor McKinsey</td>
-                        <td>"Actúa como Partner de McKinsey asesorando sobre..."</td>
-                        <td>Frameworks, MECE, 80/20, insights</td>
-                    </tr>
-                    <tr>
-                        <td>Venture Capitalist</td>
-                        <td>"Actúa como Managing Partner de Sequoia evaluando..."</td>
-                        <td>Due diligence, scalability, market fit</td>
-                    </tr>
-                    <tr>
-                        <td>CFO Analítico</td>
-                        <td>"Actúa como CFO analizando estados financieros..."</td>
-                        <td>Métricas financieras, ratios, proyecciones</td>
-                    </tr>
-                    <tr>
-                        <td>Product Manager</td>
-                        <td>"Actúa como Senior PM de Spotify priorizando features..."</td>
-                        <td>User stories, roadmap, trade-offs</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>ESPECIALISTAS</strong></td>
-                        <td>Médico Especialista</td>
-                        <td>"Actúa como neurólogo de Johns Hopkins diagnosticando..."</td>
-                        <td>Diagnóstico diferencial, evidence-based</td>
-                    </tr>
-                    <tr>
-                        <td>Abogado Corporativo</td>
-                        <td>"Actúa como Senior Partner de Baker McKenzie revisando..."</td>
-                        <td>Cláusulas, riesgos legales, compliance</td>
-                    </tr>
-                    <tr>
-                        <td>Psicólogo Clínico</td>
-                        <td>"Actúa como psicólogo PhD especializado en CBT..."</td>
-                        <td>Empático, técnicas terapéuticas, DSM-5</td>
-                    </tr>
-                    <tr>
-                        <td>Economista del FMI</td>
-                        <td>"Actúa como economista senior del FMI analizando..."</td>
-                        <td>Macroeconómico, modelos, policy implications</td>
-                    </tr>
-                    <tr>
-                        <td>Chef Michelin</td>
-                        <td>"Actúa como chef 3 estrellas Michelin creando..."</td>
-                        <td>Técnicas haute cuisine, maridajes, presentación</td>
-                    </tr>
-                </table>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-3"></i></span> Técnicas Avanzadas</h2>
 
-                <h4>🎨 CATÁLOGO DE TONOS (30+ Estilos de Comunicación)</h4>
-                
-                <div class="tip-box">
-                    <p><strong>💡 Concepto Clave:</strong> El TONO define CÓMO se comunica la información. El mismo contenido puede ser formal, casual, humorístico o técnico según la audiencia.</p>
-                </div>
-                
-                <table>
-                    <tr>
-                        <th>Categoría de Tono</th>
-                        <th>Variantes Específicas</th>
-                        <th>Cuándo Usarlo</th>
-                        <th>Frases Características</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="4"><strong>PROFESIONAL</strong></td>
-                        <td>Corporativo Formal</td>
-                        <td>Reportes ejecutivos, comunicados oficiales</td>
-                        <td>"Se evidencia", "Cabe destacar", "Es menester"</td>
-                    </tr>
-                    <tr>
-                        <td>Profesional Amigable</td>
-                        <td>Emails de trabajo, presentaciones internas</td>
-                        <td>"Compartimos", "Nos complace", "Trabajemos juntos"</td>
-                    </tr>
-                    <tr>
-                        <td>Diplomático</td>
-                        <td>Negociaciones, feedback delicado</td>
-                        <td>"Podría considerarse", "Una alternativa sería", "Respetando diferentes perspectivas"</td>
-                    </tr>
-                    <tr>
-                        <td>Autoritativo</td>
-                        <td>Políticas, directrices, manuales</td>
-                        <td>"Se debe", "Es obligatorio", "Sin excepciones"</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="4"><strong>ACADÉMICO</strong></td>
-                        <td>Scholarly Riguroso</td>
-                        <td>Papers, tesis doctorales</td>
-                        <td>"La evidencia sugiere", "Según la literatura", "Hipótesis nula"</td>
-                    </tr>
-                    <tr>
-                        <td>Pedagógico</td>
-                        <td>Materiales educativos, tutoriales</td>
-                        <td>"Aprendamos", "Veamos un ejemplo", "Paso a paso"</td>
-                    </tr>
-                    <tr>
-                        <td>Socrático</td>
-                        <td>Discusiones filosóficas, debates</td>
-                        <td>"¿Qué pasaría si...?", "¿Cómo definirías...?", "Consideremos"</td>
-                    </tr>
-                    <tr>
-                        <td>Divulgativo</td>
-                        <td>Artículos de ciencia popular</td>
-                        <td>"Imagina", "Es como si", "En términos simples"</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="4"><strong>CREATIVO</strong></td>
-                        <td>Narrativo</td>
-                        <td>Storytelling, casos de estudio</td>
-                        <td>"Había una vez", "Todo comenzó cuando", "El giro inesperado"</td>
-                    </tr>
-                    <tr>
-                        <td>Inspiracional</td>
-                        <td>Charlas motivacionales, coaching</td>
-                        <td>"Tú puedes", "Imagina tu mejor versión", "El éxito está cerca"</td>
-                    </tr>
-                    <tr>
-                        <td>Humorístico</td>
-                        <td>Contenido viral, engagement</td>
-                        <td>"Plot twist", "Spoiler alert", "Wait for it"</td>
-                    </tr>
-                    <tr>
-                        <td>Poético</td>
-                        <td>Descripciones artísticas, branding</td>
-                        <td>"Como el rocío de la mañana", "Danza de palabras", "Sinfonía de ideas"</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="4"><strong>CONVERSACIONAL</strong></td>
-                        <td>Casual Amistoso</td>
-                        <td>Blogs, redes sociales</td>
-                        <td>"Oye", "¿Sabes qué?", "Te cuento"</td>
-                    </tr>
-                    <tr>
-                        <td>Gen Z</td>
-                        <td>TikTok, contenido para jóvenes</td>
-                        <td>"No cap", "Hits different", "It's giving..."</td>
-                    </tr>
-                    <tr>
-                        <td>Empático</td>
-                        <td>Customer service, terapia</td>
-                        <td>"Entiendo cómo te sientes", "Es completamente válido", "Estoy aquí"</td>
-                    </tr>
-                    <tr>
-                        <td>Coloquial Regional</td>
-                        <td>Contenido localizado</td>
-                        <td>Modismos locales, jerga específica del país</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="4"><strong>TÉCNICO</strong></td>
-                        <td>Ultra-técnico</td>
-                        <td>Documentación de API, specs</td>
-                        <td>"Endpoint", "Payload", "Deprecated", "Callback"</td>
-                    </tr>
-                    <tr>
-                        <td>Técnico Accesible</td>
-                        <td>Tutoriales técnicos para principiantes</td>
-                        <td>"Básicamente", "En pocas palabras", "Piénsalo como"</td>
-                    </tr>
-                    <tr>
-                        <td>Analítico</td>
-                        <td>Reportes de datos, research</td>
-                        <td>"Los datos indican", "Correlación de 0.8", "Estadísticamente significativo"</td>
-                    </tr>
-                    <tr>
-                        <td>Troubleshooting</td>
-                        <td>Soporte técnico, debugging</td>
-                        <td>"Verifica que", "Si el error persiste", "Solución alternativa"</td>
-                    </tr>
-                </table>
+            <h3>Chain-of-Thought (Cadena de Pensamiento)</h3>
+            <p>
+                Pide al modelo que muestre su razonamiento paso a paso. Esto mejora la precisión en tareas que requieren lógica o cálculos.
+            </p>
 
-                <h4>📐 CATÁLOGO DE FORMATOS (40+ Estructuras de Output)</h4>
-                
-                <div class="tip-box">
-                    <p><strong>💡 Concepto Clave:</strong> El FORMATO define la ESTRUCTURA visual y organizacional del output. Un mismo análisis puede ser una tabla, un ensayo o bullet points.</p>
-                </div>
-                
-                <table>
-                    <tr>
-                        <th>Tipo de Formato</th>
-                        <th>Variantes</th>
-                        <th>Instrucción en Prompt</th>
-                        <th>Mejor Para</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>ESTRUCTURADOS</strong></td>
-                        <td>Tabla Comparativa</td>
-                        <td>"Crea tabla con columnas: [A], [B], [C]"</td>
-                        <td>Comparaciones, análisis multivariable</td>
-                    </tr>
-                    <tr>
-                        <td>Matriz 2x2</td>
-                        <td>"Organiza en matriz de [Eje X] vs [Eje Y]"</td>
-                        <td>Análisis estratégico, priorizacion</td>
-                    </tr>
-                    <tr>
-                        <td>Timeline/Cronograma</td>
-                        <td>"Presenta cronológicamente desde [fecha] hasta [fecha]"</td>
-                        <td>Evolución, planificación, historia</td>
-                    </tr>
-                    <tr>
-                        <td>Árbol de Decisiones</td>
-                        <td>"Estructura como árbol de decisiones con nodos SI/NO"</td>
-                        <td>Procesos de decisión, troubleshooting</td>
-                    </tr>
-                    <tr>
-                        <td>Mind Map</td>
-                        <td>"Organiza como mapa mental con idea central y ramas"</td>
-                        <td>Brainstorming, relaciones conceptuales</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>NARRATIVOS</strong></td>
-                        <td>Ensayo de 5 Párrafos</td>
-                        <td>"Estructura: Intro, 3 argumentos, conclusión"</td>
-                        <td>Argumentación académica</td>
-                    </tr>
-                    <tr>
-                        <td>Storytelling STAR</td>
-                        <td>"Usa formato STAR: Situation, Task, Action, Result"</td>
-                        <td>Casos de éxito, entrevistas</td>
-                    </tr>
-                    <tr>
-                        <td>Pirámide Invertida</td>
-                        <td>"Empieza con lo más importante, luego detalles"</td>
-                        <td>Noticias, comunicados de prensa</td>
-                    </tr>
-                    <tr>
-                        <td>Problem-Solution</td>
-                        <td>"Estructura: Problema → Causas → Solución → Beneficios"</td>
-                        <td>Propuestas, pitches</td>
-                    </tr>
-                    <tr>
-                        <td>Hero's Journey</td>
-                        <td>"Narra como viaje del héroe con desafíos y transformación"</td>
-                        <td>Brand storytelling, casos inspiradores</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>LISTADOS</strong></td>
-                        <td>Bullet Points Jerárquicos</td>
-                        <td>"Lista con bullets y sub-bullets (máx 3 niveles)"</td>
-                        <td>Resúmenes, takeaways</td>
-                    </tr>
-                    <tr>
-                        <td>Checklist Interactivo</td>
-                        <td>"Crea checklist con [ ] para marcar completado"</td>
-                        <td>Procesos, verificación</td>
-                    </tr>
-                    <tr>
-                        <td>Top 10 Ranking</td>
-                        <td>"Lista top 10 de mejor a peor con justificación"</td>
-                        <td>Recomendaciones, reviews</td>
-                    </tr>
-                    <tr>
-                        <td>Pros y Contras</td>
-                        <td>"Tabla de 2 columnas: Ventajas | Desventajas"</td>
-                        <td>Evaluación de opciones</td>
-                    </tr>
-                    <tr>
-                        <td>FAQ</td>
-                        <td>"Formato Q&A con preguntas en negrita"</td>
-                        <td>Documentación, soporte</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>VISUALES</strong></td>
-                        <td>Dashboard KPIs</td>
-                        <td>"Crea dashboard con 6 métricas en formato card"</td>
-                        <td>Reportes ejecutivos</td>
-                    </tr>
-                    <tr>
-                        <td>Infografía Descrita</td>
-                        <td>"Describe infografía con secciones visuales"</td>
-                        <td>Contenido para diseñadores</td>
-                    </tr>
-                    <tr>
-                        <td>Diagrama de Flujo</td>
-                        <td>"Diagrama con START → [procesos] → END"</td>
-                        <td>Procesos, algoritmos</td>
-                    </tr>
-                    <tr>
-                        <td>Gráfico ASCII</td>
-                        <td>"Crea gráfico de barras usando caracteres ASCII"</td>
-                        <td>Visualización rápida en texto</td>
-                    </tr>
-                    <tr>
-                        <td>Mapa de Calor</td>
-                        <td>"Matriz donde valores altos = 🔴, medios = 🟡, bajos = 🟢"</td>
-                        <td>Análisis de intensidad</td>
-                    </tr>
-                    <tr>
-                        <td rowspan="5"><strong>TÉCNICOS</strong></td>
-                        <td>JSON</td>
-                        <td>"Output en formato JSON con estructura: {key: value}"</td>
-                        <td>APIs, configuraciones</td>
-                    </tr>
-                    <tr>
-                        <td>XML</td>
-                        <td>"Estructura XML con tags &lt;tag&gt;content&lt;/tag&gt;"</td>
-                        <td>Intercambio de datos</td>
-                    </tr>
-                    <tr>
-                        <td>Markdown</td>
-                        <td>"Formato Markdown con # headers y **bold**"</td>
-                        <td>Documentación, README</td>
-                    </tr>
-                    <tr>
-                        <td>CSV</td>
-                        <td>"Formato CSV con headers: col1,col2,col3"</td>
-                        <td>Importación a Excel</td>
-                    </tr>
-                    <tr>
-                        <td>SQL Output</td>
-                        <td>"Muestra como resultado de query SQL con columnas"</td>
-                        <td>Reportes de base de datos</td>
-                    </tr>
-                </table>
-
-                <div class="ejercicio-box">
-                    <h3>🎯 EJERCICIO PRÁCTICO: Combinación de Rol + Tono + Formato</h3>
-                    
-                    <p><strong>Objetivo:</strong> Practicar la combinación estratégica de estos tres elementos.</p>
-                    
-                    <h4>Ejemplo 1: Análisis de Mercado</h4>
-                    <pre>PROMPT MAL DISEÑADO:
-"Analiza el mercado de smartphones"
-
-PROMPT OPTIMIZADO:
-ROL: "Actúa como analista senior de Gartner especializado en tecnología móvil"
-TONO: "Usa tono ejecutivo conciso pero accesible para C-suite no técnico"
-FORMATO: "Presenta en:
-1. Dashboard con 5 KPIs clave
-2. Tabla comparativa top 5 marcas
-3. Bullet points con 3 tendencias emergentes
-4. Matriz 2x2 de posicionamiento (precio vs innovación)"
-CONTEXTO: "Para presentación a board de empresa de telecomunicaciones"
-
-El output será radicalmente diferente y mucho más útil.</pre>
-
-                    <h4>Ejemplo 2: Material Educativo</h4>
-                    <pre>MISMO CONTENIDO, 3 COMBINACIONES DIFERENTES:
-
-VERSIÓN A - Para Niños:
-ROL: "Actúa como maestro de primaria"
-TONO: "Divertido, con analogías de videojuegos"
-FORMATO: "Historia corta con personajes"
-
-VERSIÓN B - Para Universitarios:
-ROL: "Actúa como profesor de MIT"
-TONO: "Académico pero engaging"
-FORMATO: "Caso de estudio con datos reales"
-
-VERSIÓN C - Para Profesionales:
-ROL: "Actúa como consultor de Deloitte"
-TONO: "Business-focused, ROI-oriented"
-FORMATO: "Executive summary + action items"</pre>
-
-                    <div class="tip-box">
-                        <p><strong>💡 Regla de Oro:</strong> ROL define el QUÉ (contenido), TONO define el CÓMO (estilo), FORMATO define el DÓNDE (estructura). Domina estos tres y dominarás el prompting.</p>
-                    </div>
-                </div>
+            <div class="prompt-example">
+                <strong>Ejemplo:</strong>
+                "Resuelve el siguiente problema mostrando cada paso de tu razonamiento:<br><br>
+                Una empresa tiene 3 productos. El Producto A cuesta $50 y se venden 100 unidades al mes. El Producto B cuesta $75 y se venden 80 unidades. El Producto C cuesta $100 y se venden 50 unidades. ¿Cuál es el ingreso mensual total?"
             </div>
 
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 3: Técnicas Avanzadas de Prompting</h3>
-                
-                <h4>1. Chain-of-Thought (Cadena de Pensamiento)</h4>
-                <p>Esta técnica hace que la IA "piense en voz alta" antes de responder, mejorando significativamente la calidad del razonamiento.</p>
-                
-                <div class="ejemplo-box">
-                    <p><strong>Sin Chain-of-Thought:</strong></p>
-                    <pre>"¿Cuántos días laborables hay en febrero de 2024?"</pre>
-                    
-                    <p><strong>Con Chain-of-Thought:</strong></p>
-                    <pre>"¿Cuántos días laborables hay en febrero de 2024? 
-Piensa paso a paso:
-1. Primero identifica si 2024 es año bisiesto
-2. Determina cuántos días tiene febrero
-3. Identifica qué día de la semana comienza febrero
-4. Cuenta los días de lunes a viernes
-5. Resta los días festivos si los hay
-6. Da el total final"</pre>
-                </div>
-                
-                <h4>2. Few-Shot Learning (Aprendizaje con Ejemplos)</h4>
-                <p>Proporciona ejemplos del tipo de respuesta que esperas.</p>
-                
-                <div class="ejemplo-box">
-                    <p><strong>Prompt con Few-Shot:</strong></p>
-                    <pre>"Clasifica estos comentarios como positivos, negativos o neutrales:
+            <h3>Few-Shot Learning (Aprendizaje con Ejemplos)</h3>
+            <p>
+                Proporciona ejemplos del formato o tipo de respuesta que deseas antes de hacer tu pregunta principal.
+            </p>
 
-Ejemplo 1: 'Este producto superó mis expectativas' → POSITIVO
-Ejemplo 2: 'El envío fue puntual' → NEUTRAL
-Ejemplo 3: 'Decepcionante calidad por el precio' → NEGATIVO
-
-Ahora clasifica:
-1. 'No está mal, pero he visto mejores'
-2. 'Increíble servicio al cliente'
-3. 'Llegó tal como se describe'"</pre>
-                </div>
-                
-                <h4>3. Role-Playing Avanzado</h4>
-                <p>Define no solo quién es la IA, sino también su experiencia y perspectiva.</p>
-                
-                <table>
-                    <tr>
-                        <th>Nivel</th>
-                        <th>Ejemplo de Rol</th>
-                        <th>Resultado Esperado</th>
-                    </tr>
-                    <tr>
-                        <td><span class="badge badge-easy">Básico</span></td>
-                        <td>"Actúa como profesor"</td>
-                        <td>Respuesta educativa general</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge badge-medium">Intermedio</span></td>
-                        <td>"Actúa como profesor de historia medieval"</td>
-                        <td>Respuesta especializada en el tema</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge badge-hard">Avanzado</span></td>
-                        <td>"Actúa como profesor de historia medieval de Oxford, especializado en las Cruzadas, con 20 años de experiencia y un enfoque revisionista"</td>
-                        <td>Respuesta altamente especializada con perspectiva única</td>
-                    </tr>
-                </table>
+            <div class="code-example">
+                <h4>Ejemplo de Few-Shot:</h4>
+                Clasifica el sentimiento de los siguientes tweets:<br><br>
+                Tweet: "¡Me encanta este producto! Es increíble."<br>
+                Sentimiento: Positivo<br><br>
+                Tweet: "El servicio al cliente fue terrible, muy decepcionante."<br>
+                Sentimiento: Negativo<br><br>
+                Tweet: "El producto llegó a tiempo y funciona bien."<br>
+                Sentimiento: [El modelo completará esto]
             </div>
 
-            <div class="ejercicio-box">
-                <h3>🎮 DESAFÍO PRÁCTICO: Batalla de Prompts</h3>
-                
-                <p><strong>Objetivo:</strong> Compite contigo mismo para crear el mejor prompt posible.</p>
-                
-                <h4>Ronda 1: Email Profesional</h4>
-                <p><strong>Desafío:</strong> Necesitas que la IA te ayude a escribir un email para solicitar una extensión de plazo para un trabajo.</p>
-                
-                <p><strong>Tu primer intento (3 minutos):</strong></p>
-                <div class="tip-box">
-                    <p>Escribe aquí tu prompt inicial:</p>
-                    <p>_____________________________________________</p>
-                    <p>_____________________________________________</p>
-                </div>
-                
-                <p><strong>Autoevaluación - Checklist:</strong></p>
-                <div class="checklist">
-                    <ul>
-                        <li>¿Especificaste quién eres (estudiante de qué)?</li>
-                        <li>¿Mencionaste el curso/materia específica?</li>
-                        <li>¿Indicaste el motivo real de la extensión?</li>
-                        <li>¿Definiste el tono (formal pero cercano)?</li>
-                        <li>¿Estableciste la longitud (breve, 150-200 palabras)?</li>
-                        <li>¿Incluiste que debe proponer nueva fecha?</li>
-                        <li>¿Pediste que muestre responsabilidad?</li>
-                    </ul>
-                </div>
-                
-                <p><strong>Versión mejorada (después del checklist):</strong></p>
-                <div class="success-box">
-                    <p><strong>Prompt Optimizado Ejemplo:</strong></p>
-                    <pre>"Actúa como un estudiante universitario responsable. 
-Redacta un email profesional pero cercano para mi profesor 
-de Metodología de la Investigación, Dr. García.
+            <h3>Delimitadores y Estructura</h3>
+            <p>
+                Usa delimitadores claros para separar diferentes partes de tu prompt.
+            </p>
 
-Contexto: Soy estudiante de 4to año de Psicología. 
-El trabajo sobre 'Sesgos cognitivos en la toma de decisiones' 
-tiene fecha de entrega este viernes, pero tuve una emergencia 
-médica familiar que me ha impedido avanzar esta semana.
+            <div class="code-example">
+                <h4>Usando Delimitadores:</h4>
+                Analiza el siguiente texto y extrae:<br>
+                1. Tema principal<br>
+                2. Palabras clave (máximo 5)<br>
+                3. Tono del texto<br><br>
 
-El email debe:
-- Ser breve (150-200 palabras)
-- Explicar la situación sin dar demasiados detalles personales
-- Mostrar que ya tengo 70% del trabajo hecho
-- Proponer nueva fecha (martes próximo)
-- Ofrecer enviar el avance actual como muestra de buena fe
-- Agradecer la comprensión
-- Mantener tono respetuoso pero no excesivamente formal
+                Texto: """<br>
+                [Aquí va el texto a analizar]<br>
+                """<br><br>
 
-Evita: Excusas elaboradas, tono de víctima, promesas poco realistas"</pre>
-                </div>
-            </div>
-
-            <div class="practica-box">
-                <h3>🔬 LABORATORIO PRÁCTICO 2: Prompts para Investigación Académica</h3>
-                
-                <h4>Caso de Estudio: Búsqueda Bibliográfica Inteligente</h4>
-                
-                <div class="ejercicio-box">
-                    <p><strong>Situación:</strong> Necesitas encontrar fuentes para tu tesis sobre "Impacto de las redes sociales en la salud mental adolescente"</p>
-                    
-                    <h4>Prompt Nivel 1: Búsqueda Básica</h4>
-                    <pre>"Dame información sobre redes sociales y salud mental en adolescentes"</pre>
-                    
-                    <p><strong>Problemas:</strong> Demasiado general, no especifica tipo de fuentes, no delimita temporalmente.</p>
-                    
-                    <h4>Prompt Nivel 2: Búsqueda Mejorada</h4>
-                    <pre>"Actúa como bibliotecario académico. 
-Busca estudios sobre el impacto de Instagram y TikTok 
-en la ansiedad y depresión de adolescentes (13-18 años). 
-Solo estudios posteriores a 2020."</pre>
-                    
-                    <p><strong>Mejor, pero falta:</strong> Formato de citación, tipo de estudios, contexto geográfico.</p>
-                    
-                    <h4>Prompt Nivel 3: Búsqueda Profesional</h4>
-                    <pre>"Actúa como investigador especializado en psicología adolescente.
-
-Necesito construir un estado del arte sobre 'Impacto de redes 
-sociales (Instagram, TikTok, Snapchat) en indicadores de salud 
-mental (ansiedad, depresión, autoestima) en adolescentes'.
-
-Proporciona:
-1. 10 estudios empíricos (2020-2024) con diseño experimental 
-   o longitudinal
-2. 3 meta-análisis recientes
-3. 2 revisiones sistemáticas
-
-Para cada fuente incluye:
-- Cita en formato APA 7ma edición
-- Muestra (n=X, edad, país)
-- Metodología principal
-- Hallazgo clave (1 oración)
-- Limitación principal
-
-Prioriza:
-- Estudios con n>500 participantes
-- Publicaciones en revistas Q1 o Q2
-- Contextos occidentales comparables con Latinoamérica
-
-Organiza por: Año (más reciente primero), luego por tamaño de muestra"</pre>
-                    
-                    <div class="tip-box">
-                        <p><strong>💡 Tip Pro:</strong> Guarda este prompt como plantilla y adáptalo para diferentes temas de investigación cambiando solo las variables clave (tema, años, tipo de estudios).</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 3: Optimización y Debugging de Prompts</h3>
-                
-                <h4>El Método REFINE para Mejorar Prompts</h4>
-                
-                <table>
-                    <tr>
-                        <th>Letra</th>
-                        <th>Acción</th>
-                        <th>Pregunta Clave</th>
-                    </tr>
-                    <tr>
-                        <td><strong>R</strong></td>
-                        <td>Revisar objetivo</td>
-                        <td>¿Qué quiero lograr exactamente?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>E</strong></td>
-                        <td>Especificar contexto</td>
-                        <td>¿Qué información de fondo necesita la IA?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>F</strong></td>
-                        <td>Formatear salida</td>
-                        <td>¿Cómo debe verse el resultado?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>I</strong></td>
-                        <td>Incluir ejemplos</td>
-                        <td>¿Puedo mostrar lo que espero?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>N</strong></td>
-                        <td>Negar lo no deseado</td>
-                        <td>¿Qué NO quiero en la respuesta?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>E</strong></td>
-                        <td>Evaluar y ajustar</td>
-                        <td>¿El resultado cumple mis expectativas?</td>
-                    </tr>
-                </table>
-                
-                <h4>Señales de que tu Prompt Necesita Mejora</h4>
-                
-                <div class="warning-box">
-                    <p><strong>🚨 Red Flags en las Respuestas:</strong></p>
-                    <ul>
-                        <li>La IA dice "Aquí hay algunas ideas generales..."</li>
-                        <li>Recibes listas genéricas sin profundidad</li>
-                        <li>El tono no coincide con lo que necesitas</li>
-                        <li>La respuesta es demasiado corta o demasiado larga</li>
-                        <li>Falta estructura clara</li>
-                        <li>No incluye ejemplos específicos</li>
-                        <li>Usa información desactualizada</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3>🎯 PROYECTO FINAL DEL MÓDULO</h3>
-                
-                <h4>Crea tu Biblioteca Personal de Prompts</h4>
-                
-                <p><strong>Objetivo:</strong> Desarrollar una colección de 10 prompts maestros para tus necesidades académicas recurrentes.</p>
-                
-                <div class="checklist">
-                    <p><strong>Categorías Requeridas:</strong></p>
-                    <ul>
-                        <li>📝 Escritura de ensayos (2 prompts)</li>
-                        <li>🔍 Investigación bibliográfica (2 prompts)</li>
-                        <li>📊 Análisis de datos (1 prompt)</li>
-                        <li>📧 Comunicación académica (2 prompts)</li>
-                        <li>📚 Resúmenes y síntesis (1 prompt)</li>
-                        <li>💭 Brainstorming y creatividad (1 prompt)</li>
-                        <li>✅ Revisión y edición (1 prompt)</li>
-                    </ul>
-                </div>
-                
-                <p><strong>Plantilla para Documentar cada Prompt:</strong></p>
-                <pre>PROMPT #___: [Nombre descriptivo]
-====================================
-CATEGORÍA: _______________
-FRECUENCIA DE USO: ⭐⭐⭐⭐⭐
-
-SITUACIÓN DE USO:
-[Describe cuándo y por qué usarías este prompt]
-
-PROMPT COMPLETO:
-[Tu prompt optimizado aquí]
-
-VARIABLES MODIFICABLES:
-- [Variable 1]: ___________
-- [Variable 2]: ___________
-
-EJEMPLO DE OUTPUT ESPERADO:
-[Muestra breve del tipo de respuesta que genera]
-
-NOTAS DE MEJORA:
-[Qué has aprendido al usarlo, ajustes hechos]
-====================================</pre>
-                
-                <div class="success-box">
-                    <p><strong>✅ Criterios de Evaluación:</strong></p>
-                    <ul>
-                        <li>Especificidad: Cada prompt tiene rol, contexto y formato claros</li>
-                        <li>Reusabilidad: Incluye variables que se pueden cambiar fácilmente</li>
-                        <li>Efectividad: Ha sido probado y genera resultados consistentes</li>
-                        <li>Documentación: Cada prompt tiene instrucciones de uso claras</li>
-                        <li>Originalidad: Adaptado a tus necesidades específicas</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="recursos-box">
-                <h3>📚 RECURSOS ADICIONALES</h3>
-                
-                <h4>Lecturas Recomendadas:</h4>
-                <ul>
-                    <li>📖 "The Art of Prompt Engineering" - OpenAI Documentation</li>
-                    <li>📖 "Prompt Engineering Guide" - DAIR.AI</li>
-                    <li>📖 "Chain-of-Thought Prompting" - Wei et al. (2022)</li>
-                </ul>
-                
-                <h4>Herramientas Útiles:</h4>
-                <ul>
-                    <li>🔧 PromptPerfect - Optimizador automático de prompts</li>
-                    <li>🔧 ChatGPT Prompt Library - Biblioteca comunitaria</li>
-                    <li>🔧 Anthropic's Claude Workbench - Espacio de experimentación</li>
-                </ul>
-                
-                <h4>Comunidades de Práctica:</h4>
-                <ul>
-                    <li>💬 r/PromptEngineering (Reddit)</li>
-                    <li>💬 Discord: AI Prompt Engineering</li>
-                    <li>💬 LinkedIn: Prompt Engineering Professionals</li>
-                </ul>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 25%;">
-                    Módulo 1 Completado - 25%
-                </div>
+                Formato de salida:<br>
+                - Tema: [tema]<br>
+                - Keywords: [keyword1, keyword2, ...]<br>
+                - Tono: [tono]
             </div>
         </div>
 
-        <div class="module">
-            <h2>MÓDULO 2: CATÁLOGOS Y TÉCNICAS AVANZADAS</h2>
-            
-            <div class="objetivo-box">
-                <h3>🎯 Objetivos de Aprendizaje</h3>
-                <p>Al finalizar este módulo serás capaz de:</p>
-                <ul>
-                    <li>✅ Seleccionar el rol más apropiado entre 50+ opciones profesionales</li>
-                    <li>✅ Aplicar el tono correcto entre 30+ estilos de comunicación</li>
-                    <li>✅ Elegir el formato óptimo entre 40+ estructuras de output</li>
-                    <li>✅ Combinar rol + tono + formato estratégicamente</li>
-                    <li>✅ Dominar técnicas avanzadas: Chain-of-Thought y Few-Shot</li>
-                </ul>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-4"></i></span> Casos de Uso Prácticos</h2>
+
+            <h3>Análisis de Datos</h3>
+            <div class="prompt-example">
+                "Actúa como un analista de datos. Tengo un dataset con las siguientes columnas: [fecha, ventas, región, producto]. Necesito:<br>
+                1. Identificar tendencias de ventas por región<br>
+                2. Detectar productos con bajo rendimiento<br>
+                3. Sugerir visualizaciones apropiadas<br><br>
+                Proporciona el código Python usando pandas y matplotlib."
             </div>
 
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 4: Géneros Académicos y sus Prompts</h3>
-                
-                <h4>Mapa de Géneros Académicos</h4>
-                
-                <table>
-                    <tr>
-                        <th>Género</th>
-                        <th>Características Clave</th>
-                        <th>Elementos del Prompt</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Ensayo Argumentativo</strong></td>
-                        <td>Tesis clara, evidencia, contraargumentos</td>
-                        <td>Posición, audiencia, evidencia requerida</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Revisión de Literatura</strong></td>
-                        <td>Síntesis, análisis crítico, gaps</td>
-                        <td>Tema, período, criterios de inclusión</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Reporte de Investigación</strong></td>
-                        <td>IMRAD, objetividad, datos</td>
-                        <td>Metodología, resultados, formato</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Artículo de Opinión</strong></td>
-                        <td>Perspectiva personal, actualidad</td>
-                        <td>Postura, contexto actual, público</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Abstract</strong></td>
-                        <td>Concisión, estructura, keywords</td>
-                        <td>Límite palabras, elementos obligatorios</td>
-                    </tr>
-                </table>
-
-                <h4>Framework ACADEMIC para Escritura con IA</h4>
-                
-                <div class="ejemplo-box">
-                    <p><strong>A</strong> - Audience (Define tu audiencia académica)</p>
-                    <p><strong>C</strong> - Context (Proporciona contexto disciplinar)</p>
-                    <p><strong>A</strong> - Argument (Establece tu argumento/objetivo)</p>
-                    <p><strong>D</strong> - Depth (Especifica nivel de profundidad)</p>
-                    <p><strong>E</strong> - Evidence (Indica tipo de evidencia requerida)</p>
-                    <p><strong>M</strong> - Method (Menciona enfoque metodológico si aplica)</p>
-                    <p><strong>I</strong> - Instructions (Da instrucciones de formato)</p>
-                    <p><strong>C</strong> - Citations (Especifica estilo de citación)</p>
-                </div>
+            <h3>Depuración de Código</h3>
+            <div class="prompt-example">
+                "Eres un ingeniero de software senior especializado en Python. El siguiente código tiene un error:<br><br>
+                ```python<br>
+                [código aquí]<br>
+                ```<br><br>
+                1. Identifica el error<br>
+                2. Explica por qué ocurre<br>
+                3. Proporciona la solución corregida<br>
+                4. Sugiere mejores prácticas para evitar errores similares"
             </div>
 
-            <div class="practica-box">
-                <h3>🔬 LABORATORIO PRÁCTICO 3: Ensayo Argumentativo con IA</h3>
-                
-                <div class="ejercicio-box">
-                    <h4>Proyecto: Construcción de un Ensayo Paso a Paso</h4>
-                    
-                    <p><strong>Tema:</strong> "El impacto de la IA en la educación superior"</p>
-                    
-                    <h4>PASO 1: Brainstorming y Tesis</h4>
-                    <pre>PROMPT 1 - Generación de Ideas:
-"Actúa como asesor de tesis en pedagogía.
-
-Necesito explorar diferentes ángulos para un ensayo sobre 
-'El impacto de la IA en la educación superior'.
-
-Genera:
-1. 5 posibles tesis (statements) controversiales pero defendibles
-2. Para cada tesis:
-   - 3 argumentos a favor
-   - 2 posibles contraargumentos
-   - 1 pregunta de investigación relacionada
-
-Formato: Tabla con columnas [Tesis | Argumentos Pro | Contraargumentos | Pregunta]
-
-Evita: Lugares comunes, tesis demasiado amplias, argumentos sin sustento empírico posible."</pre>
-
-                    <h4>PASO 2: Estructura y Outline</h4>
-                    <pre>PROMPT 2 - Creación del Esquema:
-"Basándote en la tesis: [INSERTA LA TESIS ELEGIDA]
-
-Crea un outline detallado para un ensayo de 2000 palabras:
-
-I. INTRODUCCIÓN (200 palabras)
-   - Hook: [tipo de apertura]
-   - Contexto: [3 puntos clave]
-   - Tesis: [reformulada]
-   - Roadmap: [preview de argumentos]
-
-II. DESARROLLO (1500 palabras)
-   A. Argumento 1 (500 palabras)
-      - Claim principal
-      - Evidencia (2 fuentes)
-      - Análisis
-      - Conexión con tesis
-   
-   B. Argumento 2 (500 palabras)
-      [mismo formato]
-   
-   C. Contraargumentos y Refutación (500 palabras)
-      - Objeción más fuerte
-      - Por qué es válida parcialmente
-      - Por qué tu tesis sigue siendo más fuerte
-
-III. CONCLUSIÓN (300 palabras)
-   - Síntesis (no repetición)
-   - Implicaciones
-   - Call to action o pregunta abierta
-
-Para cada sección, sugiere:
-- Transición de entrada
-- Datos/estadísticas relevantes
-- Autores clave a citar"</pre>
-
-                    <h4>PASO 3: Desarrollo de Párrafos</h4>
-                    <pre>PROMPT 3 - Escritura de Secciones:
-"Desarrolla el Argumento 1 de mi outline:
-[PEGA TU OUTLINE DEL ARGUMENTO 1]
-
-Escribe 500 palabras siguiendo esta estructura:
-1. Topic sentence fuerte (claim)
-2. Contexto/setup (2-3 oraciones)
-3. Evidencia 1 con cita
-4. Análisis de evidencia 1
-5. Evidencia 2 con cita  
-6. Análisis de evidencia 2
-7. Síntesis que conecta con la tesis principal
-8. Transición al siguiente párrafo
-
-Requisitos:
-- Usa conectores académicos variados
-- Incluye al menos 1 estadística actual (2023-2024)
-- Mantén voz activa cuando sea posible
-- Evita 'se dice', 'algunos piensan' - sé específico
-- Usa [Autor, Año] para indicar dónde van citas
-
-Tono: Académico pero no pomposo, claro pero no simplista."</pre>
-                </div>
-                
-                <div class="tip-box">
-                    <p><strong>💡 Estrategia Pro:</strong> No pidas a la IA que escriba todo el ensayo de una vez. Trabaja sección por sección, manteniendo tu control editorial en cada paso.</p>
-                </div>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 5: Mantener tu Voz Autoral</h3>
-                
-                <h4>El Espectro de Uso de IA en Escritura</h4>
-                
-                <div class="ejemplo-box">
-                    <p><strong>🟢 USO ÉTICO - La IA como herramienta:</strong></p>
-                    <ul>
-                        <li>✅ Generar ideas y estructuras</li>
-                        <li>✅ Mejorar gramática y estilo</li>
-                        <li>✅ Encontrar sinónimos y variedad léxica</li>
-                        <li>✅ Crear primeros borradores para editar</li>
-                        <li>✅ Verificar coherencia y flujo</li>
-                    </ul>
-                    
-                    <p><strong>🟡 ZONA GRIS - Requiere transparencia:</strong></p>
-                    <ul>
-                        <li>⚠️ Parafrasear fuentes</li>
-                        <li>⚠️ Expandir ideas propias</li>
-                        <li>⚠️ Traducir y adaptar contenido</li>
-                    </ul>
-                    
-                    <p><strong>🔴 USO NO ÉTICO - Evitar siempre:</strong></p>
-                    <ul>
-                        <li>❌ Copiar y pegar sin edición</li>
-                        <li>❌ Presentar ideas de IA como propias</li>
-                        <li>❌ Generar citas falsas</li>
-                        <li>❌ Sustituir análisis crítico propio</li>
-                    </ul>
-                </div>
-
-                <h4>Técnica del "Sandwich de Autoría"</h4>
-                
-                <div class="success-box">
-                    <p><strong>Capa 1 - TU IDEA (Siempre tuya):</strong> Concepto, argumento, tesis</p>
-                    <p><strong>Capa 2 - ASISTENCIA IA (Herramienta):</strong> Desarrollo, ejemplos, estructura</p>
-                    <p><strong>Capa 3 - TU EDICIÓN (Siempre tuya):</strong> Revisión, voz personal, decisiones finales</p>
-                </div>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3>🎮 DESAFÍO: Detective de Alucinaciones</h3>
-                
-                <p><strong>Objetivo:</strong> Aprender a identificar cuando la IA inventa información.</p>
-                
-                <h4>Ejercicio: Verificación de Facts</h4>
-                
-                <p>La IA generó este párrafo. Identifica qué necesita verificación:</p>
-                
-                <div class="ejemplo-box">
-                    <p>"Según el estudio de Johnson et al. (2023), el 73% de las universidades estadounidenses han implementado políticas sobre uso de IA en trabajos académicos. La Universidad de Harvard fue la primera en establecer lineamientos claros en marzo de 2023, seguida por MIT y Stanford. El mismo estudio encontró que los estudiantes que usan IA como herramienta de edición mejoran sus calificaciones en un 15% promedio, mientras que aquellos que la usan para generar contenido completo muestran una disminución del 8% en pensamiento crítico medido por la escala de Watson-Glaser."</p>
-                </div>
-                
-                <div class="checklist">
-                    <p><strong>Checklist de Verificación:</strong></p>
-                    <ul>
-                        <li>¿Existe realmente "Johnson et al. (2023)"?</li>
-                        <li>¿Es verificable el 73%?</li>
-                        <li>¿Harvard fue realmente la primera?</li>
-                        <li>¿Las fechas son precisas?</li>
-                        <li>¿Existe la "escala de Watson-Glaser"?</li>
-                        <li>¿Los porcentajes son demasiado específicos?</li>
-                    </ul>
-                </div>
-                
-                <div class="warning-box">
-                    <p><strong>⚠️ Señales de Alucinación:</strong></p>
-                    <ul>
-                        <li>Nombres de autores genéricos (Johnson, Smith)</li>
-                        <li>Estadísticas demasiado redondas o precisas</li>
-                        <li>Fechas muy recientes sin fuente</li>
-                        <li>Afirmaciones absolutas ("primera", "única")</li>
-                        <li>Citas de estudios que suenan perfectos para tu argumento</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="recursos-box">
-                <h3>🔧 TOOLKIT: Prompts para Cada Etapa de Escritura</h3>
-                
-                <h4>1. PRE-ESCRITURA</h4>
-                <pre>BRAINSTORMING:
-"Genera 10 ángulos únicos para abordar [TEMA]. 
-Incluye perspectivas interdisciplinarias."
-
-RESEARCH QUESTIONS:
-"Transforma [TEMA] en 5 preguntas de investigación 
-usando los frameworks: descriptivo, comparativo, 
-correlacional, causal, y evaluativo."</pre>
-
-                <h4>2. ESCRITURA</h4>
-                <pre>PÁRRAFO DE APERTURA:
-"Escribe 3 versiones diferentes de apertura para un 
-ensayo sobre [TEMA]: una con estadística impactante, 
-una con pregunta retórica, una con anécdota."
-
-TRANSICIONES:
-"Dame 10 formas de conectar estas dos ideas: 
-[IDEA 1] ... [IDEA 2]
-Varía entre: contraste, causa-efecto, adición, ejemplificación."</pre>
-
-                <h4>3. REVISIÓN</h4>
-                <pre>CLARIDAD:
-"Reescribe este párrafo para un lector no especializado, 
-manteniendo la precisión académica:
-[PEGA PÁRRAFO]"
-
-CONCISIÓN:
-"Reduce este texto en 30% sin perder información clave:
-[PEGA TEXTO]"</pre>
-
-                <h4>4. EDICIÓN</h4>
-                <pre>VARIEDAD SINTÁCTICA:
-"Identifica oraciones que empiezan igual y sugiere 
-variaciones:
-[PEGA TEXTO]"
-
-VOCABULARIO ACADÉMICO:
-"Reemplaza palabras informales con equivalentes 
-académicos, manteniendo claridad:
-[PEGA TEXTO]"</pre>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 50%;">
-                    Módulo 2 Completado - 50%
-                </div>
+            <h3>Generación de Documentación</h3>
+            <div class="prompt-example">
+                "Genera documentación completa para la siguiente función, incluyendo:<br>
+                - Descripción breve<br>
+                - Parámetros con tipos<br>
+                - Valor de retorno<br>
+                - Ejemplos de uso<br>
+                - Posibles excepciones<br><br>
+                Función: [código de la función]"
             </div>
         </div>
 
-        <div class="module">
-            <h2>MÓDULO 3: PROMPTING PARA ANÁLISIS Y SÍNTESIS</h2>
-            
-            <div class="objetivo-box">
-                <h3>🎯 Objetivos de Aprendizaje</h3>
-                <p>Al finalizar este módulo serás capaz de:</p>
-                <ul>
-                    <li>✅ Diseñar prompts para análisis de textos complejos y PDFs</li>
-                    <li>✅ Crear consultas efectivas para análisis de bases de datos</li>
-                    <li>✅ Generar comparaciones y contrastes sistemáticos</li>
-                    <li>✅ Extraer insights y patrones de datos cualitativos y cuantitativos</li>
-                    <li>✅ Aplicar diferentes tonos, roles y formatos según el contexto</li>
-                </ul>
-            </div>
-
-            <div class="practica-box">
-                <h3>🔬 LABORATORIO PRÁCTICO 4: Análisis de Literatura</h3>
-                
-                <div class="ejercicio-box">
-                    <h4>Proyecto: Meta-Análisis Temático</h4>
-                    
-                    <p><strong>Escenario:</strong> Tienes 5 artículos sobre tu tema de tesis y necesitas encontrar patrones, contradicciones y gaps.</p>
-                    
-                    <h4>PROMPT MAESTRO para Análisis Comparativo:</h4>
-                    <pre>"Actúa como investigador senior en [TU CAMPO].
-
-Voy a proporcionarte resúmenes de 5 artículos académicos 
-sobre [TU TEMA]. 
-
-ARTÍCULO 1: [Pega resumen]
-ARTÍCULO 2: [Pega resumen]
-ARTÍCULO 3: [Pega resumen]
-ARTÍCULO 4: [Pega resumen]
-ARTÍCULO 5: [Pega resumen]
-
-Realiza un análisis comparativo exhaustivo:
-
-1. MATRIZ DE COMPARACIÓN
-Crea una tabla:
-| Aspecto | Art.1 | Art.2 | Art.3 | Art.4 | Art.5 |
-|---------|-------|-------|-------|-------|-------|
-| Metodología |
-| Muestra |
-| Variables principales |
-| Hallazgo clave |
-| Limitaciones |
-
-2. TEMAS EMERGENTES
-- Identifica 3-4 temas que aparecen en múltiples artículos
-- Para cada tema, indica qué artículos lo abordan y cómo
-
-3. CONTRADICCIONES
-- Señala hallazgos contradictorios entre artículos
-- Propón posibles explicaciones para estas diferencias
-
-4. GAPS DE INVESTIGACIÓN
-- ¿Qué preguntas quedan sin responder?
-- ¿Qué poblaciones no han sido estudiadas?
-- ¿Qué metodologías faltan por explorar?
-
-5. SÍNTESIS NARRATIVA (300 palabras)
-Integra los hallazgos en una narrativa coherente que:
-- Presente el estado actual del conocimiento
-- Identifique tendencias
-- Señale direcciones futuras
-
-6. PROPUESTA DE INVESTIGACIÓN
-Basándote en este análisis, sugiere:
-- Una pregunta de investigación original
-- Metodología apropiada
-- Contribución potencial al campo"</pre>
-                    
-                    <div class="tip-box">
-                        <p><strong>💡 Tip:</strong> Puedes adaptar este prompt para analizar capítulos de libros, informes, o incluso tus propias notas de clase.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 6: Análisis Profundo de PDFs - Roles y Tonos</h3>
-                
-                <h4>Catálogo Completo de Roles para Análisis de Documentos</h4>
-                
-                <table>
-                    <tr>
-                        <th>Rol</th>
-                        <th>Cuándo Usarlo</th>
-                        <th>Características del Output</th>
-                        <th>Ejemplo de Uso</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Investigador Académico</strong></td>
-                        <td>Papers, tesis, artículos científicos</td>
-                        <td>Riguroso, con citas, metodológico</td>
-                        <td>"Actúa como investigador en neurociencia cognitiva..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Analista de Datos</strong></td>
-                        <td>Reportes con estadísticas, gráficos</td>
-                        <td>Cuantitativo, preciso, visual</td>
-                        <td>"Actúa como data scientist especializado en visualización..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Auditor Legal</strong></td>
-                        <td>Contratos, documentos legales</td>
-                        <td>Detallado, identificando riesgos</td>
-                        <td>"Actúa como abogado corporativo revisando contratos..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Editor Profesional</strong></td>
-                        <td>Manuscritos, libros, artículos</td>
-                        <td>Enfocado en estilo, coherencia, flujo</td>
-                        <td>"Actúa como editor senior de publicaciones académicas..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Consultor Estratégico</strong></td>
-                        <td>Reportes empresariales, planes</td>
-                        <td>Orientado a insights y recomendaciones</td>
-                        <td>"Actúa como consultor de McKinsey analizando..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Profesor Universitario</strong></td>
-                        <td>Material educativo, syllabi</td>
-                        <td>Pedagógico, estructurado, accesible</td>
-                        <td>"Actúa como catedrático de historia medieval..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Periodista Investigativo</strong></td>
-                        <td>Documentos públicos, informes</td>
-                        <td>Crítico, buscando contradicciones</td>
-                        <td>"Actúa como periodista del New York Times..."</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Bibliotecario Especializado</strong></td>
-                        <td>Catalogación, metadata, referencias</td>
-                        <td>Sistemático, categorizado, indexado</td>
-                        <td>"Actúa como bibliotecario de universidad Ivy League..."</td>
-                    </tr>
-                </table>
-
-                <h4>Matriz de Tonos Profesionales</h4>
-                
-                <table>
-                    <tr>
-                        <th>Tono</th>
-                        <th>Características</th>
-                        <th>Vocabulario Típico</th>
-                        <th>Cuándo Aplicarlo</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Académico Formal</strong></td>
-                        <td>Objetivo, impersonal, preciso</td>
-                        <td>"Se observa", "Los datos sugieren", "Es pertinente señalar"</td>
-                        <td>Tesis, papers, informes de investigación</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Técnico Especializado</strong></td>
-                        <td>Jerga específica, detallado</td>
-                        <td>Terminología del campo, siglas, métricas</td>
-                        <td>Documentación técnica, manuales</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Ejecutivo Conciso</strong></td>
-                        <td>Directo, orientado a decisiones</td>
-                        <td>"Key findings", "Bottom line", "Action items"</td>
-                        <td>Resúmenes ejecutivos, briefings</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Crítico Analítico</strong></td>
-                        <td>Evaluativo, comparativo</td>
-                        <td>"Sin embargo", "En contraste", "Cabe cuestionar"</td>
-                        <td>Reviews, análisis comparativos</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Divulgativo Accesible</strong></td>
-                        <td>Claro, con ejemplos, engaging</td>
-                        <td>"Imagina que", "Por ejemplo", "En otras palabras"</td>
-                        <td>Blogs académicos, presentaciones</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Legal Preciso</strong></td>
-                        <td>Cauteloso, específico, formal</td>
-                        <td>"De conformidad con", "Sin perjuicio de", "En virtud de"</td>
-                        <td>Documentos legales, compliance</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="practica-box">
-                <h3>🔬 LABORATORIO PRÁCTICO 4: Análisis Multinivel de PDFs</h3>
-                
-                <div class="ejercicio-box">
-                    <h4>📄 CASO 1: Análisis de Paper Científico (PDF de 30 páginas)</h4>
-                    
-                    <p><strong>Contexto:</strong> Tienes un PDF de investigación sobre cambio climático y necesitas extraer información clave.</p>
-                    
-                    <h4>PROMPT NIVEL BÁSICO - Extracción Simple:</h4>
-                    <pre>PROMPT BÁSICO:
-"Resume este PDF sobre cambio climático"
-
-❌ PROBLEMAS:
-- No especifica qué tipo de resumen
-- No indica longitud deseada
-- No define audiencia objetivo
-- No menciona qué aspectos priorizar</pre>
-
-                    <h4>PROMPT NIVEL INTERMEDIO - Análisis Estructurado:</h4>
-                    <pre>PROMPT MEJORADO:
-"Analiza este PDF de investigación sobre cambio climático.
-Extrae:
-1. Hipótesis principal
-2. Metodología utilizada
-3. Hallazgos clave (máximo 5)
-4. Limitaciones del estudio
-5. Implicaciones prácticas
-
-Formato: Bullet points
-Longitud: 500 palabras máximo"</pre>
-
-                    <h4>PROMPT NIVEL AVANZADO - Análisis Experto Completo:</h4>
-                    <pre>PROMPT PROFESIONAL:
-"Actúa como investigador senior en ciencias ambientales con 15 años 
-de experiencia en peer review para Nature Climate Change.
-
-DOCUMENTO: [PDF sobre modelado climático regional]
-
-ANÁLISIS REQUERIDO:
-
-1. EVALUACIÓN METODOLÓGICA CRÍTICA
-   - Robustez del diseño experimental
-   - Tamaño y representatividad de la muestra
-   - Validez de instrumentos/modelos utilizados
-   - Control de variables confusoras
-   - Análisis estadístico (potencia, significancia, effect sizes)
-
-2. EXTRACCIÓN SISTEMÁTICA DE DATOS
-   Crea tabla:
-   | Variable | Valor | IC 95% | p-value | n | Observaciones |
-   
-3. EVALUACIÓN DE HALLAZGOS
-   Para cada hallazgo principal:
-   - Magnitud del efecto
-   - Significancia estadística vs. práctica
-   - Consistencia con literatura previa
-   - Posibles explicaciones alternativas
-
-4. ANÁLISIS DE LIMITACIONES
-   - Limitaciones reconocidas por autores
-   - Limitaciones NO mencionadas pero evidentes
-   - Impacto de cada limitación en conclusiones
-
-5. MATRIZ DE CALIDAD (Escala 1-5)
-   | Criterio | Puntuación | Justificación |
-   |----------|------------|---------------|
-   | Originalidad | | |
-   | Rigor metodológico | | |
-   | Claridad de presentación | | |
-   | Relevancia/Impacto | | |
-   | Reproducibilidad | | |
-
-6. VERIFICACIÓN DE SESGOS
-   □ Sesgo de publicación
-   □ Sesgo de confirmación
-   □ Sesgo de financiamiento
-   □ Cherry-picking de datos
-   □ P-hacking
-
-7. SÍNTESIS PARA DIFERENTES AUDIENCIAS
-   a) Para comité de revisión (200 palabras, técnico)
-   b) Para policy makers (150 palabras, aplicado)
-   c) Para público general (100 palabras, accesible)
-
-8. PREGUNTAS CRÍTICAS NO RESUELTAS
-   - Lista 5 preguntas que el estudio no responde
-   - Propón diseño experimental para abordar 2 de ellas
-
-9. CITAS CLAVE
-   Extrae 3 citas textuales más impactantes con número de página
-
-FORMATO: Reporte estructurado con headers claros
-TONO: Crítico pero constructivo, nivel Nature/Science
-EVITAR: Generalidades, afirmaciones sin evidencia"</pre>
-
-                    <div class="tip-box">
-                        <p><strong>💡 Tip Avanzado:</strong> Para PDFs muy largos (100+ páginas), divide el análisis en secciones y usa prompts secuenciales: primero mapeo general, luego profundización por capítulos.</p>
-                    </div>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>📄 CASO 2: Análisis Comparativo de Múltiples PDFs</h4>
-                    
-                    <p><strong>Escenario:</strong> Tienes 3 PDFs de diferentes autores sobre el mismo tema.</p>
-                    
-                    <pre>PROMPT PARA COMPARACIÓN MULTI-DOCUMENTO:
-"Actúa como editor jefe de revista académica Q1.
-
-Tengo 3 PDFs sobre [INTELIGENCIA ARTIFICIAL EN EDUCACIÓN]:
-- PDF1: 'AI in Higher Education' (Smith, 2024) - 45 páginas
-- PDF2: 'Machine Learning for Personalized Learning' (Chen, 2024) - 38 páginas  
-- PDF3: 'Ethical Implications of EdTech AI' (García, 2023) - 52 páginas
-
-ANÁLISIS COMPARATIVO SISTEMÁTICO:
-
-1. MATRIZ DE COBERTURA TEMÁTICA
-   Crea tabla mostrando qué temas cubre cada paper:
-   | Tema/Subtema | PDF1 | PDF2 | PDF3 | Consenso |
-   |--------------|------|------|------|----------|
-   | [Listar todos los temas] | ✓/✗ | ✓/✗ | ✓/✗ | % |
-
-2. ANÁLISIS DE CONVERGENCIAS
-   - Puntos donde los 3 autores coinciden (citar páginas)
-   - Nivel de evidencia que respalda cada convergencia
-
-3. ANÁLISIS DE DIVERGENCIAS
-   | Punto de Desacuerdo | Posición PDF1 | Posición PDF2 | Posición PDF3 |
-   | Evidencia respectiva | | | |
-   | Evaluación crítica | | | |
-
-4. EVOLUCIÓN TEMPORAL DEL CAMPO
-   Dado que PDF3 es de 2023 y los otros de 2024:
-   - ¿Qué ha cambiado en el discurso?
-   - ¿Qué nuevas preocupaciones emergieron?
-   - ¿Qué predicciones de 2023 se cumplieron?
-
-5. ANÁLISIS DE REDES DE CITACIÓN
-   - Autores citados por todos (autoridades del campo)
-   - Autores citados solo por uno (posibles sesgos)
-   - Papers seminales mencionados
-
-6. EVALUACIÓN METODOLÓGICA COMPARADA
-   | Aspecto | PDF1 | PDF2 | PDF3 | Más Robusto |
-   |---------|------|------|------|-------------|
-   | Diseño | | | | |
-   | Muestra | | | | |
-   | Análisis | | | | |
-
-7. SÍNTESIS INTEGRATIVA (500 palabras)
-   Escribe una meta-síntesis que:
-   - Integre hallazgos complementarios
-   - Resuelva contradicciones aparentes
-   - Identifique el 'estado del arte' actual
-   - Proponga agenda de investigación futura
-
-8. RECOMENDACIONES DIFERENCIADAS
-   Si tuvieras que recomendar UN paper a:
-   a) Estudiante de pregrado: [PDF#] porque...
-   b) Investigador del campo: [PDF#] porque...
-   c) Tomador de decisiones: [PDF#] porque...
-
-FORMATO DE SALIDA: Reporte ejecutivo con visualizaciones descritas
-EXTENSIÓN TOTAL: 2000 palabras
-INCLUIR: Página de cada afirmación importante"</pre>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>📄 CASO 3: Análisis de PDF Técnico/Manual</h4>
-                    
-                    <p><strong>Escenario:</strong> Necesitas entender un manual técnico de 200 páginas.</p>
-                    
-                    <pre>PROMPT PARA DOCUMENTACIÓN TÉCNICA:
-"Actúa como ingeniero senior de documentación técnica de Google.
-
-DOCUMENTO: Manual técnico de [FRAMEWORK/HERRAMIENTA]
-PÁGINAS: 200
-OBJETIVO: Crear guía de referencia rápida para desarrolladores junior
-
-EXTRACCIÓN ESTRUCTURADA:
-
-1. MAPA DE NAVEGACIÓN DEL DOCUMENTO
-   ```
-   ├── Capítulo 1: [Título] (p. X-Y)
-   │   ├── Concepto clave 1
-   │   ├── Concepto clave 2
-   │   └── Ejemplos principales
-   ├── Capítulo 2: [Título] (p. X-Y)
-   [continuar estructura]
-   ```
-
-2. GLOSARIO TÉCNICO ESENCIAL
-   | Término | Definición (1 línea) | Primera aparición | Importancia (1-5) |
-   |---------|---------------------|-------------------|-------------------|
-
-3. MATRIZ DE COMANDOS/FUNCIONES
-   | Comando | Sintaxis | Descripción | Ejemplo | Página | Frecuencia de uso |
-   |---------|----------|-------------|---------|--------|-------------------|
-
-4. CASOS DE USO COMUNES (Top 10)
-   Para cada caso:
-   - Escenario
-   - Solución paso a paso
-   - Código ejemplo
-   - Troubleshooting común
-   - Página de referencia
-
-5. GUÍA DE INICIO RÁPIDO
-   Escribe tutorial de 500 palabras para lograr 'Hello World' en 15 minutos
-
-6. MATRIZ DE ERRORES COMUNES
-   | Error | Mensaje | Causa | Solución | Prevención | Pág. |
-   |-------|---------|-------|----------|------------|------|
-
-7. DIAGRAMA DE FLUJO DE DECISIONES
-   Describe diagrama textual:
-   '¿Necesitas X?'
-   → SÍ: Ve a sección Y (p.##)
-   → NO: '¿Necesitas Z?'
-       → SÍ: Ve a sección W (p.##)
-       → NO: [continuar]
-
-8. CHEATSHEET DE UNA PÁGINA
-   Crea referencia ultra-condensada con:
-   - 20 comandos más usados
-   - 5 snippets esenciales
-   - 10 flags/opciones importantes
-   - 5 tips de optimización
-
-9. RECURSOS DE APRENDIZAJE PROGRESIVO
-   Diseña path de estudio:
-   Semana 1: Leer páginas [X-Y] + Ejercicios [...]
-   Semana 2: [...]
-   Semana 3: [...]
-   Semana 4: Proyecto integrador usando secciones [...]
-
-10. COMPARACIÓN CON ALTERNATIVAS
-    Si el manual menciona herramientas similares:
-    | Feature | Esta herramienta | Alternativa 1 | Alternativa 2 |
-    |---------|------------------|---------------|---------------|
-
-FORMATO: Markdown con código highlighting
-NIVEL: Asumiendo conocimientos básicos de programación
-LONGITUD TOTAL: 3000 palabras
-PRIORIDAD: Información práctica sobre teoría"</pre>
-                </div>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 7: Análisis de Bases de Datos con IA</h3>
-                
-                <h4>Tipos de Formatos de Salida para Análisis de Datos</h4>
-                
-                <table>
-                    <tr>
-                        <th>Formato</th>
-                        <th>Mejor Para</th>
-                        <th>Estructura</th>
-                        <th>Ejemplo de Instrucción</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Tabla</strong></td>
-                        <td>Comparaciones, rankings</td>
-                        <td>Filas y columnas con headers</td>
-                        <td>"Presenta en tabla con columnas: [A], [B], [C]"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Dashboard</strong></td>
-                        <td>KPIs, métricas ejecutivas</td>
-                        <td>Cajas con métricas y tendencias</td>
-                        <td>"Crea dashboard con 6 KPIs principales en formato card"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Narrativa</strong></td>
-                        <td>Reportes, storytelling con datos</td>
-                        <td>Prosa con datos integrados</td>
-                        <td>"Escribe narrativa de 500 palabras integrando los hallazgos"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Bullet Points</strong></td>
-                        <td>Insights rápidos, action items</td>
-                        <td>Lista jerárquica con viñetas</td>
-                        <td>"Lista los 10 insights principales con sub-bullets de evidencia"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>JSON/Diccionario</strong></td>
-                        <td>Datos estructurados, APIs</td>
-                        <td>Pares clave-valor anidados</td>
-                        <td>"Estructura en JSON con keys: {analysis, metrics, recommendations}"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Matriz</strong></td>
-                        <td>Análisis multidimensional</td>
-                        <td>Grid 2D con relaciones</td>
-                        <td>"Crea matriz 4x4 de impacto vs. esfuerzo"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Timeline</strong></td>
-                        <td>Datos temporales, evolución</td>
-                        <td>Secuencia cronológica</td>
-                        <td>"Presenta evolución mensual de enero a diciembre"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Gráfico Descrito</strong></td>
-                        <td>Visualización conceptual</td>
-                        <td>Descripción textual de gráfico</td>
-                        <td>"Describe un gráfico de barras mostrando..."</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="practica-box">
-                <h3>🔬 LABORATORIO PRÁCTICO 5: Análisis de Bases de Datos</h3>
-                
-                <div class="ejercicio-box">
-                    <h4>💾 CASO 1: Análisis de CSV de Ventas (10,000 filas)</h4>
-                    
-                    <p><strong>Contexto:</strong> Tienes un CSV con datos de ventas de e-commerce.</p>
-                    
-                    <h4>PROMPT BÁSICO - Exploración Inicial:</h4>
-                    <pre>PROMPT EXPLORATORIO:
-"Tengo un CSV de ventas con las columnas:
-- order_id, date, customer_id, product, category, price, quantity, region
-
-Proporciona:
-1. Estadísticas descriptivas básicas
-2. Top 5 productos más vendidos
-3. Ventas por región
-4. Tendencia mensual"</pre>
-
-                    <h4>PROMPT INTERMEDIO - Análisis Segmentado:</h4>
-                    <pre>PROMPT DE SEGMENTACIÓN:
-"Actúa como analista de business intelligence.
-
-DATOS: CSV de ventas e-commerce
-COLUMNAS: order_id, date, customer_id, product, category, 
-          price, quantity, region, payment_method, customer_age
-
-ANÁLISIS REQUERIDO:
-
-1. SEGMENTACIÓN DE CLIENTES
-   - Crea 4 segmentos basados en comportamiento de compra
-   - Define características de cada segmento
-   - Calcula Customer Lifetime Value por segmento
-
-2. ANÁLISIS ABC DE PRODUCTOS
-   - Clasifica productos en A (80% ventas), B (15%), C (5%)
-   - Identifica productos estrella vs. perros
-
-3. ESTACIONALIDAD Y TENDENCIAS
-   - Detecta patrones estacionales
-   - Identifica días/meses peak
-   - Proyecta ventas próximo trimestre
-
-4. ANÁLISIS DE CESTA
-   - Productos frecuentemente comprados juntos
-   - Oportunidades de cross-selling
-
-FORMATO: Dashboard ejecutivo con métricas clave"</pre>
-
-                    <h4>PROMPT AVANZADO - Análisis Predictivo Completo:</h4>
-                    <pre>PROMPT ANALÍTICO PROFESIONAL:
-"Actúa como Head of Analytics de Amazon con PhD en Data Science.
-
-DATASET: Ventas e-commerce 2023-2024
-FILAS: 10,000 transacciones
-COLUMNAS DISPONIBLES:
-- Transacción: order_id, date, time, store_id
-- Cliente: customer_id, age, gender, member_since, tier, lifetime_value
-- Producto: product_id, product_name, category, subcategory, brand
-- Financiero: price, discount, quantity, total, payment_method
-- Logística: region, shipping_method, delivery_days
-- Comportamiento: device, session_duration, pages_viewed, cart_abandonment
-
-ANÁLISIS MULTIDIMENSIONAL COMPLETO:
-
-1. ANÁLISIS EXPLORATORIO (EDA)
-   ```python
-   # Pseudocódigo de lo que harías
-   df.describe() # Para cada variable numérica
-   df.info() # Tipos de datos y nulls
-   correlations = df.corr() # Matriz de correlación
-   ```
-   
-   Reporta:
-   - Distribución de cada variable (normal, skewed, bimodal)
-   - Outliers detectados por método IQR
-   - Correlaciones significativas (r > 0.3 o r < -0.3)
-   - Missing values y estrategia de imputación
-
-2. ANÁLISIS DE COHORTES
-   Tabla de retención:
-   | Cohorte | Mes 0 | Mes 1 | Mes 2 | Mes 3 | ... | Mes 12 |
-   |---------|-------|-------|-------|-------|-----|--------|
-   | Ene-23  | 100%  | X%    | X%    | X%    | ... | X%     |
-   
-   - Calcular retention rate, churn rate
-   - Identificar cohortes problemáticas
-   - LTV por cohorte
-
-3. ANÁLISIS RFM (Recency, Frequency, Monetary)
-   Segmentar clientes en matriz 5x5x5:
-   - Champions (555, 554, 544, 545, 454, 455)
-   - Loyal Customers (543, 444, 435, 355, 354)
-   - At Risk (331, 321, 312)
-   [continuar todos los segmentos]
-   
-   Para cada segmento:
-   - Tamaño (n y %)
-   - Características demográficas
-   - Comportamiento de compra
-   - Estrategia de marketing recomendada
-
-4. MARKET BASKET ANALYSIS
-   Reglas de asociación con métricas:
-   | Antecedente | Consecuente | Support | Confidence | Lift |
-   |-------------|-------------|---------|------------|------|
-   
-   - Top 10 reglas por lift
-   - Interpretación de negocio
-   - Recomendaciones de bundling
-
-5. ANÁLISIS DE SERIES TEMPORALES
-   - Descomposición: Trend + Seasonal + Residual
-   - Test de estacionariedad (describir ADF test)
-   - Identificar:
-     * Tendencia general (creciente/decreciente/estable)
-     * Estacionalidad (diaria/semanal/mensual)
-     * Eventos anómalos/outliers temporales
-   - Forecast 30 días con intervalos de confianza
-
-6. ANÁLISIS DE PRECIO ELASTICIDAD
-   - Elasticidad por categoría de producto
-   - Punto óptimo de precio por segmento
-   - Impacto de descuentos en volumen vs. margen
-
-7. CUSTOMER JOURNEY ANALYTICS
-   Mapear journey típico:
-   ```
-   Awareness → Consideration → Purchase → Retention → Advocacy
-   ```
-   
-   Para cada etapa:
-   - Tasa de conversión
-   - Drop-off points principales
-   - Tiempo promedio en etapa
-   - Factores que aceleran progresión
-
-8. ANÁLISIS PREDICTIVO
-   Variables para predecir churn:
-   | Variable | Importance | Dirección | p-value |
-   |----------|------------|-----------|---------|
-   
-   Modelo propuesto:
-   - Algoritmo recomendado y por qué
-   - Features engineering sugerido
-   - Métricas de evaluación esperadas
-
-9. A/B TESTING FRAMEWORK
-   Si hay grupos de test/control:
-   - Power analysis: tamaño de muestra necesario
-   - Test estadístico apropiado
-   - Significancia estadística vs. práctica
-   - Recomendación de implementación
-
-10. DASHBOARD KPIs RECOMENDADOS
-    NIVEL 1 - C-SUITE (5 KPIs):
-    - Revenue Growth MoM: __% [↑↓]
-    - Customer Acquisition Cost: $__
-    - CLV/CAC Ratio: __x
-    - Net Promoter Score: __
-    - Gross Margin: __%
-    
-    NIVEL 2 - GERENCIAL (10 KPIs):
-    [Detallar KPIs departamentales]
-    
-    NIVEL 3 - OPERACIONAL (20 KPIs):
-    [Detallar KPIs operativos]
-
-11. ACCIONES RECOMENDADAS (PRIORITIZADAS)
-    | Acción | Impacto | Esfuerzo | Prioridad | Owner | Timeline |
-    |--------|---------|----------|-----------|-------|----------|
-    
-12. RIESGOS Y MITIGACIONES
-    - Riesgo 1: [Descripción] → Mitigación: [...]
-    - Riesgo 2: [Descripción] → Mitigación: [...]
-
-VALIDACIÓN DE CALIDAD:
-- [ ] Todos los números suman correctamente
-- [ ] No hay porcentajes > 100%
-- [ ] Los promedios están entre min y max
-- [ ] Las tendencias son consistentes
-- [ ] No hay contradicciones lógicas
-
-FORMATO FINAL: Informe ejecutivo de 3000 palabras
-VISUALIZACIONES: Describir 10 gráficos clave
-TONO: Profesional pero accesible para stakeholders no técnicos
-INCLUIR: SQL queries conceptuales para cada análisis"</pre>
-
-                    <div class="tip-box">
-                        <p><strong>💡 Super Tip:</strong> Para datasets grandes, primero pide un análisis exploratorio básico, luego profundiza en las áreas más interesantes. Divide y conquista.</p>
-                    </div>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>💾 CASO 2: Análisis de Base de Datos Relacional</h4>
-                    
-                    <p><strong>Contexto:</strong> Base de datos de universidad con múltiples tablas relacionadas.</p>
-                    
-                    <pre>PROMPT PARA ANÁLISIS RELACIONAL:
-"Actúa como Database Administrator senior especializado en analytics.
-
-ESQUEMA DE BASE DE DATOS UNIVERSITARIA:
-
-TABLAS Y RELACIONES:
-1. estudiantes (id, nombre, carrera_id, año_ingreso, status)
-2. carreras (id, nombre, facultad_id, duracion, creditos_total)
-3. cursos (id, nombre, creditos, carrera_id, nivel, tipo)
-4. inscripciones (estudiante_id, curso_id, semestre, nota, asistencia)
-5. profesores (id, nombre, departamento, categoria, años_experiencia)
-6. clases (curso_id, profesor_id, semestre, horario, aula)
-7. facultades (id, nombre, decano, presupuesto)
-
-ANÁLISIS MULTITABLA REQUERIDO:
-
-1. QUERIES ANALÍTICAS CRÍTICAS
-   Escribe SQL y muestra resultados esperados para:
-   
-   a) Tasa de deserción por carrera y año
-   ```sql
-   -- Tu query aquí
-   ```
-   Resultado esperado:
-   | Carrera | 2021 | 2022 | 2023 | 2024 | Trend |
-   
-   b) Profesores con mejor y peor desempeño
-   ```sql
-   -- Considerando promedio notas, asistencia, evaluaciones
-   ```
-   
-   c) Cursos cuello de botella (alta reprobación)
-   ```sql
-   -- Identificar cursos con >30% reprobación
-   ```
-   
-   d) Análisis de carga académica optimal
-   ```sql
-   -- Relación entre créditos tomados y rendimiento
-   ```
-
-2. ANÁLISIS DE PATRONES ACADÉMICOS
-   
-   PATRON 1: Trayectorias de éxito
-   - Secuencia de cursos correlacionada con graduación a tiempo
-   - Características de estudiantes top 10%
-   - Factores predictivos de excelencia
-   
-   PATRON 2: Señales de alerta temprana
-   - Indicadores de deserción en primer año
-   - Cursos gateway que predicen problemas futuros
-   - Intervenciones recomendadas por riesgo
-
-3. OPTIMIZACIÓN DE RECURSOS
-   
-   Análisis de eficiencia:
-   | Métrica | Valor Actual | Benchmark | Gap | Acción |
-   |---------|--------------|-----------|-----|--------|
-   | Ratio estudiante/profesor | | | | |
-   | Utilización de aulas | | | | |
-   | Costo por graduado | | | | |
-   | Tiempo promedio graduación | | | | |
-
-4. SEGMENTACIÓN ESTUDIANTIL AVANZADA
-   
-   Crear 6 personas estudiantiles basadas en:
-   - Rendimiento académico
-   - Patrón de inscripción
-   - Actividades extracurriculares
-   - Necesidades de apoyo
-   
-   Para cada persona:
-   - Nombre arquetípico
-   - Características principales
-   - Necesidades específicas
-   - Estrategias de retención
-
-5. ANÁLISIS PREDICTIVO DE MATRÍCULA
-   
-   Proyección próximos 3 años:
-   | Carrera | 2025 | 2026 | 2027 | Acciones si declina |
-   
-   Factores considerados:
-   - Tendencias históricas
-   - Cambios demográficos
-   - Mercado laboral
-   - Competencia
-
-6. QUALITY ASSURANCE DE DATOS
-   
-   Checks de integridad:
-   ```sql
-   -- Estudiantes sin inscripciones
-   -- Cursos sin profesores asignados
-   -- Notas fuera de rango
-   -- Inscripciones duplicadas
-   -- Referencias huérfanas
-   ```
-
-7. REPORTE DE INDICADORES CLAVE
-   
-   KPIs Institucionales:
-   - Tasa de graduación (4, 5, 6 años)
-   - Promedio general por facultad
-   - Índice de satisfacción estudiantil
-   - ROI por programa
-   - Empleabilidad post-graduación
-
-8. RECOMENDACIONES DATA-DRIVEN
-   
-   TOP 5 con justificación cuantitativa:
-   1. [Recomendación] - Basada en [métrica]
-   2. [Recomendación] - Basada en [métrica]
-   [continuar...]
-
-ENTREGABLES:
-- 15 queries SQL comentadas
-- Resultados tabulados de cada query
-- Visualizaciones descritas (10 gráficos)
-- Plan de acción priorizado
-- Propuesta de nuevos índices para optimización"</pre>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>💾 CASO 3: Análisis de Logs y Datos No Estructurados</h4>
-                    
-                    <p><strong>Contexto:</strong> Logs de servidor web con millones de entradas.</p>
-                    
-                    <pre>PROMPT PARA ANÁLISIS DE LOGS:
-"Actúa como Site Reliability Engineer (SRE) de Google.
-
-DATOS: Logs de servidor web Apache/Nginx
-FORMATO: Combined Log Format
-VOLUMEN: 5 millones de líneas (1 semana de datos)
-EJEMPLO DE LÍNEA:
-192.168.1.1 - - [01/Jan/2024:12:34:56 +0000] "GET /api/products HTTP/1.1" 200 1234 "https://example.com" "Mozilla/5.0..."
-
-ANÁLISIS COMPLETO DE LOGS:
-
-1. PARSING Y ESTRUCTURACIÓN
-   Extrae y estructura:
-   - IP, timestamp, método, endpoint, status code, bytes, referer, user agent
-   - Convierte a formato tabular para análisis
-
-2. ANÁLISIS DE TRÁFICO
-   a) Patrones temporales:
-      - Requests por hora/día/semana
-      - Horas pico y valle
-      - Comparación weekday vs weekend
-   
-   b) Análisis geográfico (por IP):
-      - Top 10 países
-      - Ciudades con más tráfico
-      - Detección de tráfico anómalo por región
-
-3. ANÁLISIS DE ENDPOINTS
-   | Endpoint | Requests | Avg Response Time | Error Rate | 95th Percentile |
-   |----------|----------|-------------------|------------|-----------------|
-   
-   - Endpoints más lentos
-   - Endpoints con más errores
-   - Endpoints no utilizados
-
-4. DETECCIÓN DE ANOMALÍAS
-   - Spikes de tráfico inusuales
-   - Patrones de bot/scraping
-   - Posibles ataques DDoS
-   - Intentos de SQL injection
-   - Path traversal attempts
-
-5. ANÁLISIS DE ERRORES
-   Status codes breakdown:
-   - 2xx: __% (Success)
-   - 3xx: __% (Redirects)
-   - 4xx: __% (Client errors)
-   - 5xx: __% (Server errors)
-   
-   Para cada error 5xx:
-   - Frecuencia
-   - Endpoints afectados
-   - Patrón temporal
-   - Causa probable
-
-6. USER AGENT ANALYSIS
-   - Browsers vs bots
-   - Dispositivos (mobile/desktop/tablet)
-   - Sistemas operativos
-   - Versiones de browser obsoletas
-
-7. ANÁLISIS DE SESIONES
-   - Duración promedio de sesión
-   - Páginas por sesión
-   - Bounce rate por página
-   - Flujo de navegación común
-
-8. PERFORMANCE METRICS
-   - Response time percentiles (50th, 90th, 95th, 99th)
-   - Throughput (requests/second)
-   - Error rate por minuto
-   - Bandwidth consumido
-
-9. SEGURIDAD
-   Detectar y reportar:
-   - IPs con comportamiento sospechoso
-   - Intentos de acceso a URLs administrativas
-   - Patterns de credential stuffing
-   - Rate limiting violations
-
-10. RECOMENDACIONES DE OPTIMIZACIÓN
-    - Cacheo (qué endpoints cachear)
-    - CDN (qué contenido mover)
-    - Rate limiting (umbrales sugeridos)
-    - Alertas (métricas y thresholds)
-
-FORMATO: Reporte técnico con comandos para reproducir análisis
-INCLUIR: Expresiones regulares para parsing
-HERRAMIENTAS: Comandos awk, grep, sed para análisis rápido"</pre>
-                </div>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 8: Técnicas de Síntesis con IA</h3>
-                
-                <h4>Niveles de Síntesis</h4>
-                
-                <table>
-                    <tr>
-                        <th>Nivel</th>
-                        <th>Descripción</th>
-                        <th>Prompt Key Phrases</th>
-                    </tr>
-                    <tr>
-                        <td><strong>1. Resumen</strong></td>
-                        <td>Reducir información manteniendo ideas principales</td>
-                        <td>"Resume en X palabras", "Puntos clave"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2. Síntesis</strong></td>
-                        <td>Integrar múltiples fuentes en narrativa coherente</td>
-                        <td>"Integra", "Encuentra patrones", "Conecta"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>3. Análisis Crítico</strong></td>
-                        <td>Evaluar fortalezas, debilidades, implicaciones</td>
-                        <td>"Evalúa", "Critica", "Argumenta"</td>
-                    </tr>
-                    <tr>
-                        <td><strong>4. Creación</strong></td>
-                        <td>Generar nuevas ideas basadas en síntesis</td>
-                        <td>"Propón", "Desarrolla", "Innova"</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3>📊 PROYECTO: Dashboard de Investigación Personal</h3>
-                
-                <p><strong>Crea tu Command Center de Tesis/Proyecto con estos prompts:</strong></p>
-                
-                <h4>1. TRACKING DE LITERATURA</h4>
-                <pre>"Crea una plantilla de seguimiento para mis lecturas:
-
-FICHA BIBLIOGRÁFICA #___
-========================
-📚 Referencia (APA): 
-📅 Fecha de lectura:
-🎯 Relevancia para mi investigación: [1-5]
-
-🔍 RESUMEN EJECUTIVO (100 palabras):
-
-💡 IDEAS CLAVE:
-1.
-2.
-3.
-
-🔗 CONEXIONES:
-- Se relaciona con: [otros autores/teorías]
-- Contradice a: 
-- Complementa a:
-
-❓ PREGUNTAS QUE GENERA:
-
-💭 MIS NOTAS CRÍTICAS:
-
-🏷️ TAGS: #[metodología] #[teoría] #[tema]"</pre>
-
-                <h4>2. ORGANIZADOR DE IDEAS</h4>
-                <pre>"Organiza estas notas de investigación en un mapa conceptual:
-
-[PEGA TUS NOTAS DESORDENADAS]
-
-Estructura:
-1. CATEGORÍAS PRINCIPALES (máx 5)
-2. SUBCATEGORÍAS (2-3 por categoría)
-3. CONEXIONES CRUZADAS (relaciones entre categorías)
-4. IDEAS HUÉRFANAS (no encajan aún, pero son importantes)
-5. PRÓXIMOS PASOS (qué investigar basado en gaps)"</pre>
-
-                <h4>3. GENERADOR DE PREGUNTAS DE EXAMEN</h4>
-                <pre>"Basándote en este material de estudio:
-[PEGA TUS APUNTES]
-
-Genera:
-A) 5 preguntas de opción múltiple (4 opciones, incluye distractores creíbles)
-B) 3 preguntas de desarrollo corto (respuesta en 150-200 palabras)
-C) 1 pregunta de ensayo (respuesta en 500+ palabras)
-D) 2 casos prácticos con preguntas de análisis
-
-Para cada pregunta, proporciona:
-- Respuesta modelo
-- Criterios de evaluación
-- Conceptos clave evaluados
-- Nivel de dificultad (Bloom: recordar/comprender/aplicar/analizar)"</pre>
-            </div>
-
-            <div class="practica-box">
-                <h3>🔬 CASOS ESPECIALIZADOS: Análisis de Documentos Complejos</h3>
-                
-                <div class="ejercicio-box">
-                    <h4>📊 CASO ESPECIAL 1: Análisis de Estados Financieros (PDF)</h4>
-                    
-                    <p><strong>Contexto:</strong> Tienes el reporte anual de una empresa (100+ páginas con tablas financieras)</p>
-                    
-                    <pre>PROMPT PARA ANÁLISIS FINANCIERO:
-"Actúa como analista senior de JP Morgan con CFA nivel 3.
-
-DOCUMENTO: Reporte Anual 2023 de [Empresa] - Estados Financieros
-PÁGINAS: Enfócate en páginas 45-95 (Estados Financieros y Notas)
-
-ANÁLISIS FINANCIERO COMPREHENSIVO:
-
-1. RATIOS FINANCIEROS CLAVE
-   Calcula y analiza tendencia 3 años:
-   
-   LIQUIDEZ:
-   - Current Ratio: ___ (2023) vs ___ (2022) vs ___ (2021)
-   - Quick Ratio: ___
-   - Cash Ratio: ___
-   - Interpretación: [¿Mejora o empeora la liquidez?]
-   
-   RENTABILIDAD:
-   - ROE: ___ | ROA: ___ | ROI: ___
-   - Profit Margin: Gross ___ | Operating ___ | Net ___
-   - EBITDA Margin: ___
-   - Tendencia y drivers de cambio
-   
-   EFICIENCIA:
-   - Asset Turnover: ___
-   - Inventory Turnover: ___ (días: ___)
-   - Receivables Turnover: ___ (días: ___)
-   - Payables Turnover: ___ (días: ___)
-   - Cash Conversion Cycle: ___ días
-   
-   APALANCAMIENTO:
-   - Debt-to-Equity: ___
-   - Debt-to-Assets: ___
-   - Interest Coverage: ___x
-   - Debt Service Coverage: ___x
-
-2. ANÁLISIS DUPONT (ROE Descompuesto)
-   ROE = Net Margin × Asset Turnover × Equity Multiplier
-   20XX: ___% = ___% × ___ × ___
-   20XX: ___% = ___% × ___ × ___
-   Qué componente impulsa cambios en ROE: ___
-
-3. ANÁLISIS VERTICAL Y HORIZONTAL
-   
-   VERTICAL (Common-size):
-   | Item | % de Ventas 2023 | % de Ventas 2022 | Δ |
-   |------|------------------|------------------|---|
-   | COGS | | | |
-   | SG&A | | | |
-   | EBIT | | | |
-   
-   HORIZONTAL (Growth rates):
-   | Item | 2023 vs 2022 | 2022 vs 2021 | CAGR 3 años |
-   |------|--------------|--------------|-------------|
-   | Revenue | +X% | +Y% | Z% |
-   | Net Income | | | |
-
-4. ANÁLISIS DE FLUJO DE CAJA
-   - Operating CF: $__ (¿cubre CAPEX?)
-   - Free Cash Flow: $__ (trend: ↑↓)
-   - FCF Yield: __%
-   - Quality of Earnings: (Net Income vs Operating CF)
-   - ¿Red flags en el flujo de caja?
-
-5. ANÁLISIS DE NOTAS AL PIE
-   Identifica y evalúa:
-   - Políticas contables agresivas/conservadoras
-   - Contingencias materiales
-   - Off-balance sheet items
-   - Transacciones con partes relacionadas
-   - Cambios en políticas contables
-
-6. SEÑALES DE ALERTA (Red Flags)
-   □ Crecimiento de receivables > ventas
-   □ Inventario creciendo más rápido que COGS
-   □ Aumento en días de cobro
-   □ Deterioro en cash flow pese a ganancias
-   □ Ajustes recurrentes "one-time"
-   □ Auditor opinions/concerns
-
-7. VALUACIÓN IMPLÍCITA
-   Basado en múltiplos actuales:
-   - P/E: __ (vs industria: __)
-   - EV/EBITDA: __ (vs industria: __)
-   - P/B: __ (vs industria: __)
-   - ¿Overvalued o Undervalued?
-
-8. FORECAST BÁSICO
-   Proyección próximo año basado en:
-   - Revenue growth histórico: __%
-   - Margin trends: ___
-   - Proyecto Revenue 2024: $___
-   - Proyecto Net Income 2024: $___
-   - Supuestos clave: ___
-
-9. RECOMENDACIÓN DE INVERSIÓN
-   Rating: [BUY/HOLD/SELL]
-   Target Price: $__ (upside/downside: _%)
-   Horizonte: 12 meses
-   
-   Riesgos principales:
-   1. ___
-   2. ___
-   3. ___
-   
-   Catalizadores positivos:
-   1. ___
-   2. ___
-
-10. EXECUTIVE SUMMARY (200 palabras)
-    Para presentar a comité de inversión
-
-TONO: Profesional de Wall Street, directo, sin fluff
-FORMATO: Combinar tablas, bullets, y narrativa según corresponda
-INCLUIR: Gráficos descritos donde ayuden a visualizar trends"</pre>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>📚 CASO ESPECIAL 2: Análisis de Tesis Doctoral (200+ páginas)</h4>
-                    
-                    <p><strong>Contexto:</strong> Necesitas revisar una tesis doctoral completa para tu investigación</p>
-                    
-                    <pre>PROMPT PARA TESIS/DISERTACIÓN:
-"Actúa como miembro del tribunal de tesis doctoral en [Tu Campo].
-
-DOCUMENTO: Tesis Doctoral - "[Título]"
-AUTOR: [Nombre]
-PÁGINAS: [###]
-UNIVERSIDAD: [Institución]
-
-REVISIÓN SISTEMÁTICA DE TESIS:
-
-1. ESTRUCTURA Y ORGANIZACIÓN
-   Evalúa (1-5 estrellas):
-   ⭐ Abstract: [¿Resume efectivamente?]
-   ⭐ Introducción: [¿Plantea claramente el problema?]
-   ⭐ Literatura Review: [¿Comprehensivo y crítico?]
-   ⭐ Metodología: [¿Replicable y apropiada?]
-   ⭐ Resultados: [¿Bien presentados?]
-   ⭐ Discusión: [¿Interpreta adecuadamente?]
-   ⭐ Conclusiones: [¿Justified by data?]
-
-2. CONTRIBUCIÓN ORIGINAL
-   ¿Cuál es la contribución específica al conocimiento?
-   - Teórica: ___
-   - Metodológica: ___
-   - Empírica: ___
-   - Práctica: ___
-   
-   Nivel de originalidad: [Bajo/Medio/Alto]
-   Justificación: ___
-
-3. MARCO TEÓRICO
-   - Teorías principales utilizadas: ___
-   - Autores clave citados: ___
-   - Gaps identificados: ___
-   - ¿Construcción lógica del argumento? ___
-
-4. METODOLOGÍA DETALLADA
-   - Paradigma: [Positivista/Interpretivista/Crítico/Pragmático]
-   - Enfoque: [Cualitativo/Cuantitativo/Mixto]
-   - Diseño: [Experimental/Observacional/etc.]
-   - Muestra: n=___, método: ___
-   - Instrumentos: ___
-   - Análisis: ___
-   
-   Fortalezas metodológicas:
-   Debilidades metodológicas:
-
-5. ANÁLISIS DE RESULTADOS
-   Hallazgos principales:
-   1. [Hallazgo + evidencia + página]
-   2. [Hallazgo + evidencia + página]
-   3. [Hallazgo + evidencia + página]
-   
-   ¿Resultados responden a preguntas de investigación? ___
-   ¿Hay hallazgos inesperados? ___
-
-6. VALIDEZ Y CONFIABILIDAD
-   - Validez interna: [Amenazas identificadas]
-   - Validez externa: [Generalizabilidad]
-   - Confiabilidad: [Medidas tomadas]
-   - Triangulación: [Sí/No, cómo]
-
-7. ANÁLISIS DE CITAS
-   - Total de referencias: ___
-   - Actualidad: ___% últimos 5 años
-   - Fuentes primarias vs secundarias: ___
-   - Journals de alto impacto: ___%
-   - Autocitas excesivas: [Sí/No]
-
-8. ESCRITURA Y PRESENTACIÓN
-   - Claridad: [1-10]
-   - Coherencia: [1-10]
-   - Gramática: [1-10]
-   - Formato APA/MLA: [Errores detectados]
-   - Figuras y tablas: [Calidad y relevancia]
-
-9. PREGUNTAS PARA DEFENSA
-   Genera 10 preguntas desafiantes:
-   
-   TEÓRICAS:
-   1. ___
-   2. ___
-   
-   METODOLÓGICAS:
-   3. ___
-   4. ___
-   
-   SOBRE RESULTADOS:
-   5. ___
-   6. ___
-   
-   IMPLICACIONES:
-   7. ___
-   8. ___
-   
-   FUTURAS INVESTIGACIONES:
-   9. ___
-   10. ___
-
-10. VEREDICTO Y RECOMENDACIONES
-    [ ] Aprobada sin modificaciones
-    [ ] Aprobada con modificaciones menores
-    [ ] Modificaciones mayores requeridas
-    [ ] No aprobada
-    
-    Modificaciones específicas requeridas:
-    CRÍTICAS (must fix):
-    - ___
-    
-    IMPORTANTES (should fix):
-    - ___
-    
-    SUGERENCIAS (nice to have):
-    - ___
-
-11. POTENCIAL DE PUBLICACIÓN
-    ¿Qué capítulos podrían ser artículos?
-    Journals objetivo recomendados:
-    Estrategia de publicación sugerida:
-
-FORMATO: Reporte de evaluación profesional
-TONO: Académico riguroso pero constructivo
-EXTENSIÓN: 3000 palabras"</pre>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>🏥 CASO ESPECIAL 3: Análisis de Historia Clínica (Datos Sensibles)</h4>
-                    
-                    <p><strong>Contexto:</strong> Análisis de expediente médico para caso de estudio (anonimizado)</p>
-                    
-                    <pre>PROMPT PARA DATOS MÉDICOS:
-"Actúa como médico especialista en medicina interna y epidemiología.
-
-NOTA: Todos los datos están anonimizados. Paciente ID: XXXX-2024
-
-ANÁLISIS DE HISTORIA CLÍNICA:
-
-1. RESUMEN DEL CASO
-   - Edad/Sexo: ___
-   - Motivo de consulta principal: ___
-   - Duración de síntomas: ___
-   - Factores de riesgo relevantes: ___
-
-2. ANÁLISIS SOAP
-   S (Subjective): [Síntomas reportados por paciente]
-   O (Objective): [Hallazgos físicos y laboratorio]
-   A (Assessment): [Diagnósticos diferenciales]
-   P (Plan): [Tratamiento y seguimiento]
-
-3. TIMELINE DE EVOLUCIÓN
-   Crea línea temporal:
-   Día 0: [Inicio síntomas]
-   Día X: [Primera consulta]
-   Día Y: [Estudios realizados]
-   [continuar hasta resolución o última entrada]
-
-4. ANÁLISIS DE LABORATORIOS
-   | Parámetro | Valor | Rango Normal | Interpretación |
-   |-----------|-------|--------------|----------------|
-   | Hemoglobina | | 12-16 g/dL | |
-   | Leucocitos | | 4,500-11,000 | |
-   | Plaquetas | | 150k-400k | |
-   [continuar con todos los labs]
-
-5. DIAGNÓSTICOS DIFERENCIALES
-   Basado en presentación clínica:
-   
-   MÁS PROBABLE:
-   - Diagnóstico: ___
-   - Evidencia a favor: ___
-   - Evidencia en contra: ___
-   
-   OTROS POSIBLES:
-   - ___
-   - ___
-   
-   CRITICAL (no perder):
-   - ___
-
-6. ANÁLISIS DE TRATAMIENTO
-   - Medicamentos prescritos: ___
-   - Dosis apropiadas: [Sí/No, ajustes necesarios]
-   - Interacciones medicamentosas: ___
-   - Contraindicaciones: ___
-
-7. CALIDAD DE ATENCIÓN
-   Según guías clínicas actuales:
-   [ ] Se siguieron protocolos estándar
-   [ ] Estudios ordenados apropiados
-   [ ] Tratamiento basado en evidencia
-   [ ] Documentación adecuada
-   
-   Áreas de mejora: ___
-
-8. PRONÓSTICO
-   - Corto plazo (días-semanas): ___
-   - Mediano plazo (meses): ___
-   - Largo plazo (años): ___
-   - Factores que modifican pronóstico: ___
-
-9. PREVENCIÓN Y EDUCACIÓN
-   Recomendaciones para paciente:
-   - Estilo de vida: ___
-   - Signos de alarma: ___
-   - Seguimiento requerido: ___
-
-10. CONSIDERACIONES ÉTICAS/LEGALES
-    - Consentimiento informado documentado: ___
-    - Privacidad protegida: ___
-    - Decisiones éticas relevantes: ___
-
-IMPORTANTE: Mantener confidencialidad, usar lenguaje médico apropiado
-FORMATO: Historia clínica estructurada + análisis
-EVITAR: Identificadores personales, juicios no médicos"</pre>
-                </div>
-
-                <div class="ejercicio-box">
-                    <h4>🌐 CASO ESPECIAL 4: Análisis de Datos de Redes Sociales</h4>
-                    
-                    <p><strong>Contexto:</strong> Dataset de 50,000 tweets sobre un tema específico</p>
-                    
-                    <pre>PROMPT PARA SOCIAL MEDIA ANALYTICS:
-"Actúa como Social Media Analyst con expertise en NLP y sentiment analysis.
-
-DATASET: 50,000 tweets sobre [TEMA]
-PERÍODO: [Fecha inicio - Fecha fin]
-COLUMNAS: tweet_id, user, text, timestamp, likes, retweets, replies, hashtags, mentions
-
-ANÁLISIS COMPRENSIVO DE SOCIAL MEDIA:
-
-1. ESTADÍSTICAS GENERALES
-   - Total tweets únicos: ___
-   - Usuarios únicos: ___
-   - Tweets por día (promedio): ___
-   - Engagement rate promedio: ___
-   - Viral tweets (>1000 RT): ___
-
-2. ANÁLISIS TEMPORAL
-   Patrones de actividad:
-   - Hora peak de tweets: ___
-   - Día de semana más activo: ___
-   - Evolución volumen diario: [gráfico descrito]
-   - Eventos que causaron spikes: ___
-
-3. SENTIMENT ANALYSIS
-   Clasificación:
-   - Positivo: __% (n=___)
-   - Neutro: __% (n=___)
-   - Negativo: __% (n=___)
-   
-   Evolución temporal del sentimiento:
-   [Describir tendencia]
-   
-   Triggers de sentimiento negativo:
-   1. ___
-   2. ___
-
-4. ANÁLISIS DE INFLUENCERS
-   Top 10 usuarios por impacto:
-   | Usuario | Followers | Tweets | Avg Engagement | Reach |
-   |---------|-----------|--------|----------------|-------|
-   
-   Tipos de influencers:
-   - Celebridades: ___
-   - Expertos: ___
-   - Micro-influencers: ___
-
-5. HASHTAG ANALYSIS
-   Top 20 hashtags:
-   | Hashtag | Frecuencia | Sentiment | Asociaciones |
-   |---------|------------|-----------|--------------|
-   
-   Hashtags emergentes: ___
-   Hashtags en declive: ___
-
-6. NETWORK ANALYSIS
-   - Comunidades detectadas: ___ clusters
-   - Usuarios puente (high betweenness): ___
-   - Echo chambers identificadas: ___
-   - Grado de polarización: ___
-
-7. CONTENT ANALYSIS
-   Temas principales (Topic Modeling):
-   
-   TEMA 1: [20% del corpus]
-   Keywords: ___
-   Ejemplos tweets: ___
-   
-   TEMA 2: [15% del corpus]
-   [continuar...]
-
-8. ANÁLISIS DE VIRALIDAD
-   Características de tweets virales:
-   - Longitud promedio: ___ caracteres
-   - Uso de imágenes: ___%
-   - Uso de videos: ___%
-   - Hashtags promedio: ___
-   - Mejor hora para publicar: ___
-
-9. DETECCIÓN DE BOTS Y SPAM
-   - Cuentas sospechosas de ser bots: ___%
-   - Indicadores utilizados: ___
-   - Contenido spam detectado: ___
-   - Campañas coordinadas: ___
-
-10. ANÁLISIS COMPETITIVO
-    Si hay menciones de competidores:
-    | Marca | Menciones | Sentiment | Share of Voice |
-    |-------|-----------|-----------|----------------|
-
-11. PREDICCIONES Y TENDENCIAS
-    - Proyección próxima semana: ___
-    - Temas emergentes a monitorear: ___
-    - Riesgos reputacionales detectados: ___
-
-12. ACTIONABLE INSIGHTS
-    Para equipo de marketing:
-    1. [Insight + Acción recomendada]
-    2. [Insight + Acción recomendada]
-    
-    Para PR:
-    1. [Insight + Acción recomendada]
-    
-    Para producto:
-    1. [Insight + Acción recomendada]
-
-13. DASHBOARD RESUMEN
-    ┌─────────────────────────┐
-    │ 📊 MÉTRICAS CLAVE       │
-    ├─────────────────────────┤
-    │ Reach: ###M             │
-    │ Engagement: ##%         │
-    │ Sentiment: 😊 ##%       │
-    │ Trending: ↑ +##%        │
-    └─────────────────────────┘
-
-FORMATO: Reporte de social listening
-VISUALIZACIONES: Describir 8 gráficos clave
-TONO: Data-driven pero accesible para no-técnicos"</pre>
-                </div>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 75%;">
-                    Módulo 3 Completado - 75%
-                </div>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-5"></i></span> Errores Comunes a Evitar</h2>
+
+            <ul>
+                <li><strong>Prompts demasiado vagos:</strong> "Háblame de tecnología" → "Explica las 3 tecnologías de IA más relevantes en 2024 para el sector salud"</li>
+                <li><strong>Asumir conocimiento implícito:</strong> Siempre proporciona el contexto necesario</li>
+                <li><strong>Instrucciones contradictorias:</strong> Revisa que todas las partes de tu prompt sean coherentes</li>
+                <li><strong>No especificar el formato de salida:</strong> Indica si quieres una lista, tabla, código, párrafos, etc.</li>
+                <li><strong>Prompts demasiado largos:</strong> Mantén un balance entre detalle y concisión</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>💡 Regla de Oro:</strong> Si un humano no entendería claramente qué hacer con tu prompt, la IA probablemente tampoco.
             </div>
         </div>
 
-        <div class="module">
-            <h2>MÓDULO 4: EVALUACIÓN Y MEJORA CONTINUA</h2>
-            
-            <div class="objetivo-box">
-                <h3>🎯 Objetivos de Aprendizaje</h3>
-                <p>Al finalizar este módulo serás capaz de:</p>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-pencil"></i></span> Ejercicios Prácticos</h2>
+
+            <div class="exercise-box">
+                <h4>Ejercicio 1: Mejora el Prompt</h4>
+                <p><strong>Prompt Original:</strong> "Explica blockchain"</p>
+                <p><strong>Tu Tarea:</strong> Reescribe este prompt haciéndolo más específico, añadiendo contexto, definiendo un rol, y especificando el formato de salida deseado.</p>
+            </div>
+
+            <div class="exercise-box">
+                <h4>Ejercicio 2: Chain-of-Thought</h4>
+                <p>Diseña un prompt que use la técnica de cadena de pensamiento para resolver este problema:</p>
+                <p>"Un equipo de desarrollo tiene 3 sprints de 2 semanas cada uno. En el primer sprint completaron 20 historias de usuario, en el segundo 25, y en el tercero 18. Si el backlog total tiene 150 historias, ¿cuántos sprints más necesitan aproximadamente?"</p>
+            </div>
+
+            <div class="exercise-box">
+                <h4>Ejercicio 3: Few-Shot Learning</h4>
+                <p>Crea un prompt con ejemplos (few-shot) para enseñar al modelo a convertir descripciones en SQL:</p>
+                <p>Ejemplo: "Muestra todos los clientes" → SELECT * FROM clientes;</p>
+                <p>Luego pide que convierta: "Muestra los productos con precio mayor a 100 ordenados por nombre"</p>
+            </div>
+
+            <div class="exercise-box">
+                <h4>Ejercicio 4: Prompt Complejo</h4>
+                <p>Diseña un prompt completo para:</p>
                 <ul>
-                    <li>✅ Autoevaluar la calidad de tus prompts</li>
-                    <li>✅ Implementar un sistema de mejora iterativa</li>
-                    <li>✅ Crear rúbricas personalizadas</li>
-                    <li>✅ Construir tu portafolio de prompts profesionales</li>
+                    <li>Analizar un dataset de ventas</li>
+                    <li>Generar código Python para visualización</li>
+                    <li>Incluir manejo de errores</li>
+                    <li>Proporcionar documentación del código</li>
                 </ul>
-            </div>
-
-            <div class="teoria-box">
-                <h3>📖 LECCIÓN 7: Autoevaluación y Refinamiento</h3>
-                
-                <h4>Rúbrica de Calidad de Prompts</h4>
-                
-                <table>
-                    <tr>
-                        <th>Criterio</th>
-                        <th>Excelente (4)</th>
-                        <th>Bueno (3)</th>
-                        <th>Adecuado (2)</th>
-                        <th>Necesita Mejora (1)</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Claridad</strong></td>
-                        <td>Cristalino, sin ambigüedad</td>
-                        <td>Mayormente claro</td>
-                        <td>Algo confuso</td>
-                        <td>Vago o ambiguo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Especificidad</strong></td>
-                        <td>Todos los detalles necesarios</td>
-                        <td>La mayoría de detalles</td>
-                        <td>Algunos detalles</td>
-                        <td>Falta información clave</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Estructura</strong></td>
-                        <td>Organización perfecta</td>
-                        <td>Bien estructurado</td>
-                        <td>Estructura básica</td>
-                        <td>Desorganizado</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Resultados</strong></td>
-                        <td>Exactamente lo esperado</td>
-                        <td>Muy cercano a lo esperado</td>
-                        <td>Parcialmente útil</td>
-                        <td>No cumple objetivo</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="ejercicio-box">
-                <h3>🎓 PROYECTO FINAL: Tu Portafolio Profesional de Prompts</h3>
-                
-                <h4>Estructura del Portafolio:</h4>
-                
-                <div class="checklist">
-                    <ul>
-                        <li>📁 <strong>SECCIÓN 1: Prompts Académicos</strong>
-                            <ul>
-                                <li>Escritura de ensayos</li>
-                                <li>Análisis de literatura</li>
-                                <li>Preparación de presentaciones</li>
-                            </ul>
-                        </li>
-                        <li>📁 <strong>SECCIÓN 2: Prompts de Investigación</strong>
-                            <ul>
-                                <li>Formulación de preguntas</li>
-                                <li>Diseño metodológico</li>
-                                <li>Análisis de datos</li>
-                            </ul>
-                        </li>
-                        <li>📁 <strong>SECCIÓN 3: Prompts de Productividad</strong>
-                            <ul>
-                                <li>Organización de tareas</li>
-                                <li>Resúmenes ejecutivos</li>
-                                <li>Comunicación profesional</li>
-                            </ul>
-                        </li>
-                        <li>📁 <strong>SECCIÓN 4: Prompts Creativos</strong>
-                            <ul>
-                                <li>Brainstorming</li>
-                                <li>Solución de problemas</li>
-                                <li>Innovación</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <h4>Plantilla de Documentación:</h4>
-                <pre>━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROMPT: [Nombre Descriptivo]
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📌 CATEGORÍA: 
-⭐ EFECTIVIDAD: ★★★★★
-🔄 VERSIÓN: 1.0
-📅 ÚLTIMA ACTUALIZACIÓN: 
-
-📝 CASO DE USO:
-[Cuándo y por qué usar este prompt]
-
-💻 PROMPT COMPLETO:
-```
-[Tu prompt aquí]
-```
-
-🔧 VARIABLES PERSONALIZABLES:
-• [Variable 1]: _______
-• [Variable 2]: _______
-
-📊 EJEMPLO DE OUTPUT:
-[Muestra de resultado exitoso]
-
-💡 TIPS DE USO:
-• 
-• 
-
-⚠️ LIMITACIONES CONOCIDAS:
-• 
-
-📈 MÉTRICAS DE ÉXITO:
-□ Genera resultado en primer intento: SÍ/NO
-□ Requiere edición mínima: SÍ/NO
-□ Ahorra tiempo: ____%
-
-🔄 HISTORIAL DE VERSIONES:
-v1.0 - [Fecha] - Versión inicial
-━━━━━━━━━━━━━━━━━━━━━━━━━━━</pre>
-            </div>
-
-            <div class="success-box">
-                <h3>🏆 CERTIFICACIÓN DE COMPETENCIAS</h3>
-                
-                <h4>Has completado el curso y ahora puedes:</h4>
-                <ul>
-                    <li>✅ Crear prompts profesionales para cualquier tarea académica</li>
-                    <li>✅ Optimizar la comunicación con IA para máxima efectividad</li>
-                    <li>✅ Mantener integridad académica usando IA éticamente</li>
-                    <li>✅ Evaluar y mejorar continuamente tus técnicas</li>
-                    <li>✅ Enseñar a otros estas habilidades esenciales</li>
-                </ul>
-                
-                <h4>Próximos Pasos:</h4>
-                <ol>
-                    <li>📌 Practica diariamente con diferentes tipos de prompts</li>
-                    <li>📌 Únete a comunidades de prompt engineering</li>
-                    <li>📌 Experimenta con diferentes modelos de IA</li>
-                    <li>📌 Comparte tus mejores prompts con compañeros</li>
-                    <li>📌 Mantén un journal de aprendizajes y mejoras</li>
-                </ol>
-            </div>
-
-            <div class="recursos-box">
-                <h3>📚 BIBLIOTECA DE REFERENCIA RÁPIDA</h3>
-                
-                <h4>Cheatsheet de Prompting:</h4>
-                <pre>ESTRUCTURA BÁSICA:
-[Rol] + [Contexto] + [Tarea] + [Formato] + [Restricciones]
-
-MEJORADORES DE CALIDAD:
-• "Piensa paso a paso"
-• "Proporciona ejemplos"
-• "Explica tu razonamiento"
-• "Sé específico sobre..."
-• "Evita generalidades"
-
-FORMATOS ÚTILES:
-• "En formato de tabla"
-• "Como lista numerada"
-• "En párrafos de X palabras"
-• "Estilo académico APA"
-• "Con viñetas y subviñetas"
-
-TONOS EFECTIVOS:
-• "Profesional pero accesible"
-• "Académico riguroso"
-• "Conversacional educativo"
-• "Técnico preciso"
-• "Inspirador y motivacional"</pre>
-                
-                <h4>Glosario de Términos:</h4>
-                <ul>
-                    <li><strong>Prompt Engineering:</strong> El arte y ciencia de diseñar instrucciones efectivas para IA</li>
-                    <li><strong>Few-shot Learning:</strong> Técnica de proporcionar ejemplos en el prompt</li>
-                    <li><strong>Chain-of-Thought:</strong> Método para hacer que la IA muestre su razonamiento</li>
-                    <li><strong>Hallucination:</strong> Cuando la IA genera información falsa o inventada</li>
-                    <li><strong>Token:</strong> Unidad básica de texto que procesa la IA</li>
-                    <li><strong>Context Window:</strong> Cantidad máxima de texto que la IA puede procesar</li>
-                </ul>
-            </div>
-
-            <div class="progress-bar">
-                <div class="progress" style="width: 100%;">
-                    🎉 ¡CURSO COMPLETADO! - 100%
-                </div>
             </div>
         </div>
 
-        <div class="clausura" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-top: 40px;">
-            <h2 style="color: white; border: none;">🎓 ¡FELICITACIONES!</h2>
-            <p style="font-size: 1.2em;">Has completado exitosamente la PARTE I: Prompting de Texto</p>
-            <p>Ahora dominas las técnicas fundamentales para comunicarte efectivamente con IA mediante texto.</p>
-            <p style="font-size: 1.1em; margin-top: 20px;"><strong>Recuerda: La IA es una herramienta poderosa, pero tu pensamiento crítico, creatividad y ética son irreemplazables.</strong></p>
-            <p style="margin-top: 30px;">¡Adelante, y que tus prompts siempre generen exactamente lo que necesitas! 🚀</p>
-            
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.3);">
-                <p><strong>PRÓXIMAMENTE:</strong></p>
-                <p>PARTE II: Prompting de Imagen | PARTE III: Prompting de Video | PARTE IV: Prompting de Audio</p>
+        <div class="lesson-card">
+            <h2><span class="icon-circle"><i class="fa-solid fa-book"></i></span> Recursos Adicionales</h2>
+
+            <p><strong>Plataformas para Practicar:</strong></p>
+            <ul>
+                <li>ChatGPT (OpenAI) - <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
+                <li>Claude (Anthropic) - <a href="https://claude.ai" target="_blank">claude.ai</a></li>
+                <li>Gemini (Google) - <a href="https://gemini.google.com" target="_blank">gemini.google.com</a></li>
+            </ul>
+
+            <p><strong>Documentación Recomendada:</strong></p>
+            <ul>
+                <li>OpenAI Prompt Engineering Guide</li>
+                <li>Anthropic Prompt Engineering Documentation</li>
+                <li>Google AI Prompting Best Practices</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong>🎯 Práctica Recomendada:</strong> Dedica 30 minutos diarios a experimentar con diferentes técnicas de prompting. La práctica constante es clave para dominar esta habilidad.
             </div>
-        </div>
-        
-        <div class="copyright-footer">
-            <p><strong>© 2024 Jonatan Figueroa Gil</strong></p>
-            <p>Todos los derechos reservados. Este material es propiedad intelectual de Jonatan Figueroa Gil.</p>
-            <p>Prohibida su reproducción total o parcial sin autorización expresa del autor.</p>
-            <p style="font-size: 0.9em; color: #999;">Curso de Prompting con IA - Parte I: Texto - Versión 1.0</p>
         </div>
     </div>
 </body>
