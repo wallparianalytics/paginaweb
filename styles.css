@@ -1577,12 +1577,14 @@ footer a {
   flex: 1;
   overflow: hidden;
   padding: 0;
+  position: relative;
 }
 
 .prompting-modal-body iframe {
   width: 100%;
   height: 100%;
   border: none;
+  display: block;
 }
 
 /* Responsive adjustments for login and prompting modals */
