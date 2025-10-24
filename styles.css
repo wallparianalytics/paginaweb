@@ -21,6 +21,12 @@
   padding: 0;
 }
 
+/* Skip link for accessibility */
+.skip-link:focus {
+  position: static;
+  left: auto;
+}
+
 body {
   font-family: var(--body-font);
   color: var(--text-dark);

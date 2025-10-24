@@ -1156,4 +1156,74 @@ document.addEventListener('DOMContentLoaded', () => {
       b: int & 255
     };
   }
+
+  /**
+   * Formulario de contacto con validación
+   * Valida los campos y muestra mensajes de éxito/error al usuario
+   */
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formMessage = document.getElementById('formMessage');
+      const nombre = document.getElementById('nombre').value.trim();
+      const correo = document.getElementById('correo').value.trim();
+      const mensaje = document.getElementById('mensaje').value.trim();
+
+      // Validación básica
+      if (nombre.length < 2) {
+        showFormMessage('El nombre debe tener al menos 2 caracteres.', 'error');
+        return;
+      }
+
+      if (!isValidEmail(correo)) {
+        showFormMessage('Por favor, ingresa un correo electrónico válido.', 'error');
+        return;
+      }
+
+      if (mensaje.length < 10) {
+        showFormMessage('El mensaje debe tener al menos 10 caracteres.', 'error');
+        return;
+      }
+
+      // Simulación de envío (en producción, aquí iría la llamada a un backend)
+      showFormMessage('¡Gracias por tu mensaje! Te contactaremos pronto.', 'success');
+
+      // Limpiar formulario
+      contactForm.reset();
+
+      // Ocultar mensaje después de 5 segundos
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    });
+  }
+
+  /**
+   * Muestra mensaje de formulario con estilo según el tipo
+   */
+  function showFormMessage(message, type) {
+    const formMessage = document.getElementById('formMessage');
+    formMessage.textContent = message;
+    formMessage.style.display = 'block';
+
+    if (type === 'success') {
+      formMessage.style.backgroundColor = '#d4edda';
+      formMessage.style.color = '#155724';
+      formMessage.style.border = '1px solid #c3e6cb';
+    } else if (type === 'error') {
+      formMessage.style.backgroundColor = '#f8d7da';
+      formMessage.style.color = '#721c24';
+      formMessage.style.border = '1px solid #f5c6cb';
+    }
+  }
+
+  /**
+   * Valida formato de correo electrónico
+   */
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 });

@@ -1,0 +1,11 @@
+# robots.txt para Wallpari Analytics
+# Permite el acceso a todos los robots de búsqueda
+
+User-agent: *
+Allow: /
+
+# Bloquear archivos innecesarios
+Disallow: /cached_assets_used/
+
+# Sitemap
+Sitemap: https://www.wallparianalytics.io/sitemap.xml
