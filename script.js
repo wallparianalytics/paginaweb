@@ -28,6 +28,10 @@ const translations = {
     modal_title: 'Noticias y Artículos de IA',
     tab_news: 'Noticias',
     tab_articles: 'Artículos de Investigación',
+    refresh_news: 'Actualizar',
+    last_update: 'Última actualización: hace 2 horas',
+    filter_label: 'Filtrar por:',
+    filter_all: 'Todos',
     // Home page
     home_hero_title: 'Soluciones inteligentes en análisis de datos',
     home_hero_subtitle: 'Transformamos tus datos en decisiones que inspiran confianza',
@@ -180,6 +184,10 @@ const translations = {
     modal_title: 'AI News and Articles',
     tab_news: 'News',
     tab_articles: 'Research Articles',
+    refresh_news: 'Refresh',
+    last_update: 'Last update: 2 hours ago',
+    filter_label: 'Filter by:',
+    filter_all: 'All',
     home_hero_title: 'Intelligent data analysis solutions',
     home_hero_subtitle: 'We turn your data into decisions that inspire confidence',
     home_hero_button: 'Contact us',
@@ -326,6 +334,10 @@ const translations = {
     modal_title: 'KI-Nachrichten und Artikel',
     tab_news: 'Nachrichten',
     tab_articles: 'Forschungsartikel',
+    refresh_news: 'Aktualisieren',
+    last_update: 'Letzte Aktualisierung: vor 2 Stunden',
+    filter_label: 'Filtern nach:',
+    filter_all: 'Alle',
     home_hero_title: 'Intelligente Datenanalyse-Lösungen',
     home_hero_subtitle: 'Wir verwandeln Ihre Daten in Entscheidungen, die Vertrauen schaffen',
     home_hero_button: 'Kontaktieren Sie uns',
@@ -472,6 +484,10 @@ const translations = {
     modal_title: 'Новости и статьи об ИИ',
     tab_news: 'Новости',
     tab_articles: 'Исследовательские статьи',
+    refresh_news: 'Обновить',
+    last_update: 'Последнее обновление: 2 часа назад',
+    filter_label: 'Фильтр:',
+    filter_all: 'Все',
     home_hero_title: 'Интеллектуальные решения анализа данных',
     home_hero_subtitle: 'Мы превращаем ваши данные в решения, которые внушают доверие',
     home_hero_button: 'Свяжитесь с нами',
@@ -1358,5 +1374,80 @@ document.addEventListener('DOMContentLoaded', () => {
   // Set initial news language to match page language
   if (typeof window.switchNewsLang === 'function') {
     window.switchNewsLang(currentPageLang);
+  }
+
+  /**
+   * News filtering by category
+   */
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const newsCards = document.querySelectorAll('.news-card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filterValue = this.getAttribute('data-filter');
+
+      // Update active button
+      filterButtons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      // Filter news cards
+      newsCards.forEach(card => {
+        if (filterValue === 'all') {
+          card.classList.remove('filtered');
+        } else {
+          const categories = card.getAttribute('data-category') || '';
+          if (categories.includes(filterValue)) {
+            card.classList.remove('filtered');
+          } else {
+            card.classList.add('filtered');
+          }
+        }
+      });
+    });
+  });
+
+  /**
+   * Refresh news functionality (simulated)
+   * In production, this would fetch real news from an API/RSS feed
+   */
+  const refreshBtn = document.getElementById('refreshNewsBtn');
+  const lastUpdateEl = document.querySelector('.last-update');
+
+  if (refreshBtn && lastUpdateEl) {
+    refreshBtn.addEventListener('click', function() {
+      // Add spinning animation
+      refreshBtn.classList.add('spinning');
+      refreshBtn.disabled = true;
+
+      // Simulate fetching news
+      setTimeout(() => {
+        // Update timestamp
+        const now = new Date();
+        const lang = localStorage.getItem('lang') || 'es';
+
+        let timeText;
+        if (lang === 'es') {
+          timeText = `Última actualización: ${now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}`;
+        } else if (lang === 'en') {
+          timeText = `Last update: ${now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+        } else if (lang === 'de') {
+          timeText = `Letzte Aktualisierung: ${now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })}`;
+        } else if (lang === 'ru') {
+          timeText = `Последнее обновление: ${now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`;
+        }
+
+        lastUpdateEl.textContent = timeText;
+
+        // Show success animation
+        refreshBtn.innerHTML = '<i class="fa-solid fa-check"></i> <span>Actualizado</span>';
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          refreshBtn.innerHTML = '<i class="fa-solid fa-rotate"></i> <span data-i18n="refresh_news">Actualizar</span>';
+          refreshBtn.classList.remove('spinning');
+          refreshBtn.disabled = false;
+        }, 2000);
+      }, 1500);
+    });
   }
 });

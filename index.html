@@ -228,15 +228,40 @@
 
       <!-- Contenido de Noticias -->
       <div id="newsContent" class="news-tab-content active">
-        <div class="lang-buttons-modal">
-          <button onclick="switchNewsLang('en')" data-lang="en">EN</button>
-          <button onclick="switchNewsLang('es')" data-lang="es" class="active">ES</button>
-          <button onclick="switchNewsLang('de')" data-lang="de">DE</button>
-          <button onclick="switchNewsLang('ru')" data-lang="ru">RU</button>
+        <!-- Header con idiomas y actualización -->
+        <div class="news-controls">
+          <div class="lang-buttons-modal">
+            <button onclick="switchNewsLang('en')" data-lang="en">EN</button>
+            <button onclick="switchNewsLang('es')" data-lang="es" class="active">ES</button>
+            <button onclick="switchNewsLang('de')" data-lang="de">DE</button>
+            <button onclick="switchNewsLang('ru')" data-lang="ru">RU</button>
+          </div>
+          <div class="news-update">
+            <button id="refreshNewsBtn" class="refresh-btn" title="Actualizar noticias">
+              <i class="fa-solid fa-rotate"></i> <span data-i18n="refresh_news">Actualizar</span>
+            </button>
+            <span class="last-update" data-i18n="last_update">Última actualización: hace 2 horas</span>
+          </div>
+        </div>
+
+        <!-- Filtros por tema -->
+        <div class="news-filters">
+          <span class="filter-label" data-i18n="filter_label">Filtrar por:</span>
+          <button class="filter-btn active" data-filter="all" data-i18n="filter_all">Todos</button>
+          <button class="filter-btn" data-filter="openai">OpenAI / GPT</button>
+          <button class="filter-btn" data-filter="google">Google / Gemini</button>
+          <button class="filter-btn" data-filter="anthropic">Anthropic / Claude</button>
+          <button class="filter-btn" data-filter="llm">LLM / Modelos</button>
+          <button class="filter-btn" data-filter="tools">Herramientas</button>
         </div>
 
         <div id="news-en" class="news-section" style="display:none;">
-          <div class="news-card">
+          <div class="news-card" data-category="openai anthropic">
+            <div class="news-badges">
+              <span class="badge badge-openai">OpenAI</span>
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="news-time">2 hours ago</span>
+            </div>
             <h3>OpenAI banned from using Claude AI just before GPT-5 launch: Here's why</h3>
             <p class="summary">Anthropic has revoked OpenAI's access to its AI models for allegedly violating terms of service. This comes as OpenAI prepares to launch its GPT-5 model.</p>
             <p class="source">
@@ -245,7 +270,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">5 hours ago</span>
+            </div>
             <h3>Google Launches Gemini 2.5 Deep Think, Outperforms Grok-4 & OpenAI o3</h3>
             <p class="summary">Google has launched Deep Think, a new AI reasoning feature, in the Gemini app for Google AI Ultra subscribers.</p>
             <p class="source">
@@ -254,7 +283,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">8 hours ago</span>
+            </div>
             <h3>You can use Google's Math Olympiad-winning Deep Think AI model now - for a price</h3>
             <p class="summary">The $250-per-month Google Ultra subscription just got a lot more powerful.</p>
             <p class="source">
@@ -263,7 +296,12 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="llm tools">
+            <div class="news-badges">
+              <span class="badge badge-llm">LLM Local</span>
+              <span class="badge badge-tools">Tools</span>
+              <span class="news-time">1 day ago</span>
+            </div>
             <h3>5 Ways I use Home Assistant with a local LLM and I wish I did it sooner</h3>
             <p class="summary">Making Home Assistant work with a generative AI model of a local LLM can give you surprising information and fun results.</p>
             <p class="source">
@@ -272,7 +310,12 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="anthropic tools">
+            <div class="news-badges">
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="badge badge-tools">Mobile App</span>
+              <span class="news-time">1 day ago</span>
+            </div>
             <h3>You can use Claude AI's mobile app to draft emails, texts, and calendar events now - here's how</h3>
             <p class="summary">Claude's iOS and Android app will generate the templates for you.</p>
             <p class="source">
@@ -283,7 +326,12 @@
         </div>
 
         <div id="news-es" class="news-section">
-          <div class="news-card">
+          <div class="news-card" data-category="openai anthropic">
+            <div class="news-badges">
+              <span class="badge badge-openai">OpenAI</span>
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="news-time">hace 2 horas</span>
+            </div>
             <h3>OpenAI prohibido de usar Claude AI justo antes del lanzamiento de GPT-5</h3>
             <p class="summary">Anthropic ha revocado el acceso de OpenAI a sus modelos de IA por supuestamente violar los términos de servicio.</p>
             <p class="source">
@@ -292,7 +340,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">hace 5 horas</span>
+            </div>
             <h3>Google lanza Deep Think de Gemini 2.5, supera a Grok-4 y OpenAI o3</h3>
             <p class="summary">Google ha lanzado Deep Think, una nueva función de razonamiento de IA, en la aplicación Gemini para suscriptores de Google AI Ultra.</p>
             <p class="source">
@@ -301,7 +353,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">hace 8 horas</span>
+            </div>
             <h3>Puedes usar el modelo Deep Think de Google ganador de la Olimpiada de Matemáticas - por un precio</h3>
             <p class="summary">La suscripción Ultra de Google de $250 al mes acaba de volverse mucho más poderosa.</p>
             <p class="source">
@@ -310,7 +366,12 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="llm tools">
+            <div class="news-badges">
+              <span class="badge badge-llm">LLM Local</span>
+              <span class="badge badge-tools">Herramientas</span>
+              <span class="news-time">hace 1 día</span>
+            </div>
             <h3>5 formas en las que uso Home Assistant con un LLM local</h3>
             <p class="summary">Hacer que Home Assistant funcione con un modelo de IA generativa puede darte resultados sorprendentes e informativos.</p>
             <p class="source">
@@ -319,7 +380,12 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="anthropic tools">
+            <div class="news-badges">
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="badge badge-tools">App Móvil</span>
+              <span class="news-time">hace 1 día</span>
+            </div>
             <h3>Puedes usar la app móvil de Claude AI para redactar correos y eventos de calendario</h3>
             <p class="summary">La aplicación de Claude para iOS y Android generará las plantillas por ti.</p>
             <p class="source">
@@ -330,7 +396,12 @@
         </div>
 
         <div id="news-de" class="news-section" style="display:none;">
-          <div class="news-card">
+          <div class="news-card" data-category="openai anthropic">
+            <div class="news-badges">
+              <span class="badge badge-openai">OpenAI</span>
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="news-time">vor 2 Stunden</span>
+            </div>
             <h3>OpenAI darf kurz vor dem Start von GPT-5 nicht mehr Claude AI verwenden</h3>
             <p class="summary">Anthropic hat OpenAIs Zugriff auf seine KI-Modelle widerrufen, weil sie angeblich gegen die Nutzungsbedingungen verstoßen haben.</p>
             <p class="source">
@@ -339,7 +410,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">vor 5 Stunden</span>
+            </div>
             <h3>Google startet Gemini 2.5 Deep Think, übertrifft Grok-4 & OpenAI o3</h3>
             <p class="summary">Google hat Deep Think in der Gemini-App für Google AI Ultra-Abonnenten eingeführt.</p>
             <p class="source">
@@ -350,7 +425,12 @@
         </div>
 
         <div id="news-ru" class="news-section" style="display:none;">
-          <div class="news-card">
+          <div class="news-card" data-category="openai anthropic">
+            <div class="news-badges">
+              <span class="badge badge-openai">OpenAI</span>
+              <span class="badge badge-anthropic">Claude</span>
+              <span class="news-time">2 часа назад</span>
+            </div>
             <h3>OpenAI лишилась доступа к Claude AI незадолго до запуска GPT-5</h3>
             <p class="summary">Anthropic отозвала доступ OpenAI к своим моделям ИИ, якобы за нарушение условий использования.</p>
             <p class="source">
@@ -359,7 +439,11 @@
             </p>
           </div>
 
-          <div class="news-card">
+          <div class="news-card" data-category="google">
+            <div class="news-badges">
+              <span class="badge badge-google">Google Gemini</span>
+              <span class="news-time">5 часов назад</span>
+            </div>
             <h3>Google запускает Deep Think Gemini 2.5, превосходит Grok-4 и OpenAI o3</h3>
             <p class="summary">Google запустила Deep Think в приложении Gemini для абонентов Google AI Ultra.</p>
             <p class="source">
