@@ -25,6 +25,7 @@ const translations = {
     nav_contact: 'Contacto',
     nav_news: 'Noticias IA',
     nav_prompt: 'PROMPT',
+    nav_dashboard: 'Dashboard',
     nav_prompting: 'Prompt Texto',
     window_news_title: '📰 Noticias IA',
     window_prompt_title: 'PROMPT',
@@ -195,6 +196,7 @@ const translations = {
     nav_contact: 'Contact',
     nav_news: 'AI News',
     nav_prompt: 'PROMPT',
+    nav_dashboard: 'Dashboard',
     nav_prompting: 'Prompt Text',
     window_news_title: '📰 AI News',
     window_prompt_title: 'PROMPT',
@@ -359,6 +361,7 @@ const translations = {
     nav_contact: 'Kontakt',
     nav_news: 'KI-Nachrichten',
     nav_prompt: 'PROMPT',
+    nav_dashboard: 'Dashboard',
     nav_prompting: 'Prompt Text',
     window_news_title: '📰 KI-Nachrichten',
     window_prompt_title: 'PROMPT',
@@ -523,6 +526,7 @@ const translations = {
     nav_contact: 'Контакты',
     nav_news: 'Новости ИИ',
     nav_prompt: 'PROMPT',
+    nav_dashboard: 'Панель управления',
     nav_prompting: 'Промпт Текст',
     window_news_title: '📰 Новости ИИ',
     window_prompt_title: 'PROMPT',
@@ -1986,10 +1990,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.style.display = 'none';
     window.classList.add('minimized');
 
-    // If it's prompt window, clear iframe
+    // If it's prompt window, clear iframe and end analytics session
     if (windowId === 'prompt') {
       const frame = document.getElementById('promptingFrame');
       if (frame) frame.src = '';
+
+      // End analytics session
+      if (typeof Analytics !== 'undefined') {
+        Analytics.endPromptSession();
+        // Dispatch custom event for analytics
+        document.dispatchEvent(new CustomEvent('promptWindowClosed'));
+      }
     }
 
     updateMinimizedBar();
@@ -2010,6 +2021,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const userName = user['Nombre'] || 'Usuario';
       const studentId = user['Student Id'] || '';
       userInfo.textContent = `${userName} (${studentId})`;
+    }
+
+    // Track prompt access for analytics
+    if (typeof Analytics !== 'undefined') {
+      Analytics.trackPromptAccess(user);
     }
   }
 
@@ -2091,5 +2107,29 @@ document.addEventListener('DOMContentLoaded', () => {
       clearCurrentUser();
       closeWindow('prompt');
     });
+  }
+
+  // Show dashboard link only for teacher
+  function updateDashboardVisibility() {
+    const dashboardMenuItem = document.getElementById('dashboardMenuItem');
+    if (dashboardMenuItem && typeof Analytics !== 'undefined') {
+      if (Analytics.isTeacher()) {
+        dashboardMenuItem.style.display = 'block';
+      } else {
+        dashboardMenuItem.style.display = 'none';
+      }
+    }
+  }
+
+  // Check dashboard visibility on page load
+  updateDashboardVisibility();
+
+  // Update dashboard visibility when user logs in
+  const originalShowPromptContent = window.showPromptContent;
+  if (originalShowPromptContent) {
+    window.showPromptContent = function(user) {
+      originalShowPromptContent(user);
+      setTimeout(updateDashboardVisibility, 100);
+    };
   }
 });
