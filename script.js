@@ -29,7 +29,7 @@ const translations = {
     window_news_title: '📰 Noticias IA',
     window_prompt_title: 'PROMPT',
     // Login Modal
-    login_title: 'Acceso a Prompt Texto',
+    login_title: 'Acceso a PROMPT',
     login_instructions: 'Por favor ingresa tu Student ID o correo electrónico para acceder al módulo de prompting:',
     login_label: 'Student ID o Email:',
     login_submit: 'Acceder',
@@ -199,7 +199,7 @@ const translations = {
     window_news_title: '📰 AI News',
     window_prompt_title: 'PROMPT',
     // Login Modal
-    login_title: 'Access to Prompt Text',
+    login_title: 'Access to PROMPT',
     login_instructions: 'Please enter your Student ID or email to access the prompting module:',
     login_label: 'Student ID or Email:',
     login_submit: 'Access',
@@ -363,7 +363,7 @@ const translations = {
     window_news_title: '📰 KI-Nachrichten',
     window_prompt_title: 'PROMPT',
     // Login Modal
-    login_title: 'Zugang zu Prompt Text',
+    login_title: 'Zugang zu PROMPT',
     login_instructions: 'Bitte geben Sie Ihre Student ID oder E-Mail ein, um auf das Prompting-Modul zuzugreifen:',
     login_label: 'Student ID oder E-Mail:',
     login_submit: 'Zugriff',
@@ -527,7 +527,7 @@ const translations = {
     window_news_title: '📰 Новости ИИ',
     window_prompt_title: 'PROMPT',
     // Login Modal
-    login_title: 'Доступ к Промпт Тексту',
+    login_title: 'Доступ к PROMPT',
     login_instructions: 'Пожалуйста, введите ваш Student ID или email для доступа к модулю промптинга:',
     login_label: 'Student ID или Email:',
     login_submit: 'Войти',
