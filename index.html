@@ -72,8 +72,8 @@
         <li role="none"><a href="approach.html" role="menuitem" data-i18n="nav_approach">Enfoque</a></li>
         <li role="none"><a href="impact.html" role="menuitem" data-i18n="nav_impact">Impacto</a></li>
         <li role="none"><a href="contact.html" role="menuitem" data-i18n="nav_contact">Contacto</a></li>
-        <li role="none"><a href="#" role="menuitem" data-i18n="nav_news" id="openNewsModal" aria-label="Abrir noticias de IA">Noticias IA</a></li>
-        <li role="none"><a href="#" role="menuitem" data-i18n="nav_prompting" id="openPromptingBtn" aria-label="Acceder a Prompt Texto">Prompt Texto</a></li>
+        <li role="none"><a href="#" role="menuitem" data-i18n="nav_news" id="openNewsWindow" aria-label="Abrir noticias de IA">Noticias IA</a></li>
+        <li role="none"><a href="#" role="menuitem" data-i18n="nav_prompt" id="openPromptWindow" aria-label="Acceder a PROMPT">PROMPT</a></li>
       </ul>
       <!-- Language selector: allows users to switch between Spanish (default), English, German and Russian.  -->
       <div class="lang-select" role="navigation" aria-label="Selector de idioma" style="margin-left:auto; display:flex; align-items:center;">
@@ -507,11 +507,11 @@
     </div>
   </div>
 
-  <!-- Modal de Login para Prompt Texto -->
+  <!-- Modal de Login para PROMPT -->
   <div id="loginModal" class="login-modal" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
     <div class="login-modal-content">
       <div class="login-modal-header">
-        <h2 id="loginModalTitle" data-i18n="login_title">Acceso a Prompt Texto</h2>
+        <h2 id="loginModalTitle" data-i18n="login_title">Acceso a PROMPT</h2>
         <button class="login-modal-close" aria-label="Cerrar modal" id="closeLoginModal">&times;</button>
       </div>
       <div class="login-modal-body">
@@ -538,20 +538,54 @@
     </div>
   </div>
 
-  <!-- Modal/Container para Prompt Texto -->
-  <div id="promptingModal" class="prompting-modal" role="dialog" aria-labelledby="promptingModalTitle" aria-hidden="true">
-    <div class="prompting-modal-content">
-      <div class="prompting-modal-header">
-        <h2 id="promptingModalTitle" data-i18n="prompting_title">Módulo de Prompt Engineering</h2>
-        <div class="user-info">
-          <span id="loggedUserInfo"></span>
-          <button class="btn btn-logout" id="logoutBtn" data-i18n="logout">Cerrar sesión</button>
-        </div>
-        <button class="prompting-modal-close" aria-label="Cerrar" id="closePromptingModal">&times;</button>
+  <!-- Ventana Flotante: Noticias IA -->
+  <div id="newsWindow" class="float-window" data-window-id="news" style="display:none;">
+    <div class="window-header">
+      <span class="window-title" data-i18n="window_news_title">📰 Noticias IA</span>
+      <div class="window-controls">
+        <button class="window-btn minimize-btn" aria-label="Minimizar" title="Minimizar">
+          <i class="fa-solid fa-window-minimize"></i>
+        </button>
+        <button class="window-btn close-btn" aria-label="Cerrar" title="Cerrar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <div class="prompting-modal-body">
-        <iframe id="promptingFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+    <div class="window-body" id="newsWindowBody">
+      <!-- Contenido de noticias se cargará aquí -->
+    </div>
+  </div>
+
+  <!-- Ventana Flotante: PROMPT -->
+  <div id="promptWindow" class="float-window" data-window-id="prompt" style="display:none;">
+    <div class="window-header">
+      <span class="window-title">
+        <i class="fa-solid fa-brain"></i> <span data-i18n="window_prompt_title">PROMPT</span>
+      </span>
+      <div class="user-info-window">
+        <span id="loggedUserInfo" class="user-badge"></span>
+        <button class="btn btn-logout-small" id="logoutBtn" data-i18n="logout" title="Cerrar sesión">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
       </div>
+      <div class="window-controls">
+        <button class="window-btn minimize-btn" aria-label="Minimizar" title="Minimizar">
+          <i class="fa-solid fa-window-minimize"></i>
+        </button>
+        <button class="window-btn close-btn" aria-label="Cerrar" title="Cerrar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+    <div class="window-body">
+      <iframe id="promptingFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+  </div>
+
+  <!-- Barra de ventanas minimizadas -->
+  <div id="minimizedBar" class="minimized-bar" style="display:none;">
+    <div class="minimized-windows" id="minimizedWindows">
+      <!-- Ventanas minimizadas aparecerán aquí -->
     </div>
   </div>
 

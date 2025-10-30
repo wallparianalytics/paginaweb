@@ -24,7 +24,10 @@ const translations = {
     nav_impact: 'Impacto',
     nav_contact: 'Contacto',
     nav_news: 'Noticias IA',
+    nav_prompt: 'PROMPT',
     nav_prompting: 'Prompt Texto',
+    window_news_title: '📰 Noticias IA',
+    window_prompt_title: 'PROMPT',
     // Login Modal
     login_title: 'Acceso a Prompt Texto',
     login_instructions: 'Por favor ingresa tu Student ID o correo electrónico para acceder al módulo de prompting:',
@@ -191,7 +194,10 @@ const translations = {
     nav_impact: 'Impact',
     nav_contact: 'Contact',
     nav_news: 'AI News',
+    nav_prompt: 'PROMPT',
     nav_prompting: 'Prompt Text',
+    window_news_title: '📰 AI News',
+    window_prompt_title: 'PROMPT',
     // Login Modal
     login_title: 'Access to Prompt Text',
     login_instructions: 'Please enter your Student ID or email to access the prompting module:',
@@ -352,7 +358,10 @@ const translations = {
     nav_impact: 'Auswirkungen',
     nav_contact: 'Kontakt',
     nav_news: 'KI-Nachrichten',
+    nav_prompt: 'PROMPT',
     nav_prompting: 'Prompt Text',
+    window_news_title: '📰 KI-Nachrichten',
+    window_prompt_title: 'PROMPT',
     // Login Modal
     login_title: 'Zugang zu Prompt Text',
     login_instructions: 'Bitte geben Sie Ihre Student ID oder E-Mail ein, um auf das Prompting-Modul zuzugreifen:',
@@ -513,7 +522,10 @@ const translations = {
     nav_impact: 'Воздействие',
     nav_contact: 'Контакты',
     nav_news: 'Новости ИИ',
+    nav_prompt: 'PROMPT',
     nav_prompting: 'Промпт Текст',
+    window_news_title: '📰 Новости ИИ',
+    window_prompt_title: 'PROMPT',
     // Login Modal
     login_title: 'Доступ к Промпт Тексту',
     login_instructions: 'Пожалуйста, введите ваш Student ID или email для доступа к модулю промптинга:',
@@ -1823,4 +1835,230 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  /**
+   * ============================================
+   * SISTEMA DE VENTANAS FLOTANTES
+   * ============================================
+   */
+
+  // Event listener para abrir ventana de noticias
+  const openNewsWindow = document.getElementById('openNewsWindow');
+  if (openNewsWindow) {
+    openNewsWindow.addEventListener('click', function(e) {
+      e.preventDefault();
+      showWindow('news');
+      // Copiar contenido del modal al la ventana
+      const newsModal = document.getElementById('newsModal');
+      const newsWindowBody = document.getElementById('newsWindowBody');
+      if (newsModal && newsWindowBody && newsWindowBody.children.length === 0) {
+        const modalContent = newsModal.querySelector('.news-modal-content').cloneNode(true);
+        // Remover el header del modal
+        const modalHeader = modalContent.querySelector('.news-modal-header');
+        if (modalHeader) modalHeader.remove();
+        newsWindowBody.appendChild(modalContent);
+      }
+    });
+  }
+
+  // Event listener para abrir ventana de PROMPT
+  const openPromptWindow = document.getElementById('openPromptWindow');
+  if (openPromptWindow) {
+    openPromptWindow.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Check if already logged in
+      const currentUser = getCurrentUser();
+      if (currentUser) {
+        showWindow('prompt');
+        showPromptContent(currentUser);
+      } else {
+        showLoginModal();
+      }
+    });
+  }
+
+  // Actualizar el login form para abrir ventana en vez de modal
+  const loginFormOriginal = document.getElementById('loginForm');
+  if (loginFormOriginal) {
+    // Remover el event listener anterior y agregar uno nuevo
+    const newLoginForm = loginFormOriginal.cloneNode(true);
+    loginFormOriginal.parentNode.replaceChild(newLoginForm, loginFormOriginal);
+
+    newLoginForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const loginInput = document.getElementById('loginInput');
+      if (!loginInput) return;
+
+      const inputValue = loginInput.value.trim();
+      if (!inputValue) {
+        showLoginError('Por favor ingresa tu Student ID o email');
+        return;
+      }
+
+      // Validate credentials
+      const result = await validateCredentials(inputValue);
+
+      if (result.valid) {
+        // Save user to session
+        setCurrentUser(result.user);
+
+        // Close login modal
+        closeLoginModal();
+
+        // Show prompt window
+        showWindow('prompt');
+        showPromptContent(result.user);
+      } else {
+        const lang = localStorage.getItem('lang') || 'es';
+        const errorMsg = translations[lang]?.login_error_invalid || 'Student ID o email no válido. Por favor verifica tus credenciales.';
+        showLoginError(errorMsg);
+      }
+    });
+  }
+
+  /**
+   * Show window by ID
+   */
+  function showWindow(windowId) {
+    const window = document.getElementById(windowId + 'Window');
+    if (!window) return;
+
+    // Remove minimized class
+    window.classList.remove('minimized');
+    window.style.display = 'flex';
+
+    // Show minimized bar if not visible
+    const minimizedBar = document.getElementById('minimizedBar');
+    if (minimizedBar) {
+      minimizedBar.style.display = 'flex';
+    }
+
+    // Update minimized buttons
+    updateMinimizedBar();
+  }
+
+  /**
+   * Hide/minimize window
+   */
+  function minimizeWindow(windowId) {
+    const window = document.getElementById(windowId + 'Window');
+    if (!window) return;
+
+    window.classList.add('minimized');
+    window.style.display = 'none';
+
+    updateMinimizedBar();
+  }
+
+  /**
+   * Close window completely
+   */
+  function closeWindow(windowId) {
+    const window = document.getElementById(windowId + 'Window');
+    if (!window) return;
+
+    window.style.display = 'none';
+    window.classList.add('minimized');
+
+    // If it's prompt window, clear iframe
+    if (windowId === 'prompt') {
+      const frame = document.getElementById('promptingFrame');
+      if (frame) frame.src = '';
+    }
+
+    updateMinimizedBar();
+  }
+
+  /**
+   * Show prompt content in window
+   */
+  function showPromptContent(user) {
+    const frame = document.getElementById('promptingFrame');
+    const userInfo = document.getElementById('loggedUserInfo');
+
+    if (frame) {
+      frame.src = 'Modulo_Alumnos_Prompting.html';
+    }
+
+    if (userInfo) {
+      const userName = user['Nombre'] || 'Usuario';
+      const studentId = user['Student Id'] || '';
+      userInfo.textContent = `${userName} (${studentId})`;
+    }
+  }
+
+  /**
+   * Update minimized bar with current windows
+   */
+  function updateMinimizedBar() {
+    const minimizedWindows = document.getElementById('minimizedWindows');
+    const minimizedBar = document.getElementById('minimizedBar');
+
+    if (!minimizedWindows || !minimizedBar) return;
+
+    // Clear current buttons
+    minimizedWindows.innerHTML = '';
+
+    // Check which windows are open
+    const windows = [
+      { id: 'news', title: '📰 Noticias IA', icon: 'fa-newspaper' },
+      { id: 'prompt', title: '🧠 PROMPT', icon: 'fa-brain' }
+    ];
+
+    let hasMinimized = false;
+
+    windows.forEach(win => {
+      const window = document.getElementById(win.id + 'Window');
+      if (window && window.style.display !== 'none') {
+        const isMinimized = window.classList.contains('minimized');
+
+        const btn = document.createElement('button');
+        btn.className = 'minimized-window-btn' + (!isMinimized ? ' active' : '');
+        btn.innerHTML = `<i class="fa-solid ${win.icon}"></i> ${win.title}`;
+        btn.addEventListener('click', function() {
+          if (isMinimized) {
+            showWindow(win.id);
+          } else {
+            minimizeWindow(win.id);
+          }
+        });
+
+        minimizedWindows.appendChild(btn);
+        hasMinimized = true;
+      }
+    });
+
+    // Hide bar if no windows
+    minimizedBar.style.display = hasMinimized ? 'flex' : 'none';
+  }
+
+  // Setup window controls (minimize, close buttons)
+  document.querySelectorAll('.float-window').forEach(window => {
+    const windowId = window.getAttribute('data-window-id');
+
+    const minimizeBtn = window.querySelector('.minimize-btn');
+    if (minimizeBtn) {
+      minimizeBtn.addEventListener('click', function() {
+        minimizeWindow(windowId);
+      });
+    }
+
+    const closeBtn = window.querySelector('.close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        closeWindow(windowId);
+      });
+    }
+  });
+
+  // Logout button in prompt window
+  const logoutBtnWindow = document.getElementById('logoutBtn');
+  if (logoutBtnWindow) {
+    logoutBtnWindow.addEventListener('click', function() {
+      clearCurrentUser();
+      closeWindow('prompt');
+    });
+  }
 });
