@@ -1953,6 +1953,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Toggle maximize/restore window
+   */
+  function toggleMaximizeWindow(windowId) {
+    const window = document.getElementById(windowId + 'Window');
+    if (!window) return;
+
+    const maximizeBtn = window.querySelector('.maximize-btn i');
+
+    if (window.classList.contains('maximized')) {
+      // Restore to normal size
+      window.classList.remove('maximized');
+      if (maximizeBtn) {
+        maximizeBtn.className = 'fa-solid fa-window-maximize';
+      }
+    } else {
+      // Maximize window
+      window.classList.add('maximized');
+      if (maximizeBtn) {
+        maximizeBtn.className = 'fa-solid fa-window-restore';
+      }
+    }
+  }
+
+  /**
    * Close window completely
    */
   function closeWindow(windowId) {
@@ -2042,6 +2066,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (minimizeBtn) {
       minimizeBtn.addEventListener('click', function() {
         minimizeWindow(windowId);
+      });
+    }
+
+    const maximizeBtn = window.querySelector('.maximize-btn');
+    if (maximizeBtn) {
+      maximizeBtn.addEventListener('click', function() {
+        toggleMaximizeWindow(windowId);
       });
     }
 

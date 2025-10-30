@@ -311,6 +311,96 @@
             font-weight: bold;
         }
     </style>
+        /* Índice de contenido flotante */
+        .table-of-contents {
+            position: sticky;
+            top: 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            border-left: 4px solid #667eea;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        .table-of-contents h3 {
+            color: #667eea;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .table-of-contents.collapsed .toc-content {
+            display: none;
+        }
+        .toc-toggle {
+            margin-left: auto;
+            font-size: 0.9em;
+            transition: transform 0.3s ease;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+        }
+        .toc-list li {
+            margin: 8px 0;
+        }
+        .toc-list > li > a {
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        .toc-list > li > a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateX(5px);
+        }
+        .toc-list > li > a.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+        }
+        .toc-sub-list {
+            list-style: none;
+            padding-left: 25px;
+            margin-top: 8px;
+            margin-bottom: 10px;
+        }
+        .toc-sub-list li {
+            margin: 5px 0;
+        }
+        .toc-sub-list a {
+            color: #555;
+            text-decoration: none;
+            padding: 6px 12px;
+            display: block;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 400;
+            transition: all 0.2s ease;
+        }
+        .toc-sub-list a:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            transform: translateX(3px);
+        }
+        @media (max-width: 768px) {
+            .table-of-contents {
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+        }
 </head>
 <body>
     <div class="watermark">© Jonatan Figueroa Gil</div>
@@ -348,7 +438,122 @@
             </div>
         </div>
 
-        <div class="module">
+        <!-- Índice de Contenido Navegable -->
+        <div class="table-of-contents" id="tableOfContents">
+            <h3 style="display: flex; align-items: center; justify-content: space-between; margin: 0; cursor: pointer;" onclick="toggleTOC()">
+                <span>📑 Índice de Contenido</span>
+                <span class="toc-toggle" id="tocToggle">▼</span>
+            </h3>
+            <div class="toc-content" id="tocContent">
+                <ul class="toc-list">
+                    <li>
+                        <a href="#modulo1" onclick="scrollToSection('modulo1')">
+                            📘 Módulo 1: Fundamentos del Prompting Efectivo
+                        </a>
+                        <ul class="toc-sub-list">
+                            <li><a href="#modulo1">✓ Los 7 componentes del prompt perfecto</a></li>
+                            <li><a href="#modulo1">✓ Prompts vagos vs. específicos</a></li>
+                            <li><a href="#modulo1">✓ Estructura básica de prompting</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#modulo2" onclick="scrollToSection('modulo2')">
+                            📗 Módulo 2: Catálogos y Técnicas Avanzadas
+                        </a>
+                        <ul class="toc-sub-list">
+                            <li><a href="#modulo2">✓ Chain-of-Thought (Cadena de pensamiento)</a></li>
+                            <li><a href="#modulo2">✓ Few-Shot Learning (Aprendizaje con ejemplos)</a></li>
+                            <li><a href="#modulo2">✓ Zero-Shot vs Few-Shot</a></li>
+                            <li><a href="#modulo2">✓ Prompting para diferentes tareas</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#modulo3" onclick="scrollToSection('modulo3')">
+                            📙 Módulo 3: Prompting para Análisis y Síntesis
+                        </a>
+                        <ul class="toc-sub-list">
+                            <li><a href="#modulo3">✓ Análisis de datos con IA</a></li>
+                            <li><a href="#modulo3">✓ Síntesis de información</a></li>
+                            <li><a href="#modulo3">✓ Generación de código</a></li>
+                            <li><a href="#modulo3">✓ Casos de uso prácticos</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#modulo4" onclick="scrollToSection('modulo4')">
+                            📕 Módulo 4: Evaluación y Mejora Continua
+                        </a>
+                        <ul class="toc-sub-list">
+                            <li><a href="#modulo4">✓ Métricas de calidad</a></li>
+                            <li><a href="#modulo4">✓ Iteración y refinamiento</a></li>
+                            <li><a href="#modulo4">✓ Mejores prácticas</a></li>
+                            <li><a href="#modulo4">✓ Proyecto final</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div style="text-align: center; margin-top: 20px; padding-top: 15px; border-top: 2px solid #e9ecef;">
+                    <a href="#" onclick="scrollToTop(); return false;" style="color: #667eea; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                        <i style="font-style: normal;">⬆️</i> Volver al inicio
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        function toggleTOC() {
+            const toc = document.getElementById('tableOfContents');
+            const toggle = document.getElementById('tocToggle');
+            const content = document.getElementById('tocContent');
+            
+            if (toc.classList.contains('collapsed')) {
+                toc.classList.remove('collapsed');
+                toggle.textContent = '▼';
+            } else {
+                toc.classList.add('collapsed');
+                toggle.textContent = '▶';
+            }
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            return false;
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            return false;
+        }
+
+        // Highlight active section
+        window.addEventListener('scroll', function() {
+            const modules = ['modulo1', 'modulo2', 'modulo3', 'modulo4'];
+            let currentModule = '';
+
+            modules.forEach(moduleId => {
+                const element = document.getElementById(moduleId);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150 && rect.bottom >= 150) {
+                        currentModule = moduleId;
+                    }
+                }
+            });
+
+            // Update active link
+            document.querySelectorAll('.toc-list > li > a').forEach(link => {
+                const href = link.getAttribute('href').substring(1);
+                if (href === currentModule) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+        </script>
+
+        <div class="module" id="modulo1">
             <h2>MÓDULO 1: FUNDAMENTOS DEL PROMPTING EFECTIVO</h2>
             
             <div class="objetivo-box">
@@ -1376,7 +1581,7 @@ NOTAS DE MEJORA:
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" id="modulo2">
             <h2>MÓDULO 2: CATÁLOGOS Y TÉCNICAS AVANZADAS</h2>
             
             <div class="objetivo-box">
@@ -1666,7 +1871,7 @@ académicos, manteniendo claridad:
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" id="modulo3">
             <h2>MÓDULO 3: PROMPTING PARA ANÁLISIS Y SÍNTESIS</h2>
             
             <div class="objetivo-box">
@@ -3156,7 +3361,7 @@ TONO: Data-driven pero accesible para no-técnicos"</pre>
             </div>
         </div>
 
-        <div class="module">
+        <div class="module" id="modulo4">
             <h2>MÓDULO 4: EVALUACIÓN Y MEJORA CONTINUA</h2>
             
             <div class="objetivo-box">
