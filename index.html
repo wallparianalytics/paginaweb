@@ -586,7 +586,59 @@
       </div>
     </div>
     <div class="window-body">
-      <iframe id="promptingFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+      <!-- Pestañas de navegación -->
+      <div class="prompt-tabs">
+        <button class="prompt-tab active" data-tab="texto" onclick="switchPromptTab('texto')">
+          <i class="fa-solid fa-keyboard"></i> Texto
+        </button>
+        <button class="prompt-tab" data-tab="imagen" onclick="switchPromptTab('imagen')">
+          <i class="fa-solid fa-image"></i> Imagen
+        </button>
+        <button class="prompt-tab" data-tab="video" onclick="switchPromptTab('video')">
+          <i class="fa-solid fa-video"></i> Video
+        </button>
+        <button class="prompt-tab" data-tab="sonido" onclick="switchPromptTab('sonido')">
+          <i class="fa-solid fa-music"></i> Sonido
+        </button>
+      </div>
+
+      <!-- Contenido de las pestañas -->
+      <div class="prompt-tab-content">
+        <!-- Pestaña Texto -->
+        <div id="tab-texto" class="tab-pane active">
+          <iframe id="promptingFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+
+        <!-- Pestaña Imagen -->
+        <div id="tab-imagen" class="tab-pane">
+          <div class="coming-soon-content">
+            <i class="fa-solid fa-image" style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;"></i>
+            <h2>Prompting con Imágenes</h2>
+            <p style="font-size: 1.2rem; color: #666;">🔜 Próximamente</p>
+            <p style="color: #999;">Esta sección incluirá técnicas de prompting para generación y análisis de imágenes con IA.</p>
+          </div>
+        </div>
+
+        <!-- Pestaña Video -->
+        <div id="tab-video" class="tab-pane">
+          <div class="coming-soon-content">
+            <i class="fa-solid fa-video" style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;"></i>
+            <h2>Prompting con Video</h2>
+            <p style="font-size: 1.2rem; color: #666;">🔜 Próximamente</p>
+            <p style="color: #999;">Esta sección incluirá técnicas de prompting para generación y edición de videos con IA.</p>
+          </div>
+        </div>
+
+        <!-- Pestaña Sonido -->
+        <div id="tab-sonido" class="tab-pane">
+          <div class="coming-soon-content">
+            <i class="fa-solid fa-music" style="font-size: 4rem; color: #667eea; margin-bottom: 1rem;"></i>
+            <h2>Prompting con Sonido</h2>
+            <p style="font-size: 1.2rem; color: #666;">🔜 Próximamente</p>
+            <p style="color: #999;">Esta sección incluirá técnicas de prompting para generación de audio y música con IA.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

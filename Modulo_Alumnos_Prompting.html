@@ -20,7 +20,7 @@
         }
         .watermark {
             position: fixed;
-            bottom: 20px;
+            top: 20px;
             right: 20px;
             opacity: 0.7;
             font-size: 14px;
@@ -310,36 +310,108 @@
             margin-right: 10px;
             font-weight: bold;
         }
-        /* Índice de contenido flotante */
-        .table-of-contents {
-            position: sticky;
-            top: 20px;
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 30px 0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            border-left: 4px solid #667eea;
-            max-height: 70vh;
-            overflow-y: auto;
-            z-index: 100;
+        /* Botón flotante para abrir TOC */
+        .toc-float-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 24px;
         }
+        .toc-float-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* Modal del índice de contenido */
+        .table-of-contents {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 3px solid #667eea;
+            max-height: 80vh;
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto;
+            z-index: 10000;
+            display: none;
+        }
+        .table-of-contents.active {
+            display: block;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .toc-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+        .toc-overlay.active {
+            display: block;
+        }
+
         .table-of-contents h3 {
             color: #667eea;
             margin-top: 0;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        .toc-close-btn {
             cursor: pointer;
-            user-select: none;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: all 0.2s ease;
         }
-        .table-of-contents.collapsed .toc-content {
-            display: none;
-        }
-        .toc-toggle {
-            margin-left: auto;
-            font-size: 0.9em;
-            transition: transform 0.3s ease;
+        .toc-close-btn:hover {
+            background: #ff3838;
+            transform: rotate(90deg);
         }
         .toc-list {
             list-style: none;
@@ -438,55 +510,63 @@
             </div>
         </div>
 
-        <!-- Índice de Contenido Navegable -->
+        <!-- Botón flotante para abrir TOC -->
+        <div class="toc-float-button" id="tocFloatButton" onclick="openTOC()">
+            📑
+        </div>
+
+        <!-- Overlay oscuro -->
+        <div class="toc-overlay" id="tocOverlay" onclick="closeTOC()"></div>
+
+        <!-- Índice de Contenido Modal -->
         <div class="table-of-contents" id="tableOfContents">
-            <h3 style="display: flex; align-items: center; justify-content: space-between; margin: 0; cursor: pointer;" onclick="toggleTOC()">
+            <h3>
                 <span>📑 Índice de Contenido</span>
-                <span class="toc-toggle" id="tocToggle">▼</span>
+                <button class="toc-close-btn" onclick="closeTOC()">✕</button>
             </h3>
             <div class="toc-content" id="tocContent">
                 <ul class="toc-list">
                     <li>
-                        <a href="#modulo1" onclick="scrollToSection('modulo1')">
+                        <a href="#modulo1" onclick="scrollToSection('modulo1'); closeTOC();">
                             📘 Módulo 1: Fundamentos del Prompting Efectivo
                         </a>
                         <ul class="toc-sub-list">
-                            <li><a href="#modulo1">✓ Los 7 componentes del prompt perfecto</a></li>
-                            <li><a href="#modulo1">✓ Prompts vagos vs. específicos</a></li>
-                            <li><a href="#modulo1">✓ Estructura básica de prompting</a></li>
+                            <li><a href="#m1-componentes" onclick="scrollToSection('m1-componentes'); closeTOC();">✓ Los 7 componentes del prompt perfecto</a></li>
+                            <li><a href="#m1-vagos-especificos" onclick="scrollToSection('m1-vagos-especificos'); closeTOC();">✓ Prompts vagos vs. específicos</a></li>
+                            <li><a href="#m1-estructura" onclick="scrollToSection('m1-estructura'); closeTOC();">✓ Estructura básica de prompting</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#modulo2" onclick="scrollToSection('modulo2')">
+                        <a href="#modulo2" onclick="scrollToSection('modulo2'); closeTOC();">
                             📗 Módulo 2: Catálogos y Técnicas Avanzadas
                         </a>
                         <ul class="toc-sub-list">
-                            <li><a href="#modulo2">✓ Chain-of-Thought (Cadena de pensamiento)</a></li>
-                            <li><a href="#modulo2">✓ Few-Shot Learning (Aprendizaje con ejemplos)</a></li>
-                            <li><a href="#modulo2">✓ Zero-Shot vs Few-Shot</a></li>
-                            <li><a href="#modulo2">✓ Prompting para diferentes tareas</a></li>
+                            <li><a href="#m2-chain-of-thought" onclick="scrollToSection('m2-chain-of-thought'); closeTOC();">✓ Chain-of-Thought (Cadena de pensamiento)</a></li>
+                            <li><a href="#m2-few-shot" onclick="scrollToSection('m2-few-shot'); closeTOC();">✓ Few-Shot Learning (Aprendizaje con ejemplos)</a></li>
+                            <li><a href="#m2-zero-vs-few" onclick="scrollToSection('m2-zero-vs-few'); closeTOC();">✓ Zero-Shot vs Few-Shot</a></li>
+                            <li><a href="#m2-diferentes-tareas" onclick="scrollToSection('m2-diferentes-tareas'); closeTOC();">✓ Prompting para diferentes tareas</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#modulo3" onclick="scrollToSection('modulo3')">
+                        <a href="#modulo3" onclick="scrollToSection('modulo3'); closeTOC();">
                             📙 Módulo 3: Prompting para Análisis y Síntesis
                         </a>
                         <ul class="toc-sub-list">
-                            <li><a href="#modulo3">✓ Análisis de datos con IA</a></li>
-                            <li><a href="#modulo3">✓ Síntesis de información</a></li>
-                            <li><a href="#modulo3">✓ Generación de código</a></li>
-                            <li><a href="#modulo3">✓ Casos de uso prácticos</a></li>
+                            <li><a href="#m3-analisis-datos" onclick="scrollToSection('m3-analisis-datos'); closeTOC();">✓ Análisis de datos con IA</a></li>
+                            <li><a href="#m3-sintesis" onclick="scrollToSection('m3-sintesis'); closeTOC();">✓ Síntesis de información</a></li>
+                            <li><a href="#m3-generacion-codigo" onclick="scrollToSection('m3-generacion-codigo'); closeTOC();">✓ Generación de código</a></li>
+                            <li><a href="#m3-casos-uso" onclick="scrollToSection('m3-casos-uso'); closeTOC();">✓ Casos de uso prácticos</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#modulo4" onclick="scrollToSection('modulo4')">
+                        <a href="#modulo4" onclick="scrollToSection('modulo4'); closeTOC();">
                             📕 Módulo 4: Evaluación y Mejora Continua
                         </a>
                         <ul class="toc-sub-list">
-                            <li><a href="#modulo4">✓ Métricas de calidad</a></li>
-                            <li><a href="#modulo4">✓ Iteración y refinamiento</a></li>
-                            <li><a href="#modulo4">✓ Mejores prácticas</a></li>
-                            <li><a href="#modulo4">✓ Proyecto final</a></li>
+                            <li><a href="#m4-metricas" onclick="scrollToSection('m4-metricas'); closeTOC();">✓ Métricas de calidad</a></li>
+                            <li><a href="#m4-iteracion" onclick="scrollToSection('m4-iteracion'); closeTOC();">✓ Iteración y refinamiento</a></li>
+                            <li><a href="#m4-mejores-practicas" onclick="scrollToSection('m4-mejores-practicas'); closeTOC();">✓ Mejores prácticas</a></li>
+                            <li><a href="#m4-proyecto-final" onclick="scrollToSection('m4-proyecto-final'); closeTOC();">✓ Proyecto final</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -499,24 +579,38 @@
         </div>
 
         <script>
-        function toggleTOC() {
+        function openTOC() {
             const toc = document.getElementById('tableOfContents');
-            const toggle = document.getElementById('tocToggle');
-            const content = document.getElementById('tocContent');
-            
-            if (toc.classList.contains('collapsed')) {
-                toc.classList.remove('collapsed');
-                toggle.textContent = '▼';
-            } else {
-                toc.classList.add('collapsed');
-                toggle.textContent = '▶';
-            }
+            const overlay = document.getElementById('tocOverlay');
+            toc.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTOC() {
+            const toc = document.getElementById('tableOfContents');
+            const overlay = document.getElementById('tocOverlay');
+            toc.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
         function scrollToSection(sectionId) {
             const element = document.getElementById(sectionId);
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Track module view for analytics
+                if (typeof parent !== 'undefined' && parent.Analytics) {
+                    const moduleNames = {
+                        'modulo1': 'Módulo 1: Fundamentos del Prompting Efectivo',
+                        'modulo2': 'Módulo 2: Catálogos y Técnicas Avanzadas',
+                        'modulo3': 'Módulo 3: Prompting para Análisis y Síntesis',
+                        'modulo4': 'Módulo 4: Evaluación y Mejora Continua'
+                    };
+                    if (moduleNames[sectionId]) {
+                        parent.Analytics.trackModuleView(sectionId, moduleNames[sectionId]);
+                    }
+                }
             }
             return false;
         }
@@ -581,7 +675,7 @@
                     </ul>
                 </div>
 
-                <h4>Los 7 Componentes del Prompt Perfecto</h4>
+                <h4 id="m1-componentes">Los 7 Componentes del Prompt Perfecto</h4>
                 <table>
                     <tr>
                         <th>#</th>
@@ -1266,7 +1360,7 @@ FORMATO: "Executive summary + action items"</pre>
             <div class="teoria-box">
                 <h3>📖 LECCIÓN 3: Técnicas Avanzadas de Prompting</h3>
                 
-                <h4>1. Chain-of-Thought (Cadena de Pensamiento)</h4>
+                <h4 id="m2-chain-of-thought">1. Chain-of-Thought (Cadena de Pensamiento)</h4>
                 <p>Esta técnica hace que la IA "piense en voz alta" antes de responder, mejorando significativamente la calidad del razonamiento.</p>
                 
                 <div class="ejemplo-box">
@@ -1284,7 +1378,7 @@ Piensa paso a paso:
 6. Da el total final"</pre>
                 </div>
                 
-                <h4>2. Few-Shot Learning (Aprendizaje con Ejemplos)</h4>
+                <h4 id="m2-few-shot">2. Few-Shot Learning (Aprendizaje con Ejemplos)</h4>
                 <p>Proporciona ejemplos del tipo de respuesta que esperas.</p>
                 
                 <div class="ejemplo-box">

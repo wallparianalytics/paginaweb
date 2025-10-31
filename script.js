@@ -2030,6 +2030,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /**
+   * Switch between PROMPT tabs (Texto, Imagen, Video, Sonido)
+   */
+  function switchPromptTab(tabName) {
+    // Remove active class from all tabs
+    const tabs = document.querySelectorAll('.prompt-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Remove active class from all tab panes
+    const panes = document.querySelectorAll('.tab-pane');
+    panes.forEach(pane => pane.classList.remove('active'));
+
+    // Add active class to selected tab
+    const selectedTab = document.querySelector(`.prompt-tab[data-tab="${tabName}"]`);
+    if (selectedTab) {
+      selectedTab.classList.add('active');
+    }
+
+    // Add active class to selected pane
+    const selectedPane = document.getElementById(`tab-${tabName}`);
+    if (selectedPane) {
+      selectedPane.classList.add('active');
+    }
+  }
+
+  // Make switchPromptTab available globally
+  window.switchPromptTab = switchPromptTab;
+
+  /**
    * Update minimized bar with current windows
    */
   function updateMinimizedBar() {
