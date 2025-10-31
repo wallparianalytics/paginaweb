@@ -2082,23 +2082,22 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window && window.style.display !== 'none') {
         const isMinimized = window.classList.contains('minimized');
 
-        const btn = document.createElement('button');
-        btn.className = 'minimized-window-btn' + (!isMinimized ? ' active' : '');
-        btn.innerHTML = `<i class="fa-solid ${win.icon}"></i> ${win.title}`;
-        btn.addEventListener('click', function() {
-          if (isMinimized) {
+        // Only show button if window is actually minimized
+        if (isMinimized) {
+          const btn = document.createElement('button');
+          btn.className = 'minimized-window-btn';
+          btn.innerHTML = `<i class="fa-solid ${win.icon}"></i> ${win.title}`;
+          btn.addEventListener('click', function() {
             showWindow(win.id);
-          } else {
-            minimizeWindow(win.id);
-          }
-        });
+          });
 
-        minimizedWindows.appendChild(btn);
-        hasMinimized = true;
+          minimizedWindows.appendChild(btn);
+          hasMinimized = true;
+        }
       }
     });
 
-    // Hide bar if no windows
+    // Hide bar if no minimized windows
     minimizedBar.style.display = hasMinimized ? 'flex' : 'none';
   }
 
