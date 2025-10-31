@@ -1778,6 +1778,8 @@ footer a {
   flex: 1;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Barra de ventanas minimizadas */
@@ -1840,6 +1842,7 @@ footer a {
   border-bottom: 2px solid #e9ecef;
   padding: 0.5rem 1rem 0;
   gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .prompt-tab {
@@ -1874,16 +1877,21 @@ footer a {
   overflow: hidden;
   position: relative;
   background: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .tab-pane {
   display: none;
   width: 100%;
   height: 100%;
+  flex: 1;
+  overflow: hidden;
 }
 
 .tab-pane.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .coming-soon-content {
